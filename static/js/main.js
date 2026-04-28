@@ -16,11 +16,14 @@ themeBtn?.addEventListener('click', () => {
 
 /* HEADER SCROLL */
 const header = document.getElementById('header');
+const topBar = document.getElementById('topbar');
 const topBtn = document.getElementById('topBtn');
 
 window.addEventListener('scroll', () => {
-  header.classList.toggle('scrolled', window.scrollY > 40);
-  topBtn.classList.toggle('show', window.scrollY > 400);
+  const scrolled = window.scrollY > 40;
+  header.classList.toggle('scrolled', scrolled);
+  if (topBar) topBar.classList.toggle('hidden', scrolled);
+  if (topBtn) topBtn.classList.toggle('show', window.scrollY > 400);
   highlightNav();
   reveal();
   runCounters();
