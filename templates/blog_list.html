@@ -1,0 +1,156 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blog — Linux & DevOps | IDOHOU Sande Augustin</title>
+  <meta name="description" content="Tutoriels et articles sur Linux, DevOps, Docker, Kubernetes, Ansible par IDOHOU Sande Augustin, administrateur Linux & DevOps au Bénin."/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://idohouaugustin.com/blog/"/>
+  <meta property="og:title"       content="Blog Linux & DevOps — IDOHOU Sande Augustin"/>
+  <meta property="og:description" content="Tutoriels Linux, DevOps, Docker, Kubernetes, Ansible."/>
+  <meta property="og:url"         content="https://idohouaugustin.com/blog/"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+  <link rel="stylesheet" href="{% static 'css/blog.css' %}"/>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="header" class="scrolled">
+  <nav class="navbar">
+    <a href="/" class="logo"><i class="fas fa-terminal"></i> Augustin</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/"            class="nav-item">Accueil</a></li>
+      <li><a href="/#apropos"    class="nav-item">À propos</a></li>
+      <li><a href="/#experience" class="nav-item">Expérience</a></li>
+      <li><a href="/#services"   class="nav-item">Services</a></li>
+      <li><a href="/blog/"       class="nav-item active">Blog</a></li>
+      <li><a href="/#contact"    class="nav-item">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button id="themeToggle" class="theme-btn"><i class="fas fa-moon" id="themeIcon"></i></button>
+      <a href="https://wa.me/{{ whatsapp }}" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></a>
+      <button class="burger" id="burger"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+</header>
+
+<main style="padding-top: 80px; min-height: 100vh;">
+  <div class="container" style="padding: 48px 28px 80px;">
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+      <a href="/"><i class="fas fa-home"></i> Accueil</a>
+      <span>/</span>
+      <span>Blog</span>
+      {% if categorie_active %}
+      <span>/</span>
+      <span>{{ categorie_active.nom }}</span>
+      {% endif %}
+    </nav>
+
+    <!-- En-tête -->
+    <div class="section-head" style="text-align:left; margin-bottom:36px;">
+      <span class="tag"><i class="fas fa-terminal"></i> Articles</span>
+      <h2>
+        {% if categorie_active %}
+          <i class="{{ categorie_active.icone }}" style="color:var(--blue-l)"></i>
+          {{ categorie_active.nom }}
+        {% else %}
+          Mon <span>Blog</span>
+        {% endif %}
+      </h2>
+      <p style="color:var(--text2); font-size:.93rem; margin-top:6px;">
+        {% if articles %}{{ articles|length }} article{{ articles|length|pluralize }} publié{{ articles|length|pluralize }}{% endif %}
+        {% if categorie_active %} dans la catégorie <strong>{{ categorie_active.nom }}</strong>{% endif %}
+      </p>
+    </div>
+
+    <!-- Filtres catégories -->
+    <div class="cat-filters" style="justify-content:flex-start; margin-bottom:32px;">
+      <a href="/blog/" class="cat-btn {% if not cat_slug %}active{% endif %}">
+        <i class="fas fa-list"></i> Tous
+      </a>
+      {% for cat in categories %}
+      <a href="/blog/?cat={{ cat.slug }}" class="cat-btn {% if cat_slug == cat.slug %}active{% endif %}">
+        <i class="{{ cat.icone }}"></i> {{ cat.nom }}
+        <span class="cat-count">{{ cat.nb_articles }}</span>
+      </a>
+      {% endfor %}
+    </div>
+
+    <!-- Grille d'articles -->
+    {% if articles %}
+    <div class="blog-grid">
+      {% for a in articles %}
+      <article class="blog-card">
+        <a href="{{ a.get_absolute_url }}" class="blog-img-link">
+          <div class="blog-img">
+            {% if a.image %}
+              <img src="{{ a.image.url }}" alt="{{ a.titre }}"/>
+            {% else %}
+              <div class="blog-ph">
+                <i class="{{ a.categorie.icone|default:'fas fa-terminal' }}"></i>
+              </div>
+            {% endif %}
+            {% if a.categorie %}<span class="cat-label">{{ a.categorie.nom }}</span>{% endif %}
+          </div>
+        </a>
+        <div class="blog-body">
+          <div class="blog-meta">
+            <span><i class="fas fa-calendar-alt"></i> {{ a.date|date:"d M Y" }}</span>
+            <span><i class="fas fa-clock"></i> {{ a.temps_lecture }} min</span>
+            <span><i class="fas fa-eye"></i> {{ a.vues }}</span>
+          </div>
+          <h3><a href="{{ a.get_absolute_url }}" style="color:var(--text)">{{ a.titre }}</a></h3>
+          <p>{{ a.resume|truncatechars:120 }}</p>
+          <a href="{{ a.get_absolute_url }}" class="link">
+            Lire l'article <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div style="text-align:center; padding:80px 20px; color:var(--text2);">
+      <i class="fas fa-file-alt" style="font-size:3rem; color:var(--border); margin-bottom:16px; display:block;"></i>
+      <p>Aucun article dans cette catégorie pour l'instant.</p>
+      <a href="/blog/" class="btn-outline" style="margin-top:16px; display:inline-flex;">Voir tous les articles</a>
+    </div>
+    {% endif %}
+
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <a href="/" class="logo"><i class="fas fa-terminal"></i> Augustin</a>
+    <p>Linux Administrator & DevOps Engineer — Bénin 🇧🇯</p>
+    <div class="f-socials">
+      {% for r in reseaux %}
+      <a href="{{ r.url }}" target="_blank" title="{{ r.nom }}"><i class="{{ r.icone }}"></i></a>
+      {% empty %}
+      <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+      {% endfor %}
+    </div>
+    <nav class="f-links">
+      <a href="/">Accueil</a>
+      <a href="/#services">Services</a>
+      <a href="/blog/">Blog</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+    <p class="copy">&copy; 2026 IDOHOU Sande Augustin</p>
+  </div>
+</footer>
+
+<a href="https://wa.me/{{ whatsapp }}" target="_blank" class="wa-float"><i class="fab fa-whatsapp"></i></a>
+<button id="topBtn" class="top-btn"><i class="fas fa-chevron-up"></i></button>
+
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

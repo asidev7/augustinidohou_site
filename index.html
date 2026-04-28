@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IDOHOU Sande Augustin — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== LOADER ===== -->
+  <div id="loader">
+    <div class="loader-ring"></div>
+    <p class="loader-text">Chargement<span class="dots">...</span></p>
+  </div>
+
+  <!-- ===== HEADER / NAV ===== -->
+  <header id="header">
+    <nav class="navbar">
+      <a href="#accueil" class="logo">
+        <span class="logo-bracket">&lt;</span>Augustin<span class="logo-bracket">/&gt;</span>
+      </a>
+
+      <button class="burger" id="burger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#accueil" class="nav-item active">Accueil</a></li>
+        <li><a href="#services" class="nav-item">Mes Services</a></li>
+        <li><a href="#blog" class="nav-item">Blog</a></li>
+        <li><a href="#contact" class="nav-item">Contact</a></li>
+      </ul>
+
+      <a href="https://wa.me/22900000000" target="_blank" class="btn-whatsapp" id="navWhatsapp">
+        <i class="fab fa-whatsapp"></i> WhatsApp
+      </a>
+    </nav>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section id="accueil" class="hero">
+    <div class="hero-bg-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+      <div class="shape shape-4"></div>
+    </div>
+
+    <div class="hero-container">
+      <div class="hero-text" data-aos="fade-right">
+        <p class="hero-greeting">Bonjour, je suis 👋</p>
+        <h1 class="hero-name">IDOHOU<br/><span class="highlight">Sande Augustin</span></h1>
+        <div class="hero-role">
+          <span>Je suis </span>
+          <span class="typed" id="typed"></span>
+        </div>
+        <p class="hero-desc">
+          Passionné par le développement web & mobile, je crée des solutions digitales modernes,
+          performantes et élégantes pour propulser vos projets.
+        </p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn-primary">Me Contacter</a>
+          <a href="#services" class="btn-outline">Voir mes services</a>
+        </div>
+        <div class="hero-socials">
+          <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="https://wa.me/22900000000" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+
+      <div class="hero-photo-wrap" data-aos="fade-left">
+        <div class="photo-ring-outer"></div>
+        <div class="photo-ring-inner"></div>
+        <div class="hero-photo">
+          <img src="assets/photo.jpg" alt="IDOHOU Sande Augustin" id="heroImg" />
+          <div class="photo-placeholder" id="photoPlaceholder">
+            <i class="fas fa-user"></i>
+            <span>Votre Photo</span>
+          </div>
+        </div>
+        <div class="badge badge-1"><i class="fas fa-code"></i> Dev Web</div>
+        <div class="badge badge-2"><i class="fas fa-mobile-alt"></i> Mobile</div>
+        <div class="badge badge-3"><i class="fas fa-star"></i> 5★</div>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <span></span>
+    </div>
+  </section>
+
+  <!-- ===== STATS ===== -->
+  <section class="stats-bar">
+    <div class="stats-container">
+      <div class="stat-item">
+        <span class="stat-number" data-target="50">0</span><span class="stat-plus">+</span>
+        <p>Projets réalisés</p>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="30">0</span><span class="stat-plus">+</span>
+        <p>Clients satisfaits</p>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="3">0</span><span class="stat-plus"></span>
+        <p>Années d'expérience</p>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="100">0</span><span class="stat-plus">%</span>
+        <p>Satisfaction client</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SERVICES ===== -->
+  <section id="services" class="services">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-tag">Ce que je fais</span>
+      <h2>Mes <span class="highlight">Services</span></h2>
+      <p>Des solutions sur-mesure adaptées à vos besoins digitaux</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card" data-aos="fade-up" data-delay="0">
+        <div class="service-icon">
+          <i class="fas fa-laptop-code"></i>
+        </div>
+        <h3>Développement Web</h3>
+        <p>Création de sites web modernes, responsifs et performants avec les dernières technologies (React, Django, Node.js).</p>
+        <ul class="service-list">
+          <li><i class="fas fa-check"></i> Sites vitrines</li>
+          <li><i class="fas fa-check"></i> Applications web</li>
+          <li><i class="fas fa-check"></i> E-commerce</li>
+        </ul>
+        <a href="#contact" class="service-link">Demander un devis <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <div class="service-card featured" data-aos="fade-up" data-delay="100">
+        <div class="service-badge">Populaire</div>
+        <div class="service-icon">
+          <i class="fas fa-mobile-alt"></i>
+        </div>
+        <h3>Développement Mobile</h3>
+        <p>Applications mobiles cross-platform iOS & Android avec React Native pour une expérience utilisateur exceptionnelle.</p>
+        <ul class="service-list">
+          <li><i class="fas fa-check"></i> React Native</li>
+          <li><i class="fas fa-check"></i> iOS & Android</li>
+          <li><i class="fas fa-check"></i> Publication Store</li>
+        </ul>
+        <a href="#contact" class="service-link">Demander un devis <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <div class="service-card" data-aos="fade-up" data-delay="200">
+        <div class="service-icon">
+          <i class="fas fa-server"></i>
+        </div>
+        <h3>API & Backend</h3>
+        <p>Conception d'APIs RESTful robustes et sécurisées avec Django REST Framework, Node.js et bases de données optimisées.</p>
+        <ul class="service-list">
+          <li><i class="fas fa-check"></i> API REST</li>
+          <li><i class="fas fa-check"></i> Base de données</li>
+          <li><i class="fas fa-check"></i> Sécurité</li>
+        </ul>
+        <a href="#contact" class="service-link">Demander un devis <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <div class="service-card" data-aos="fade-up" data-delay="300">
+        <div class="service-icon">
+          <i class="fas fa-paint-brush"></i>
+        </div>
+        <h3>UI/UX Design</h3>
+        <p>Design d'interfaces utilisateur modernes et intuitives avec Figma pour une expérience visuelle mémorable.</p>
+        <ul class="service-list">
+          <li><i class="fas fa-check"></i> Maquettes Figma</li>
+          <li><i class="fas fa-check"></i> Design System</li>
+          <li><i class="fas fa-check"></i> Prototypes</li>
+        </ul>
+        <a href="#contact" class="service-link">Demander un devis <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <div class="service-card" data-aos="fade-up" data-delay="400">
+        <div class="service-icon">
+          <i class="fas fa-cloud"></i>
+        </div>
+        <h3>Déploiement Cloud</h3>
+        <p>Mise en production et déploiement de vos applications sur des infrastructures cloud fiables (AWS, VPS, Heroku).</p>
+        <ul class="service-list">
+          <li><i class="fas fa-check"></i> Configuration serveur</li>
+          <li><i class="fas fa-check"></i> CI/CD</li>
+          <li><i class="fas fa-check"></i> Monitoring</li>
+        </ul>
+        <a href="#contact" class="service-link">Demander un devis <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <div class="service-card" data-aos="fade-up" data-delay="500">
+        <div class="service-icon">
+          <i class="fas fa-headset"></i>
+        </div>
+        <h3>Support & Maintenance</h3>
+        <p>Maintenance préventive et corrective de vos applications pour garantir leur bon fonctionnement dans la durée.</p>
+        <ul class="service-list">
+          <li><i class="fas fa-check"></i> Mises à jour</li>
+          <li><i class="fas fa-check"></i> Corrections bugs</li>
+          <li><i class="fas fa-check"></i> Optimisation</li>
+        </ul>
+        <a href="#contact" class="service-link">Demander un devis <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SKILLS ===== -->
+  <section class="skills-section">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-tag">Expertise</span>
+      <h2>Mes <span class="highlight">Compétences</span></h2>
+    </div>
+    <div class="skills-wrapper">
+      <div class="skills-bars" data-aos="fade-right">
+        <div class="skill-item">
+          <div class="skill-info"><span>React / React Native</span><span>90%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-info"><span>Django / Python</span><span>85%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-info"><span>JavaScript / TypeScript</span><span>88%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="88"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-info"><span>Node.js / Express</span><span>78%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="78"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-info"><span>UI/UX Design</span><span>75%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="75"></div></div>
+        </div>
+      </div>
+      <div class="tech-icons" data-aos="fade-left">
+        <div class="tech-icon"><i class="fab fa-react"></i><span>React</span></div>
+        <div class="tech-icon"><i class="fab fa-python"></i><span>Python</span></div>
+        <div class="tech-icon"><i class="fab fa-js-square"></i><span>JavaScript</span></div>
+        <div class="tech-icon"><i class="fab fa-node-js"></i><span>Node.js</span></div>
+        <div class="tech-icon"><i class="fab fa-html5"></i><span>HTML5</span></div>
+        <div class="tech-icon"><i class="fab fa-css3-alt"></i><span>CSS3</span></div>
+        <div class="tech-icon"><i class="fab fa-git-alt"></i><span>Git</span></div>
+        <div class="tech-icon"><i class="fab fa-docker"></i><span>Docker</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BLOG ===== -->
+  <section id="blog" class="blog">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-tag">Articles</span>
+      <h2>Mon <span class="highlight">Blog</span></h2>
+      <p>Mes derniers articles et réflexions sur le développement</p>
+    </div>
+
+    <div class="blog-grid">
+      <article class="blog-card" data-aos="fade-up" data-delay="0">
+        <div class="blog-img">
+          <div class="blog-img-placeholder"><i class="fas fa-code"></i></div>
+          <div class="blog-category">React Native</div>
+        </div>
+        <div class="blog-content">
+          <div class="blog-meta">
+            <span><i class="fas fa-calendar"></i> 20 Avril 2026</span>
+            <span><i class="fas fa-clock"></i> 5 min</span>
+          </div>
+          <h3>Créer une app mobile performante avec React Native</h3>
+          <p>Découvrez les meilleures pratiques pour optimiser les performances de vos applications React Native en production...</p>
+          <a href="#" class="blog-read-more">Lire l'article <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </article>
+
+      <article class="blog-card" data-aos="fade-up" data-delay="100">
+        <div class="blog-img">
+          <div class="blog-img-placeholder"><i class="fas fa-server"></i></div>
+          <div class="blog-category">Django</div>
+        </div>
+        <div class="blog-content">
+          <div class="blog-meta">
+            <span><i class="fas fa-calendar"></i> 15 Avril 2026</span>
+            <span><i class="fas fa-clock"></i> 8 min</span>
+          </div>
+          <h3>Construire une API REST sécurisée avec Django REST Framework</h3>
+          <p>Guide complet pour créer des APIs robustes et sécurisées avec authentification JWT et permissions granulaires...</p>
+          <a href="#" class="blog-read-more">Lire l'article <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </article>
+
+      <article class="blog-card" data-aos="fade-up" data-delay="200">
+        <div class="blog-img">
+          <div class="blog-img-placeholder"><i class="fas fa-paint-brush"></i></div>
+          <div class="blog-category">UI/UX</div>
+        </div>
+        <div class="blog-content">
+          <div class="blog-meta">
+            <span><i class="fas fa-calendar"></i> 10 Avril 2026</span>
+            <span><i class="fas fa-clock"></i> 6 min</span>
+          </div>
+          <h3>Les tendances UI/UX incontournables en 2026</h3>
+          <p>Glassmorphism, dark mode intelligent, micro-animations : faisons le tour des tendances design qui dominent 2026...</p>
+          <a href="#" class="blog-read-more">Lire l'article <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </article>
+    </div>
+
+    <div class="blog-cta" data-aos="fade-up">
+      <a href="#" class="btn-outline">Voir tous les articles <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONIALS ===== -->
+  <section class="testimonials">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-tag">Avis clients</span>
+      <h2>Ils me font <span class="highlight">confiance</span></h2>
+    </div>
+    <div class="testimonials-slider" id="testimonialsSlider">
+      <div class="testimonial-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>"Augustin a livré notre application mobile dans les délais avec une qualité exceptionnelle. Je recommande vivement !"</p>
+        <div class="testi-author">
+          <div class="testi-avatar"><i class="fas fa-user"></i></div>
+          <div>
+            <strong>Jean-Pierre K.</strong>
+            <span>CEO, StartupBénin</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>"Un développeur sérieux et professionnel. Notre plateforme e-commerce tourne parfaitement depuis le déploiement."</p>
+        <div class="testi-author">
+          <div class="testi-avatar"><i class="fas fa-user"></i></div>
+          <div>
+            <strong>Marie T.</strong>
+            <span>Directrice, Commerce Plus</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>"Travail de grande qualité, communication fluide et résultats au-delà de nos attentes. Partenaire de confiance !"</p>
+        <div class="testi-author">
+          <div class="testi-avatar"><i class="fas fa-user"></i></div>
+          <div>
+            <strong>Ahmed M.</strong>
+            <span>Fondateur, TechAfrique</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slider-dots" id="sliderDots"></div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section id="contact" class="contact">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-tag">Parlons-en</span>
+      <h2>Me <span class="highlight">Contacter</span></h2>
+      <p>Vous avez un projet ? Discutons-en !</p>
+    </div>
+
+    <div class="contact-wrapper">
+      <div class="contact-info" data-aos="fade-right">
+        <div class="contact-card">
+          <i class="fas fa-envelope"></i>
+          <div>
+            <h4>Email</h4>
+            <a href="mailto:sandeaugustinidohou@gmail.com">sandeaugustinidohou@gmail.com</a>
+          </div>
+        </div>
+        <div class="contact-card">
+          <i class="fab fa-whatsapp"></i>
+          <div>
+            <h4>WhatsApp</h4>
+            <a href="https://wa.me/22900000000" target="_blank">+229 00 00 00 00</a>
+          </div>
+        </div>
+        <div class="contact-card">
+          <i class="fas fa-map-marker-alt"></i>
+          <div>
+            <h4>Localisation</h4>
+            <span>Bénin, Afrique de l'Ouest</span>
+          </div>
+        </div>
+        <div class="contact-availability">
+          <div class="availability-dot"></div>
+          <span>Disponible pour de nouveaux projets</span>
+        </div>
+        <a href="https://wa.me/22900000000" target="_blank" class="btn-whatsapp-large">
+          <i class="fab fa-whatsapp"></i> Discuter sur WhatsApp
+        </a>
+      </div>
+
+      <form class="contact-form" id="contactForm" data-aos="fade-left">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Prénom</label>
+            <input type="text" placeholder="John" required />
+          </div>
+          <div class="form-group">
+            <label>Nom</label>
+            <input type="text" placeholder="Doe" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="john@exemple.com" required />
+        </div>
+        <div class="form-group">
+          <label>Sujet</label>
+          <select>
+            <option value="">-- Choisir un sujet --</option>
+            <option>Développement Web</option>
+            <option>Application Mobile</option>
+            <option>API & Backend</option>
+            <option>Design UI/UX</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea rows="5" placeholder="Décrivez votre projet..." required></textarea>
+        </div>
+        <button type="submit" class="btn-primary full-width" id="submitBtn">
+          <span>Envoyer le message</span>
+          <i class="fas fa-paper-plane"></i>
+        </button>
+        <div class="form-success" id="formSuccess">
+          <i class="fas fa-check-circle"></i> Message envoyé ! Je vous réponds sous 24h.
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <span class="logo-bracket">&lt;</span>Augustin<span class="logo-bracket">/&gt;</span>
+      </div>
+      <p>Développeur Full Stack & Mobile — Bénin 🇧🇯</p>
+      <div class="footer-socials">
+        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="https://wa.me/22900000000" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <div class="footer-links">
+        <a href="#accueil">Accueil</a>
+        <a href="#services">Services</a>
+        <a href="#blog">Blog</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <p class="footer-copy">&copy; 2026 IDOHOU Sande Augustin. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <!-- ===== FLOATING WHATSAPP ===== -->
+  <a href="https://wa.me/22900000000" target="_blank" class="whatsapp-float" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+    <span class="whatsapp-tooltip">Discutons !</span>
+  </a>
+
+  <!-- ===== BACK TO TOP ===== -->
+  <button class="back-to-top" id="backToTop" aria-label="Retour en haut">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>
