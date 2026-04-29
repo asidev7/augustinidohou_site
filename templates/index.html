@@ -13,8 +13,9 @@
   @keyframes pulse-dot{50%{box-shadow:0 0 0 6px rgba(74,222,128,.04)}}
   .tl-line{position:absolute;left:7px;top:0;bottom:0;width:2px;background:#e2e8f0}
   .dark .tl-line{background:#334155}
-  .fade-up{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
-  .fade-up.in{opacity:1;transform:none}
+  .fade-up{opacity:1;transform:none;transition:opacity .6s ease,transform .6s ease}
+  .js .fade-up{opacity:0;transform:translateY(20px)}
+  .js .fade-up.in{opacity:1;transform:none}
   .typed-wrap span:last-child{animation:blink .7s step-end infinite;color:#2563eb}
   @keyframes blink{50%{opacity:0}}
   .hero-bg{
