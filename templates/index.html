@@ -17,7 +17,7 @@
   .fade-up.in{opacity:1;transform:none}
   .typed-wrap span:last-child{animation:blink .7s step-end infinite;color:#2563eb}
   @keyframes blink{50%{opacity:0}}
-  .hero-bg{background-image:url("{% static 'img/augustin.jpg' %}");background-size:cover;background-position:center top}
+  .hero-bg{background-image:url("{% static 'img/augustin.jpg' %}")}
 </style>
 {% endblock %}
 
@@ -39,8 +39,10 @@
      ============================================================ -->
 <section id="accueil" class="relative min-h-screen flex items-center overflow-hidden">
 
-  <!-- Background image with overlay -->
-  <div class="absolute inset-0 hero-bg"></div>
+  <!-- Background image with Ken Burns animation -->
+  <div class="absolute inset-0 overflow-hidden">
+    <div class="hero-bg hero-bg-img absolute" style="inset:-6%;background-size:cover;background-position:center top;"></div>
+  </div>
   <div class="absolute inset-0 bg-slate-950/80 dark:bg-slate-950/88"></div>
 
   <!-- Subtle grid pattern -->
@@ -107,7 +109,7 @@
 
       <!-- Photo -->
       <div class="flex flex-col items-center order-1 md:order-2">
-        <div class="relative">
+        <div class="relative photo-float">
           <div class="w-56 h-56 md:w-72 md:h-72 rounded-3xl overflow-hidden border-4 border-blue-500/50 shadow-2xl shadow-blue-600/30">
             <img src="{% static 'img/augustin.jpg' %}" alt="IDOHOU Sande Augustin"
                  class="w-full h-full object-cover"

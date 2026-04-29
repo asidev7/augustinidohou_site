@@ -1,156 +1,149 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="fr" data-theme="dark">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Blog — Linux & DevOps | IDOHOU Sande Augustin</title>
-  <meta name="description" content="Tutoriels et articles sur Linux, DevOps, Docker, Kubernetes, Ansible par IDOHOU Sande Augustin, administrateur Linux & DevOps au Bénin."/>
-  <meta name="robots" content="index, follow"/>
-  <link rel="canonical" href="https://idohouaugustin.com/blog/"/>
-  <meta property="og:title"       content="Blog Linux & DevOps — IDOHOU Sande Augustin"/>
-  <meta property="og:description" content="Tutoriels Linux, DevOps, Docker, Kubernetes, Ansible."/>
-  <meta property="og:url"         content="https://idohouaugustin.com/blog/"/>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
-  <link rel="stylesheet" href="{% static 'css/blog.css' %}"/>
-</head>
-<body>
 
-<!-- HEADER -->
-<header id="header" class="scrolled">
-  <nav class="navbar">
-    <a href="/" class="logo"><i class="fas fa-terminal"></i> Augustin</a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="/"            class="nav-item">Accueil</a></li>
-      <li><a href="/#apropos"    class="nav-item">À propos</a></li>
-      <li><a href="/#experience" class="nav-item">Expérience</a></li>
-      <li><a href="/#services"   class="nav-item">Services</a></li>
-      <li><a href="/blog/"       class="nav-item active">Blog</a></li>
-      <li><a href="/#contact"    class="nav-item">Contact</a></li>
-    </ul>
-    <div class="nav-actions">
-      <button id="themeToggle" class="theme-btn"><i class="fas fa-moon" id="themeIcon"></i></button>
-      <a href="https://wa.me/{{ whatsapp }}" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></a>
-      <button class="burger" id="burger"><span></span><span></span><span></span></button>
-    </div>
-  </nav>
-</header>
+{% block title %}Blog Linux &amp; DevOps — IDOHOU Sande Augustin{% endblock %}
+{% block meta_desc %}Tutoriels et articles sur Linux, DevOps, Docker, Kubernetes, Ansible par IDOHOU Sande Augustin.{% endblock %}
+{% block nav_blog_active %}active{% endblock %}
 
-<main style="padding-top: 80px; min-height: 100vh;">
-  <div class="container" style="padding: 48px 28px 80px;">
+{% block extra_head %}
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://augustinidohou.site/blog/"/>
+<meta property="og:title"       content="Blog Linux &amp; DevOps — IDOHOU Sande Augustin"/>
+<meta property="og:description" content="Tutoriels Linux, DevOps, Docker, Kubernetes, Ansible."/>
+<meta property="og:url"         content="https://augustinidohou.site/blog/"/>
+{% endblock %}
 
+{% block footer_socials %}
+{% for r in reseaux %}
+<a href="{{ r.url }}" target="_blank"
+   class="w-9 h-9 rounded-xl border border-blue-800 grid place-items-center text-blue-300 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all">
+  <i class="{{ r.icone }} text-sm"></i>
+</a>
+{% empty %}
+<a href="https://github.com" target="_blank" class="w-9 h-9 rounded-xl border border-blue-800 grid place-items-center text-blue-300 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all"><i class="fab fa-github text-sm"></i></a>
+<a href="https://linkedin.com" target="_blank" class="w-9 h-9 rounded-xl border border-blue-800 grid place-items-center text-blue-300 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all"><i class="fab fa-linkedin-in text-sm"></i></a>
+{% endfor %}
+{% endblock %}
+
+{% block content %}
+
+<!-- ── Hero bandeau ───────────────────────────────────────── -->
+<section class="py-16 md:py-20" style="background:#0d1f3c;">
+  <div class="max-w-7xl mx-auto px-6">
     <!-- Breadcrumb -->
-    <nav class="breadcrumb">
-      <a href="/"><i class="fas fa-home"></i> Accueil</a>
-      <span>/</span>
-      <span>Blog</span>
+    <nav class="flex items-center gap-2 text-xs text-blue-300 mb-6">
+      <a href="/" class="hover:text-white transition-colors"><i class="fas fa-home mr-1"></i>Accueil</a>
+      <i class="fas fa-chevron-right text-[10px] opacity-50"></i>
+      <span class="text-white font-medium">Blog</span>
       {% if categorie_active %}
-      <span>/</span>
-      <span>{{ categorie_active.nom }}</span>
+      <i class="fas fa-chevron-right text-[10px] opacity-50"></i>
+      <span class="text-white font-medium">{{ categorie_active.nom }}</span>
       {% endif %}
     </nav>
 
-    <!-- En-tête -->
-    <div class="section-head" style="text-align:left; margin-bottom:36px;">
-      <span class="tag"><i class="fas fa-terminal"></i> Articles</span>
-      <h2>
-        {% if categorie_active %}
-          <i class="{{ categorie_active.icone }}" style="color:var(--blue-l)"></i>
-          {{ categorie_active.nom }}
-        {% else %}
-          Mon <span>Blog</span>
+    <div class="flex flex-col md:flex-row md:items-end gap-4">
+      <div>
+        <span class="inline-block bg-blue-500/20 border border-blue-400/30 text-blue-300 text-[11px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-3">
+          <i class="fas fa-terminal mr-1"></i> Articles
+        </span>
+        <h1 class="text-3xl md:text-4xl font-black text-white leading-tight">
+          {% if categorie_active %}
+            <i class="{{ categorie_active.icone }} text-blue-400"></i>
+            {{ categorie_active.nom }}
+          {% else %}
+            Mon <span class="text-blue-400">Blog</span>
+          {% endif %}
+        </h1>
+        {% if articles %}
+        <p class="text-blue-200 mt-2 text-sm">
+          {{ articles|length }} article{{ articles|length|pluralize }} publié{{ articles|length|pluralize }}
+          {% if categorie_active %} dans <strong>{{ categorie_active.nom }}</strong>{% endif %}
+        </p>
         {% endif %}
-      </h2>
-      <p style="color:var(--text2); font-size:.93rem; margin-top:6px;">
-        {% if articles %}{{ articles|length }} article{{ articles|length|pluralize }} publié{{ articles|length|pluralize }}{% endif %}
-        {% if categorie_active %} dans la catégorie <strong>{{ categorie_active.nom }}</strong>{% endif %}
-      </p>
+      </div>
     </div>
+  </div>
+</section>
 
-    <!-- Filtres catégories -->
-    <div class="cat-filters" style="justify-content:flex-start; margin-bottom:32px;">
-      <a href="/blog/" class="cat-btn {% if not cat_slug %}active{% endif %}">
-        <i class="fas fa-list"></i> Tous
+
+<!-- ── Filtres + grille ───────────────────────────────────── -->
+<section class="py-12 bg-slate-50 dark:bg-slate-900 min-h-[60vh]">
+  <div class="max-w-7xl mx-auto px-6">
+
+    <!-- Filtres -->
+    <div class="flex flex-wrap gap-2 mb-10">
+      <a href="/blog/"
+         class="px-4 py-1.5 text-xs font-semibold rounded-full transition-all
+                {% if not cat_slug %}bg-blue-600 text-white{% else %}bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-blue-500{% endif %}">
+        <i class="fas fa-list mr-1"></i> Tous
       </a>
       {% for cat in categories %}
-      <a href="/blog/?cat={{ cat.slug }}" class="cat-btn {% if cat_slug == cat.slug %}active{% endif %}">
-        <i class="{{ cat.icone }}"></i> {{ cat.nom }}
-        <span class="cat-count">{{ cat.nb_articles }}</span>
+      <a href="/blog/?cat={{ cat.slug }}"
+         class="px-4 py-1.5 text-xs font-semibold rounded-full transition-all
+                {% if cat_slug == cat.slug %}bg-blue-600 text-white{% else %}bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-blue-500{% endif %}">
+        <i class="{{ cat.icone }} mr-1"></i>{{ cat.nom }}
+        {% if cat.nb_articles %}<span class="ml-1 opacity-70">({{ cat.nb_articles }})</span>{% endif %}
       </a>
       {% endfor %}
     </div>
 
     <!-- Grille d'articles -->
     {% if articles %}
-    <div class="blog-grid">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
       {% for a in articles %}
-      <article class="blog-card">
-        <a href="{{ a.get_absolute_url }}" class="blog-img-link">
-          <div class="blog-img">
+      <article class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl overflow-hidden hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/10 hover:border-blue-500/50 transition-all fade-up">
+        <a href="{{ a.get_absolute_url }}" class="block">
+          <div class="h-48 bg-slate-100 dark:bg-slate-700 relative overflow-hidden">
             {% if a.image %}
-              <img src="{{ a.image.url }}" alt="{{ a.titre }}"/>
+              <img src="{{ a.image.url }}" alt="{{ a.titre }}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/>
             {% else %}
-              <div class="blog-ph">
+              <div class="w-full h-full flex items-center justify-center text-5xl text-slate-300 dark:text-slate-600">
                 <i class="{{ a.categorie.icone|default:'fas fa-terminal' }}"></i>
               </div>
             {% endif %}
-            {% if a.categorie %}<span class="cat-label">{{ a.categorie.nom }}</span>{% endif %}
+            {% if a.categorie %}
+            <span class="absolute top-3 left-3 bg-blue-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full">{{ a.categorie.nom }}</span>
+            {% endif %}
           </div>
         </a>
-        <div class="blog-body">
-          <div class="blog-meta">
-            <span><i class="fas fa-calendar-alt"></i> {{ a.date|date:"d M Y" }}</span>
-            <span><i class="fas fa-clock"></i> {{ a.temps_lecture }} min</span>
-            <span><i class="fas fa-eye"></i> {{ a.vues }}</span>
+        <div class="p-5">
+          <div class="flex gap-4 text-[11px] text-slate-400 mb-3">
+            <span><i class="fas fa-calendar-alt mr-1"></i>{{ a.date|date:"d M Y" }}</span>
+            <span><i class="fas fa-clock mr-1"></i>{{ a.temps_lecture }} min</span>
+            <span><i class="fas fa-eye mr-1"></i>{{ a.vues }}</span>
           </div>
-          <h3><a href="{{ a.get_absolute_url }}" style="color:var(--text)">{{ a.titre }}</a></h3>
-          <p>{{ a.resume|truncatechars:120 }}</p>
-          <a href="{{ a.get_absolute_url }}" class="link">
+          <h2 class="font-bold text-slate-900 dark:text-white text-sm leading-snug mb-2">
+            <a href="{{ a.get_absolute_url }}" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{{ a.titre }}</a>
+          </h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">{{ a.resume|truncatechars:120 }}</p>
+          <a href="{{ a.get_absolute_url }}"
+             class="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:gap-3 transition-all">
             Lire l'article <i class="fas fa-arrow-right"></i>
           </a>
         </div>
       </article>
       {% endfor %}
     </div>
+
     {% else %}
-    <div style="text-align:center; padding:80px 20px; color:var(--text2);">
-      <i class="fas fa-file-alt" style="font-size:3rem; color:var(--border); margin-bottom:16px; display:block;"></i>
-      <p>Aucun article dans cette catégorie pour l'instant.</p>
-      <a href="/blog/" class="btn-outline" style="margin-top:16px; display:inline-flex;">Voir tous les articles</a>
+    <!-- Empty state -->
+    <div class="text-center py-24 text-slate-400 dark:text-slate-500">
+      <i class="fas fa-file-alt text-5xl mb-4 block opacity-30"></i>
+      <p class="text-lg font-semibold mb-2">Aucun article{% if categorie_active %} dans cette catégorie{% endif %}</p>
+      <p class="text-sm mb-6">Les articles arrivent bientôt.</p>
+      {% if categorie_active %}
+      <a href="/blog/" class="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-blue-600 text-blue-600 font-semibold rounded-xl hover:bg-blue-600 hover:text-white transition-all text-sm">
+        <i class="fas fa-list"></i> Voir tous les articles
+      </a>
+      {% endif %}
     </div>
     {% endif %}
 
   </div>
-</main>
+</section>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="container footer-inner">
-    <a href="/" class="logo"><i class="fas fa-terminal"></i> Augustin</a>
-    <p>Linux Administrator & DevOps Engineer — Bénin 🇧🇯</p>
-    <div class="f-socials">
-      {% for r in reseaux %}
-      <a href="{{ r.url }}" target="_blank" title="{{ r.nom }}"><i class="{{ r.icone }}"></i></a>
-      {% empty %}
-      <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
-      <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-      {% endfor %}
-    </div>
-    <nav class="f-links">
-      <a href="/">Accueil</a>
-      <a href="/#services">Services</a>
-      <a href="/blog/">Blog</a>
-      <a href="/#contact">Contact</a>
-    </nav>
-    <p class="copy">&copy; 2026 IDOHOU Sande Augustin</p>
-  </div>
-</footer>
+{% endblock %}
 
-<a href="https://wa.me/{{ whatsapp }}" target="_blank" class="wa-float"><i class="fab fa-whatsapp"></i></a>
-<button id="topBtn" class="top-btn"><i class="fas fa-chevron-up"></i></button>
-
+{% block extra_js %}
 <script src="{% static 'js/main.js' %}"></script>
-</body>
-</html>
+{% endblock %}

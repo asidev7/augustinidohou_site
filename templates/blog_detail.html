@@ -1,262 +1,282 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="fr" data-theme="dark">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <!-- SEO -->
-  <title>{{ article.titre }} | IDOHOU Sande Augustin</title>
-  <meta name="description" content="{{ article.meta_description|default:article.resume }}"/>
-  <meta name="keywords" content="{{ article.meta_keywords|default:'Linux, DevOps, Ansible, Docker, Kubernetes' }}"/>
-  <meta name="author" content="IDOHOU Sande Augustin"/>
-  <meta name="robots" content="index, follow"/>
-  <link rel="canonical" href="https://idohouaugustin.com{{ article.get_absolute_url }}"/>
+{% block title %}{{ article.titre }} | IDOHOU Sande Augustin{% endblock %}
+{% block meta_desc %}{{ article.meta_description|default:article.resume }}{% endblock %}
+{% block nav_blog_active %}active{% endblock %}
 
-  <!-- Open Graph -->
-  <meta property="og:type"        content="article"/>
-  <meta property="og:title"       content="{{ article.titre }}"/>
-  <meta property="og:description" content="{{ article.meta_description|default:article.resume }}"/>
-  {% if article.image %}
-  <meta property="og:image"       content="{{ article.image.url }}"/>
-  {% endif %}
-  <meta property="og:url"         content="https://idohouaugustin.com{{ article.get_absolute_url }}"/>
-  <meta property="og:site_name"   content="IDOHOU Sande Augustin"/>
-  <meta property="article:published_time" content="{{ article.date|date:'c' }}"/>
-  <meta property="article:modified_time"  content="{{ article.date_modif|date:'c' }}"/>
-  {% if article.categorie %}
-  <meta property="article:section" content="{{ article.categorie.nom }}"/>
-  {% endif %}
+{% block extra_head %}
+<meta name="keywords" content="{{ article.meta_keywords|default:'Linux, DevOps, Ansible, Docker, Kubernetes' }}"/>
+<meta name="author" content="IDOHOU Sande Augustin"/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://augustinidohou.site{{ article.get_absolute_url }}"/>
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card"        content="summary_large_image"/>
-  <meta name="twitter:title"       content="{{ article.titre }}"/>
-  <meta name="twitter:description" content="{{ article.meta_description|default:article.resume }}"/>
-  {% if article.image %}
-  <meta name="twitter:image"       content="{{ article.image.url }}"/>
-  {% endif %}
+<meta property="og:type"        content="article"/>
+<meta property="og:title"       content="{{ article.titre }}"/>
+<meta property="og:description" content="{{ article.meta_description|default:article.resume }}"/>
+{% if article.image %}<meta property="og:image" content="{{ article.image.url }}"/>{% endif %}
+<meta property="og:url"         content="https://augustinidohou.site{{ article.get_absolute_url }}"/>
+<meta property="og:site_name"   content="IDOHOU Sande Augustin"/>
+<meta property="article:published_time" content="{{ article.date|date:'c' }}"/>
+<meta property="article:modified_time"  content="{{ article.date_modif|date:'c' }}"/>
+{% if article.categorie %}<meta property="article:section" content="{{ article.categorie.nom }}"/>{% endif %}
 
-  <!-- Schema.org JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": "{{ article.titre|escapejs }}",
-    "description": "{{ article.meta_description|default:article.resume|escapejs }}",
-    "author": {"@type": "Person", "name": "IDOHOU Sande Augustin"},
-    "datePublished": "{{ article.date|date:'Y-m-d' }}",
-    "dateModified": "{{ article.date_modif|date:'Y-m-d' }}",
-    "url": "https://idohouaugustin.com{{ article.get_absolute_url }}"{% if article.image %},
-    "image": "{{ article.image.url }}"{% endif %}
-  }
-  </script>
+<meta name="twitter:card"        content="summary_large_image"/>
+<meta name="twitter:title"       content="{{ article.titre }}"/>
+<meta name="twitter:description" content="{{ article.meta_description|default:article.resume }}"/>
+{% if article.image %}<meta name="twitter:image" content="{{ article.image.url }}"/>{% endif %}
 
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"/>
-  <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
-  <link rel="stylesheet" href="{% static 'css/blog.css' %}"/>
-</head>
-<body>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ article.titre|escapejs }}",
+  "description": "{{ article.meta_description|default:article.resume|escapejs }}",
+  "author": {"@type": "Person", "name": "IDOHOU Sande Augustin"},
+  "datePublished": "{{ article.date|date:'Y-m-d' }}",
+  "dateModified": "{{ article.date_modif|date:'Y-m-d' }}",
+  "url": "https://augustinidohou.site{{ article.get_absolute_url }}"{% if article.image %},
+  "image": "{{ article.image.url }}"{% endif %}
+}
+</script>
 
-<!-- HEADER -->
-<header id="header" class="scrolled">
-  <nav class="navbar">
-    <a href="/" class="logo"><i class="fas fa-terminal"></i> Augustin</a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="/#accueil"    class="nav-item">Accueil</a></li>
-      <li><a href="/#apropos"    class="nav-item">À propos</a></li>
-      <li><a href="/#experience" class="nav-item">Expérience</a></li>
-      <li><a href="/#services"   class="nav-item">Services</a></li>
-      <li><a href="/#blog"       class="nav-item active">Blog</a></li>
-      <li><a href="/#contact"    class="nav-item">Contact</a></li>
-    </ul>
-    <div class="nav-actions">
-      <button id="themeToggle" class="theme-btn"><i class="fas fa-moon" id="themeIcon"></i></button>
-      <a href="https://wa.me/{{ whatsapp }}" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></a>
-      <button class="burger" id="burger"><span></span><span></span><span></span></button>
-    </div>
-  </nav>
-</header>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"/>
 
-<!-- CONTENU -->
-<main class="blog-detail-wrap">
-  <div class="blog-detail-container">
+<style>
+  /* Article typography */
+  .article-body h2 { font-size:1.35rem; font-weight:800; margin:2rem 0 .7rem; color:inherit; }
+  .article-body h3 { font-size:1.1rem;  font-weight:700; margin:1.6rem 0 .5rem; color:inherit; }
+  .article-body p  { margin-bottom:1em; line-height:1.8; }
+  .article-body ul,.article-body ol { padding-left:1.5em; margin-bottom:1em; }
+  .article-body li { margin-bottom:.45em; line-height:1.7; }
+  .article-body blockquote { border-left:3px solid #2563eb; padding-left:1.2em; color:#64748b; margin:1.4em 0; font-style:italic; }
+  .article-body a  { color:#2563eb; text-decoration:underline; }
+  .article-body img { max-width:100%; border-radius:12px; margin:1.2em 0; }
+  .dark .article-body blockquote { color:#94a3b8; }
 
-    <!-- Article principal -->
-    <article class="article-main">
+  /* Tag chip */
+  .tag-chip { display:inline-block; background:rgba(37,99,235,.1); color:#2563eb; border:1px solid rgba(37,99,235,.2);
+              font-size:.7rem; font-weight:700; padding:.25em .75em; border-radius:999px; }
+  .dark .tag-chip { background:rgba(96,165,250,.1); color:#60a5fa; border-color:rgba(96,165,250,.2); }
 
-      <!-- Fil d'Ariane -->
-      <nav class="breadcrumb">
-        <a href="/"><i class="fas fa-home"></i> Accueil</a>
-        <span>/</span>
-        <a href="/#blog">Blog</a>
-        {% if article.categorie %}
-        <span>/</span>
-        <a href="/?cat={{ article.categorie.slug }}#blog">{{ article.categorie.nom }}</a>
-        {% endif %}
-        <span>/</span>
-        <span>{{ article.titre|truncatechars:40 }}</span>
-      </nav>
+  /* Share buttons */
+  .share-btn { display:inline-flex; align-items:center; justify-content:center;
+               width:2.2rem; height:2.2rem; border-radius:10px; font-size:.9rem;
+               transition:transform .2s; }
+  .share-btn:hover { transform:scale(1.12); }
+  .share-twitter  { background:#1da1f2; color:#fff; }
+  .share-linkedin { background:#0077b5; color:#fff; }
+  .share-wa       { background:#25d366; color:#fff; }
+</style>
+{% endblock %}
 
-      <!-- Header article -->
-      <header class="article-header">
-        {% if article.categorie %}
-        <a href="/?cat={{ article.categorie.slug }}#blog" class="cat-chip">
-          <i class="{{ article.categorie.icone }}"></i> {{ article.categorie.nom }}
-        </a>
-        {% endif %}
+{% block footer_socials %}
+{% for r in reseaux %}
+<a href="{{ r.url }}" target="_blank"
+   class="w-9 h-9 rounded-xl border border-blue-800 grid place-items-center text-blue-300 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all">
+  <i class="{{ r.icone }} text-sm"></i>
+</a>
+{% empty %}
+<a href="https://github.com" target="_blank" class="w-9 h-9 rounded-xl border border-blue-800 grid place-items-center text-blue-300 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all"><i class="fab fa-github text-sm"></i></a>
+<a href="https://linkedin.com" target="_blank" class="w-9 h-9 rounded-xl border border-blue-800 grid place-items-center text-blue-300 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all"><i class="fab fa-linkedin-in text-sm"></i></a>
+{% endfor %}
+{% endblock %}
 
-        <h1>{{ article.titre }}</h1>
+{% block content %}
 
-        <div class="article-meta">
-          <div class="meta-author">
-            <div class="meta-avatar">
-              <img src="{% static 'img/augustin.jpg' %}" alt="Augustin"
-                   onerror="this.style.display='none';this.nextSibling.style.display='flex'"/>
-              <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;"><i class="fas fa-user"></i></div>
-            </div>
-            <div>
-              <strong>IDOHOU Sande Augustin</strong>
-              <span>Linux Admin & DevOps Engineer</span>
-            </div>
-          </div>
-          <div class="meta-infos">
-            <span><i class="fas fa-calendar-alt"></i> {{ article.date|date:"d F Y" }}</span>
-            <span><i class="fas fa-clock"></i> {{ article.temps_lecture }} min de lecture</span>
-            <span><i class="fas fa-eye"></i> {{ article.vues }} vue{{ article.vues|pluralize }}</span>
-          </div>
+<!-- ── Article hero banner ────────────────────────────────── -->
+<section class="py-12 md:py-16" style="background:#0d1f3c;">
+  <div class="max-w-7xl mx-auto px-6">
+
+    <!-- Breadcrumb -->
+    <nav class="flex flex-wrap items-center gap-2 text-xs text-blue-300 mb-6">
+      <a href="/" class="hover:text-white transition-colors"><i class="fas fa-home mr-1"></i>Accueil</a>
+      <i class="fas fa-chevron-right text-[10px] opacity-50"></i>
+      <a href="/blog/" class="hover:text-white transition-colors">Blog</a>
+      {% if article.categorie %}
+      <i class="fas fa-chevron-right text-[10px] opacity-50"></i>
+      <a href="/blog/?cat={{ article.categorie.slug }}" class="hover:text-white transition-colors">{{ article.categorie.nom }}</a>
+      {% endif %}
+      <i class="fas fa-chevron-right text-[10px] opacity-50"></i>
+      <span class="text-white/70">{{ article.titre|truncatechars:45 }}</span>
+    </nav>
+
+    <!-- Category chip -->
+    {% if article.categorie %}
+    <a href="/blog/?cat={{ article.categorie.slug }}"
+       class="inline-flex items-center gap-1.5 bg-blue-500/20 border border-blue-400/30 text-blue-300 text-[11px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-4 hover:bg-blue-500/30 transition-colors">
+      <i class="{{ article.categorie.icone }}"></i> {{ article.categorie.nom }}
+    </a>
+    {% endif %}
+
+    <!-- Title -->
+    <h1 class="text-2xl md:text-4xl font-black text-white leading-tight mb-5 max-w-3xl">{{ article.titre }}</h1>
+
+    <!-- Meta -->
+    <div class="flex flex-wrap items-center gap-5">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl overflow-hidden border-2 border-blue-400/40 flex-shrink-0">
+          <img src="{% static 'img/augustin.jpg' %}" alt="Augustin" class="w-full h-full object-cover"
+               onerror="this.style.display='none'"/>
         </div>
+        <div>
+          <p class="text-white font-semibold text-sm leading-none">IDOHOU Sande Augustin</p>
+          <p class="text-blue-300 text-[11px] mt-0.5">Linux Admin & DevOps Engineer</p>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-4 text-[12px] text-blue-200">
+        <span><i class="fas fa-calendar-alt mr-1.5"></i>{{ article.date|date:"d F Y" }}</span>
+        <span><i class="fas fa-clock mr-1.5"></i>{{ article.temps_lecture }} min de lecture</span>
+        <span><i class="fas fa-eye mr-1.5"></i>{{ article.vues }} vue{{ article.vues|pluralize }}</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ── Contenu principal ──────────────────────────────────── -->
+<section class="py-12 bg-white dark:bg-slate-950">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid lg:grid-cols-[1fr_320px] gap-10 items-start">
+
+      <!-- Article -->
+      <article>
 
         <!-- Image principale -->
         {% if article.image %}
-        <div class="article-cover">
-          <img src="{{ article.image.url }}" alt="{{ article.titre }}"/>
+        <div class="rounded-2xl overflow-hidden mb-8 shadow-lg">
+          <img src="{{ article.image.url }}" alt="{{ article.titre }}" class="w-full max-h-96 object-cover"/>
         </div>
         {% endif %}
 
-        <p class="article-resume">{{ article.resume }}</p>
-      </header>
+        <!-- Résumé -->
+        <p class="text-slate-600 dark:text-slate-300 text-base leading-relaxed mb-8 border-l-4 border-blue-500 pl-5 italic">
+          {{ article.resume }}
+        </p>
 
-      <!-- Contenu CKEditor -->
-      <div class="article-content ck-content">
-        {{ article.contenu|safe }}
-      </div>
+        <!-- Corps CKEditor -->
+        <div class="article-body ck-content text-slate-700 dark:text-slate-200">
+          {{ article.contenu|safe }}
+        </div>
 
-      <!-- Tags / partage -->
-      <footer class="article-footer">
-        <div class="article-tags">
-          {% if article.meta_keywords %}
-            {% for kw in article.meta_keywords.split %}
-            <span class="tag-chip">{{ kw|cut:"," }}</span>
-            {% endfor %}
-          {% endif %}
+        <!-- Tags + partage -->
+        <div class="mt-10 pt-6 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex flex-wrap gap-2">
+            {% if article.meta_keywords %}
+              {% for kw in article.meta_keywords.split %}
+              <span class="tag-chip">{{ kw|cut:"," }}</span>
+              {% endfor %}
+            {% endif %}
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-slate-400 font-medium">Partager&nbsp;:</span>
+            <a href="https://twitter.com/intent/tweet?text={{ article.titre|urlencode }}&url=https://augustinidohou.site{{ article.get_absolute_url }}"
+               target="_blank" class="share-btn share-twitter" title="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://augustinidohou.site{{ article.get_absolute_url }}"
+               target="_blank" class="share-btn share-linkedin" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://wa.me/?text={{ article.titre|urlencode }}%20https://augustinidohou.site{{ article.get_absolute_url }}"
+               target="_blank" class="share-btn share-wa" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          </div>
         </div>
-        <div class="share-btns">
-          <span>Partager :</span>
-          <a href="https://twitter.com/intent/tweet?text={{ article.titre|urlencode }}&url=https://idohouaugustin.com{{ article.get_absolute_url }}"
-             target="_blank" class="share-btn share-twitter" title="Twitter">
-            <i class="fab fa-twitter"></i>
-          </a>
-          <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://idohouaugustin.com{{ article.get_absolute_url }}"
-             target="_blank" class="share-btn share-linkedin" title="LinkedIn">
-            <i class="fab fa-linkedin-in"></i>
-          </a>
-          <a href="https://wa.me/?text={{ article.titre|urlencode }}%20https://idohouaugustin.com{{ article.get_absolute_url }}"
-             target="_blank" class="share-btn share-wa" title="WhatsApp">
-            <i class="fab fa-whatsapp"></i>
-          </a>
-        </div>
-      </footer>
 
-      <!-- Auteur card -->
-      <div class="author-card">
-        <div class="author-avatar">
-          <img src="{% static 'img/augustin.jpg' %}" alt="Augustin"
-               onerror="this.style.display='none';document.getElementById('auth-ph').style.display='flex'"/>
-          <div id="auth-ph" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;font-size:2rem;color:var(--blue)"><i class="fas fa-user"></i></div>
+        <!-- Auteur card -->
+        <div class="mt-8 flex gap-5 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6">
+          <div class="w-16 h-16 rounded-2xl overflow-hidden flex-shrink-0 border-2 border-blue-500/30">
+            <img src="{% static 'img/augustin.jpg' %}" alt="Augustin" class="w-full h-full object-cover"
+                 onerror="this.style.display='none'"/>
+          </div>
+          <div>
+            <h3 class="font-bold text-slate-900 dark:text-white mb-0.5">IDOHOU Sande Augustin</h3>
+            <p class="text-xs text-blue-600 dark:text-blue-400 font-medium mb-2">Linux Administrator & DevOps Engineer 🇧🇯</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-3">
+              Passionné par Linux, le DevOps et l'automatisation d'infrastructure. Je partage mes expériences et tutoriels pour la communauté tech africaine.
+            </p>
+            <div class="flex gap-2">
+              {% for r in reseaux %}
+              <a href="{{ r.url }}" target="_blank"
+                 class="w-8 h-8 rounded-lg border border-slate-200 dark:border-slate-700 grid place-items-center text-slate-400 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all text-xs">
+                <i class="{{ r.icone }}"></i>
+              </a>
+              {% empty %}
+              <a href="https://github.com" target="_blank" class="w-8 h-8 rounded-lg border border-slate-200 dark:border-slate-700 grid place-items-center text-slate-400 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all text-xs"><i class="fab fa-github"></i></a>
+              <a href="https://linkedin.com" target="_blank" class="w-8 h-8 rounded-lg border border-slate-200 dark:border-slate-700 grid place-items-center text-slate-400 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all text-xs"><i class="fab fa-linkedin-in"></i></a>
+              {% endfor %}
+            </div>
+          </div>
         </div>
-        <div class="author-info">
-          <h3>IDOHOU Sande Augustin</h3>
-          <p class="author-role">Linux Administrator & DevOps Engineer 🇧🇯</p>
-          <p>Passionné par Linux, le DevOps et l'automatisation d'infrastructure. Je partage mes expériences et tutoriels pour la communauté tech africaine.</p>
-          <div class="author-socials">
-            {% for r in reseaux %}
-            <a href="{{ r.url }}" target="_blank" title="{{ r.nom }}"><i class="{{ r.icone }}"></i></a>
-            {% empty %}
-            <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
-            <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+
+      </article>
+
+
+      <!-- Sidebar -->
+      <aside class="flex flex-col gap-6 lg:sticky lg:top-24">
+
+        <!-- Articles récents -->
+        <div class="bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-5">
+          <h3 class="flex items-center gap-2 font-bold text-slate-900 dark:text-white text-sm mb-4">
+            <i class="fas fa-fire text-orange-500"></i> Articles récents
+          </h3>
+          <div class="flex flex-col gap-4">
+            {% for a in articles_recents %}
+            <a href="{{ a.get_absolute_url }}" class="flex gap-3 group">
+              <div class="w-14 h-14 rounded-xl overflow-hidden bg-slate-200 dark:bg-slate-700 flex-shrink-0">
+                {% if a.image %}
+                  <img src="{{ a.image.url }}" alt="{{ a.titre }}" class="w-full h-full object-cover"/>
+                {% else %}
+                  <div class="w-full h-full flex items-center justify-center text-blue-400 text-lg"><i class="fas fa-terminal"></i></div>
+                {% endif %}
+              </div>
+              <div class="min-w-0">
+                <p class="text-xs font-semibold text-slate-800 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug line-clamp-2">{{ a.titre }}</p>
+                <span class="text-[10px] text-slate-400 mt-1 block"><i class="fas fa-calendar-alt mr-1"></i>{{ a.date|date:"d M Y" }}</span>
+              </div>
+            </a>
             {% endfor %}
           </div>
         </div>
-      </div>
 
-    </article>
-
-    <!-- Sidebar -->
-    <aside class="blog-sidebar">
-
-      <!-- Articles récents -->
-      <div class="sidebar-card">
-        <h3><i class="fas fa-fire"></i> Articles récents</h3>
-        <div class="recent-list">
-          {% for a in articles_recents %}
-          <a href="{{ a.get_absolute_url }}" class="recent-item">
-            <div class="recent-img">
-              {% if a.image %}
-                <img src="{{ a.image.url }}" alt="{{ a.titre }}"/>
-              {% else %}
-                <div class="recent-ph"><i class="fas fa-terminal"></i></div>
-              {% endif %}
-            </div>
-            <div class="recent-info">
-              <p>{{ a.titre|truncatechars:60 }}</p>
-              <span><i class="fas fa-calendar-alt"></i> {{ a.date|date:"d M Y" }}
-                    &nbsp;·&nbsp;<i class="fas fa-eye"></i> {{ a.vues }}</span>
-            </div>
+        <!-- CTA contact -->
+        <div class="rounded-2xl p-5 text-white" style="background:#0d1f3c;">
+          <h3 class="flex items-center gap-2 font-bold text-sm mb-2">
+            <i class="fas fa-handshake text-blue-400"></i> Vous avez un projet ?
+          </h3>
+          <p class="text-blue-200 text-xs leading-relaxed mb-4">
+            Besoin d'un expert Linux/DevOps pour votre infrastructure ?
+          </p>
+          <a href="/#contact"
+             class="flex items-center justify-center gap-2 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-500 transition-colors mb-2">
+            <i class="fas fa-envelope text-xs"></i> Me Contacter
           </a>
-          {% endfor %}
+          <a href="https://wa.me/{% block wa_number_sidebar %}22901907768888{% endblock %}" target="_blank"
+             class="flex items-center justify-center gap-2 py-2.5 text-white text-sm font-semibold rounded-xl hover:opacity-90 transition-opacity"
+             style="background:#25d366;">
+            <i class="fab fa-whatsapp text-sm"></i> WhatsApp
+          </a>
         </div>
-      </div>
 
-      <!-- Contact -->
-      <div class="sidebar-card sidebar-cta">
-        <h3><i class="fas fa-handshake"></i> Vous avez un projet ?</h3>
-        <p>Besoin d'un expert Linux/DevOps pour votre infrastructure ?</p>
-        <a href="/#contact" class="btn-primary" style="display:flex;justify-content:center;margin-top:12px;">
-          <i class="fas fa-envelope"></i> Me Contacter
-        </a>
-        <a href="https://wa.me/{{ whatsapp }}" target="_blank" class="btn-wa-big" style="margin-top:10px;">
-          <i class="fab fa-whatsapp"></i> WhatsApp
-        </a>
-      </div>
+        <!-- Boutique teaser -->
+        <div class="bg-blue-600 rounded-2xl p-5 text-white">
+          <p class="text-[10px] font-bold uppercase tracking-widest text-blue-200 mb-1"><i class="fas fa-store mr-1"></i>Ma Boutique</p>
+          <h3 class="font-bold text-sm mb-2">Livres & Coaching DevOps</h3>
+          <p class="text-blue-100 text-xs mb-4 leading-relaxed">Ressources exclusives et accompagnement personnalisé.</p>
+          <a href="/boutique/"
+             class="flex items-center justify-center gap-2 py-2 bg-white text-blue-600 text-xs font-bold rounded-xl hover:bg-blue-50 transition-colors">
+            <i class="fas fa-arrow-right"></i> Voir la boutique
+          </a>
+        </div>
 
-    </aside>
+      </aside>
 
-  </div>
-</main>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="container footer-inner">
-    <a href="/" class="logo"><i class="fas fa-terminal"></i> Augustin</a>
-    <p>Linux Administrator & DevOps Engineer — Bénin 🇧🇯</p>
-    <div class="f-socials">
-      {% for r in reseaux %}
-      <a href="{{ r.url }}" target="_blank" title="{{ r.nom }}"><i class="{{ r.icone }}"></i></a>
-      {% empty %}
-      <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
-      {% endfor %}
     </div>
-    <p class="copy">&copy; 2026 IDOHOU Sande Augustin</p>
   </div>
-</footer>
+</section>
 
-<a href="https://wa.me/{{ whatsapp }}" target="_blank" class="wa-float"><i class="fab fa-whatsapp"></i></a>
-<button id="topBtn" class="top-btn"><i class="fas fa-chevron-up"></i></button>
+{% endblock %}
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+{% block extra_js %}
 <script src="{% static 'js/main.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.ck-content pre code, .ck-content code').forEach(el => {
@@ -264,5 +284,4 @@
     });
   });
 </script>
-</body>
-</html>
+{% endblock %}
