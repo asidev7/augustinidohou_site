@@ -195,9 +195,9 @@
 
         <!-- Stack icons -->
         <div class="flex flex-wrap gap-3 mt-8">
-          {% for icon, title in stack_icons %}
-          <div title="{{ title }}" class="w-11 h-11 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 grid place-items-center text-blue-600 text-xl hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all cursor-default">
-            <i class="{{ icon }}"></i>
+          {% for item in stack_icons %}
+          <div title="{{ item.title }}" class="w-11 h-11 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 grid place-items-center text-blue-600 text-xl hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all cursor-default">
+            <i class="{{ item.icon }}"></i>
           </div>
           {% empty %}
           <div title="Linux"   class="w-11 h-11 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 grid place-items-center text-blue-600 text-xl hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all cursor-default"><i class="fab fa-linux"></i></div>
@@ -258,7 +258,7 @@
      EXPÉRIENCE + FORMATION
      ============================================================ -->
 <section id="experience" class="py-20 bg-slate-50 dark:bg-slate-900">
-  <div class="max-w-7xl mx-auto px-6">
+  <div class="max-w-7xl mx-auto px-4 md:px-6">
 
     <div class="text-center mb-14 fade-up">
       <span class="inline-block bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-900 text-blue-600 text-[11px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-3" data-fr="Parcours" data-en="Journey">Parcours</span>
@@ -585,7 +585,7 @@
     </div>
     {% endif %}
 
-    <div class="grid md:grid-cols-5 gap-10">
+    <div class="grid md:grid-cols-5 gap-8 md:gap-10">
 
       <!-- Info side (2/5) -->
       <div class="md:col-span-2 flex flex-col gap-3">
@@ -628,9 +628,9 @@
       </div>
 
       <!-- Form (3/5) -->
-      <form method="POST" class="md:col-span-3 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-8 flex flex-col gap-5">
+      <form method="POST" class="md:col-span-3 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-5 sm:p-8 flex flex-col gap-5">
         {% csrf_token %}
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div class="flex flex-col gap-1.5">
             <label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide" data-fr="Prénom" data-en="First name">Prénom</label>
             <input name="prenom" placeholder="John" required class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all placeholder:text-slate-400"/>
