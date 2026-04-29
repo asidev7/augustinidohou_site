@@ -100,9 +100,6 @@ JAZZMIN_SETTINGS = {
     "welcome_sign": "Bienvenue dans votre espace admin",
     "copyright": "IDOHOU Sande Augustin",
     "search_model": ["core.Article", "core.Message"],
-    "topmenu_links": [
-        {"name": "Portfolio", "url": "/", "new_window": True},
-    ],
     "show_sidebar": True,
     "navigation_expanded": True,
     "order_with_respect_to": [
@@ -130,12 +127,17 @@ JAZZMIN_SETTINGS = {
     "default_icon_parents": "fas fa-chevron-circle-right",
     "default_icon_children": "fas fa-circle",
     "related_modal_active": False,
-    "custom_css": None,
+    "custom_css": "css/admin_custom.css",
     "custom_js": None,
     "use_google_fonts_cdn": True,
     "show_ui_builder": False,
     "changeform_format": "horizontal_tabs",
     "language_chooser": False,
+    "topmenu_links": [
+        {"name": "Voir le site", "url": "/", "new_window": True, "icon": "fas fa-external-link-alt"},
+        {"name": "Blog", "url": "/blog/", "new_window": True, "icon": "fas fa-rss"},
+        {"name": "Boutique", "url": "/boutique/", "new_window": True, "icon": "fas fa-store"},
+    ],
 }
 
 JAZZMIN_UI_TWEAKS = {
