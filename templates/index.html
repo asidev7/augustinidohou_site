@@ -6,24 +6,12 @@
 
 {% block extra_head %}
 <style>
-  .skill-fill{height:100%;width:0;background:#2563eb;border-radius:4px;transition:width 1s cubic-bezier(.4,0,.2,1)}
-  .skill-bar{height:5px;background:#e2e8f0;border-radius:4px;overflow:hidden}
-  .dark .skill-bar{background:#334155}
-  .dot-green{width:8px;height:8px;border-radius:50%;background:#4ade80;flex-shrink:0;box-shadow:0 0 0 3px rgba(74,222,128,.2);animation:pulse-dot 2s ease infinite}
-  @keyframes pulse-dot{50%{box-shadow:0 0 0 6px rgba(74,222,128,.04)}}
-  .tl-line{position:absolute;left:7px;top:0;bottom:0;width:2px;background:#e2e8f0}
-  .dark .tl-line{background:#334155}
-  .fade-up{opacity:1;transform:none;transition:opacity .6s ease,transform .6s ease}
-  .js .fade-up{opacity:0;transform:translateY(20px)}
-  .js .fade-up.in{opacity:1;transform:none}
   .typed-wrap span:last-child{animation:blink .7s step-end infinite;color:#2563eb}
   @keyframes blink{50%{opacity:0}}
   .hero-bg{
-    background-image:
-      linear-gradient(120deg, rgba(2, 6, 23, 0.88), rgba(13, 31, 60, 0.68)),
-      url("{% static 'img/imges.png' %}");
-    background-position:center 22%;
-    background-size:cover;
+    background-image: url("{% static 'img/augustin.jpg' %}");
+    background-position: center top;
+    background-size: cover;
   }
 </style>
 {% endblock %}
@@ -159,7 +147,7 @@
       <span class="inline-block bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-900 text-blue-600 text-[11px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-3"
             data-fr="Qui suis-je ?" data-en="About me">Qui suis-je ?</span>
       <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">
-        <span data-fr="À " data-en="About ">À </span><span class="text-blue-600" data-fr="propos" data-en="me">propos</span>
+        <span data-fr="À propos" data-en="About me" class="title-ul">À propos</span>
       </h2>
     </div>
 
@@ -264,7 +252,7 @@
     <div class="text-center mb-14 fade-up">
       <span class="inline-block bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-900 text-blue-600 text-[11px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-3" data-fr="Parcours" data-en="Journey">Parcours</span>
       <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">
-        <span data-fr="Expérience & " data-en="Experience & ">Expérience & </span><span class="text-blue-600" data-fr="Formation" data-en="Education">Formation</span>
+        <span class="title-ul" data-fr="Expérience & Formation" data-en="Experience & Education">Expérience &amp; Formation</span>
       </h2>
     </div>
 
@@ -386,7 +374,7 @@
     <div class="text-center mb-14 fade-up">
       <span class="inline-block bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-900 text-blue-600 text-[11px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-3" data-fr="Ce que je fais" data-en="What I do">Ce que je fais</span>
       <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">
-        <span data-fr="Mes " data-en="My ">Mes </span><span class="text-blue-600" data-fr="Services" data-en="Services">Services</span>
+        <span class="title-ul" data-fr="Mes Services" data-en="My Services">Mes Services</span>
       </h2>
     </div>
 
@@ -486,7 +474,7 @@
     <div class="text-center mb-14 fade-up">
       <span class="inline-block bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-900 text-blue-600 text-[11px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-3">Articles</span>
       <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">
-        Mon <span class="text-blue-600">Blog</span>
+        <span class="title-ul">Mon Blog</span>
       </h2>
       <p class="text-slate-500 dark:text-slate-400 mt-2 text-sm" data-fr="Tutoriels, guides et retours d'expérience Linux &amp; DevOps" data-en="Tutorials, guides and experience reports Linux &amp; DevOps">Tutoriels, guides et retours d'expérience Linux &amp; DevOps</p>
     </div>
@@ -576,7 +564,7 @@
     <div class="text-center mb-14 fade-up">
       <span class="inline-block bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-900 text-blue-600 text-[11px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-3" data-fr="Parlons-en" data-en="Let's talk">Parlons-en</span>
       <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">
-        Me <span class="text-blue-600" data-fr="Contacter" data-en="Contact">Contacter</span>
+        <span class="title-ul" data-fr="Me Contacter" data-en="Contact Me">Me Contacter</span>
       </h2>
     </div>
 

@@ -1,104 +1,101 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="fr" class="dark scroll-smooth" id="html-root">
+<html lang="fr" class="scroll-smooth" id="html-root">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>{% block title %}IDOHOU Sande Augustin — Linux Admin & DevOps{% endblock %}</title>
   <meta name="description" content="{% block meta_desc %}Administrateur Linux & Ingénieur DevOps basé au Bénin. Infrastructure, automatisation, sécurité.{% endblock %}"/>
-  <script>document.documentElement.classList.add('js');</script>
 
-  <!-- Inter font — très professionnel -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
-
   <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}"/>
 
   <script>
     tailwind.config = {
       darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
-          colors: { navy: '#0d1f3c', 'navy-dark': '#081428' }
-        }
-      }
+      theme: { extend: { fontFamily: { sans: ['Inter','system-ui','sans-serif'] } } }
     }
   </script>
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    html, body, button, input, textarea, select { font-family: 'Inter', system-ui, sans-serif; }
-    .fa, .fas, .far, .fab, .fa-solid, .fa-regular, .fa-brands,
-    .fa::before, .fas::before, .far::before, .fab::before,
-    .fa-solid::before, .fa-regular::before, .fa-brands::before {
-      font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome" !important;
-    }
-    .fab, .fa-brands, .fab::before, .fa-brands::before {
-      font-family: "Font Awesome 6 Brands", "Font Awesome 5 Brands", "FontAwesome" !important;
-      font-weight: 400 !important;
-    }
-    .fas, .far, .fa, .fa-solid, .fa-regular,
-    .fas::before, .far::before, .fa::before, .fa-solid::before, .fa-regular::before {
-      font-family: "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome" !important;
-    }
+    *, *::before, *::after { font-family: 'Inter', system-ui, sans-serif; }
     html { scroll-behavior: smooth; }
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-thumb { background: #2563eb; border-radius: 3px; }
 
-    /* Skill bars */
-    .skill-bar { height: 5px; background: #e2e8f0; border-radius: 4px; overflow: hidden; }
-    .dark .skill-bar { background: #334155; }
-    .skill-fill { height: 100%; width: 0; background: #2563eb; border-radius: 4px; transition: width 1.1s cubic-bezier(.4,0,.2,1); }
+    /* FA font fix */
+    .fab,.fa-brands { font-family:"Font Awesome 6 Brands","Font Awesome 5 Brands" !important; font-weight:400 !important; }
+    .fas,.far,.fa,.fa-solid { font-family:"Font Awesome 6 Free","Font Awesome 5 Free" !important; }
 
-    /* Fade up */
-    .fade-up { opacity: 0; transform: translateY(22px); transition: opacity .65s ease, transform .65s ease; }
+    /* ── Section title underline (style Helleringer) ── */
+    .title-ul {
+      display: inline-block;
+      position: relative;
+      padding-bottom: 4px;
+    }
+    .title-ul::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: -2px;
+      height: 5px;
+      background: #2563eb;
+      border-radius: 3px;
+    }
+
+    /* ── Fade-up reveal ── */
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
     .fade-up.in { opacity: 1; transform: none; }
 
-    /* Timeline */
-    .tl-line { position: absolute; left: 7px; top: 0; bottom: 0; width: 2px; background: #e2e8f0; }
-    .dark .tl-line { background: #1e293b; }
+    /* ── Skill bars ── */
+    .skill-bar { height: 6px; background: #e2e8f0; border-radius: 4px; overflow: hidden; }
+    .dark .skill-bar { background: #334155; }
+    .skill-fill { height: 100%; width: 0; background: #2563eb; border-radius: 4px; transition: width 1.2s cubic-bezier(.4,0,.2,1); }
 
-    /* Dot status */
+    /* ── Timeline ── */
+    .tl-line { position: absolute; left: 7px; top: 0; bottom: 0; width: 2px; background: #e2e8f0; }
+    .dark .tl-line { background: #334155; }
+
+    /* ── Dot status ── */
     .dot-green { width: 8px; height: 8px; border-radius: 50%; background: #4ade80; flex-shrink: 0;
       box-shadow: 0 0 0 3px rgba(74,222,128,.2); animation: pulse-dot 2s ease infinite; }
     @keyframes pulse-dot { 50% { box-shadow: 0 0 0 6px rgba(74,222,128,.04); } }
 
-    /* Typed cursor */
-    .typed-cursor { animation: blink .7s step-end infinite; color: #60a5fa; }
+    /* ── Typed cursor ── */
+    .typed-cursor { animation: blink .7s step-end infinite; color: #2563eb; }
     @keyframes blink { 50% { opacity: 0; } }
 
-    /* Ken Burns hero bg */
+    /* ── Ken Burns ── */
     @keyframes kenburns {
       0%   { transform: scale(1)    translate(0, 0); }
-      33%  { transform: scale(1.06) translate(-1%, 0.5%); }
-      66%  { transform: scale(1.03) translate(1%, -0.5%); }
+      33%  { transform: scale(1.06) translate(-1%, .5%); }
+      66%  { transform: scale(1.03) translate(1%, -.5%); }
       100% { transform: scale(1)    translate(0, 0); }
     }
     .hero-bg-img { animation: kenburns 18s ease-in-out infinite; }
 
-    /* Photo float */
-    @keyframes float-photo {
-      0%, 100% { transform: translateY(0px); }
-      50%       { transform: translateY(-10px); }
-    }
+    /* ── Photo float ── */
+    @keyframes float-photo { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
     .photo-float { animation: float-photo 5s ease-in-out infinite; }
 
-    /* Nav underline */
-    .nav-ul { position: relative; }
-    .nav-ul::after { content: ''; position: absolute; bottom: -3px; left: 12px; right: 12px;
-      height: 2px; background: #fff; border-radius: 2px;
-      transform: scaleX(0); transform-origin: center; transition: transform .22s ease; }
-    .nav-ul:hover::after, .nav-ul.active::after { transform: scaleX(1); }
+    /* ── Header nav active pill ── */
+    .nav-link { padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 500;
+      color: #475569; transition: background .18s, color .18s; }
+    .nav-link:hover { background: #f1f5f9; color: #1e293b; }
+    .nav-link.active { background: #2563eb; color: #fff !important; }
+    .dark .nav-link { color: #94a3b8; }
+    .dark .nav-link:hover { background: #1e293b; color: #fff; }
+    .dark .nav-link.active { background: #2563eb; color: #fff; }
 
-    /* CKEditor content */
+    /* ── CKEditor ── */
     .ck-content h2,.ck-content h3 { font-weight:700; margin:1.4em 0 .6em; }
-    .ck-content p { margin-bottom:1em; line-height:1.75; }
+    .ck-content p { margin-bottom:1em; line-height:1.78; }
     .ck-content ul,.ck-content ol { padding-left:1.5em; margin-bottom:1em; }
     .ck-content li { margin-bottom:.4em; }
     .ck-content pre { background:#0f172a; border-radius:10px; padding:1.2em; overflow-x:auto; margin:1.2em 0; }
-    .ck-content code { font-size:.88em; background:rgba(59,130,246,.12); padding:.15em .4em; border-radius:4px; }
+    .ck-content code { font-size:.88em; background:rgba(37,99,235,.1); padding:.15em .4em; border-radius:4px; }
     .ck-content blockquote { border-left:3px solid #2563eb; padding-left:1.2em; color:#64748b; margin:1.2em 0; }
     .ck-content img { max-width:100%; border-radius:10px; margin:1em 0; }
     .ck-content a { color:#2563eb; text-decoration:underline; }
@@ -107,162 +104,160 @@
   {% block extra_head %}{% endblock %}
 </head>
 
-<body class="bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased">
+<body class="bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 antialiased">
 
-<!-- ═══════════════════════════════════════════════
-     HEADER DESKTOP — fond bleu marine #0d1f3c
-     ═══════════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════
+     HEADER DESKTOP — blanc épuré
+     ═══════════════════════════════════ -->
 <header id="site-header"
-        class="hidden md:block fixed top-0 left-0 right-0 z-50 transition-shadow duration-300"
-        style="background:#0d1f3c;">
-  <nav class="max-w-7xl mx-auto px-6 h-[66px] flex items-center gap-5">
+        class="hidden md:flex fixed top-0 left-0 right-0 z-50 bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 transition-shadow duration-300">
+  <nav class="max-w-7xl mx-auto px-6 h-[64px] flex items-center w-full gap-6">
 
-    <!-- Logo -->
-    <a href="/" class="flex items-center gap-3 flex-shrink-0 group">
-      <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-blue-400/60 flex-shrink-0 group-hover:border-blue-300 transition-colors">
+    <!-- Logo  < Photo Nom > -->
+    <a href="/" class="flex items-center gap-2 flex-shrink-0 group">
+      <span class="text-blue-600 font-black text-xl leading-none">&lt;</span>
+      <div class="w-8 h-8 rounded-full overflow-hidden border-2 border-blue-500/40 flex-shrink-0">
         <img src="{% static 'img/augustin.jpg' %}" alt="Augustin" class="w-full h-full object-cover"
-             onerror="this.outerHTML='<div style=\'width:100%;height:100%;background:#60a5fa;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.8rem;color:#0d1f3c;\'>AI</div>'"/>
+             onerror="this.style.background='#2563eb';this.style.display='flex'"/>
       </div>
-      <div class="leading-none">
-        <p class="text-[14px] font-bold text-white tracking-tight">Augustin Idohou</p>
-        <p class="text-[10px] text-blue-300 font-medium mt-0.5">Linux Admin &amp; DevOps</p>
-      </div>
+      <span class="font-bold text-slate-800 dark:text-white text-[14px] tracking-tight">Augustin Idohou</span>
+      <span class="text-blue-600 font-black text-xl leading-none">&gt;</span>
     </a>
 
-    <!-- Nav -->
+    <!-- Nav links -->
     <div class="flex items-center gap-1 ml-auto">
-      <a href="/" class="nav-ul px-3 py-2 text-[13px] font-medium text-blue-100 hover:text-white transition-colors {% block nav_home_active %}{% endblock %}">
-        <span data-fr="Accueil" data-en="Home">Accueil</span>
-      </a>
-      <a href="/#services" class="nav-ul px-3 py-2 text-[13px] font-medium text-blue-100 hover:text-white transition-colors">
-        <span data-fr="Services" data-en="Services">Services</span>
-      </a>
-      <a href="/boutique/" class="nav-ul px-3 py-2 text-[13px] font-medium text-blue-100 hover:text-white transition-colors {% block nav_shop_active %}{% endblock %}">
-        <span data-fr="Boutique" data-en="Shop">Boutique</span>
-      </a>
-      <a href="/blog/" class="nav-ul px-3 py-2 text-[13px] font-medium text-blue-100 hover:text-white transition-colors {% block nav_blog_active %}{% endblock %}">
-        <span>Blog</span>
-      </a>
-      <a href="/#contact" class="nav-ul px-3 py-2 text-[13px] font-medium text-blue-100 hover:text-white transition-colors">
-        <span data-fr="Contact" data-en="Contact">Contact</span>
-      </a>
+      <a href="/" class="nav-link {% block nav_home_active %}{% endblock %}"
+         data-fr="Accueil" data-en="Home">Accueil</a>
+      <a href="/#services" class="nav-link"
+         data-fr="Services" data-en="Services">Services</a>
+      <a href="/boutique/" class="nav-link {% block nav_shop_active %}{% endblock %}"
+         data-fr="Boutique" data-en="Shop">Boutique</a>
+      <a href="/blog/" class="nav-link {% block nav_blog_active %}{% endblock %}">Blog</a>
+      <a href="/#contact" class="nav-link"
+         data-fr="Contact" data-en="Contact">Contact</a>
     </div>
 
     <!-- Actions -->
-    <div class="flex items-center gap-2.5 ml-3">
+    <div class="flex items-center gap-2 ml-2">
       <button id="langToggle"
-              class="text-[11px] font-bold px-2.5 py-1.5 rounded-lg border border-white/20 text-blue-100 hover:bg-white/10 hover:text-white transition-all">FR</button>
+              class="text-[11px] font-bold px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-blue-500 hover:text-blue-600 transition-all">FR</button>
       <button id="themeToggle"
-              class="w-9 h-9 rounded-lg border border-white/20 grid place-items-center text-blue-100 hover:bg-white/10 hover:text-white transition-all">
+              class="w-9 h-9 rounded-lg border border-slate-200 dark:border-slate-700 grid place-items-center text-slate-500 dark:text-slate-400 hover:border-blue-500 hover:text-blue-600 transition-all">
         <i class="fas fa-moon text-sm" id="themeIcon"></i>
       </button>
       <a href="/#contact"
-         class="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white text-[13px] font-semibold rounded-xl hover:bg-blue-400 transition-colors">
+         class="flex items-center gap-1.5 px-4 py-2 bg-blue-600 text-white text-[13px] font-semibold rounded-full hover:bg-blue-700 transition-colors shadow-sm shadow-blue-600/30">
         <i class="fas fa-paper-plane text-xs"></i>
         <span data-fr="Me contacter" data-en="Contact me">Me contacter</span>
       </a>
     </div>
 
   </nav>
-  <!-- Ligne de séparation subtile -->
-  <div class="h-px" style="background:rgba(255,255,255,.06);"></div>
 </header>
 
 
-<!-- ═══════════════════════════════════════════════
-     HEADER MOBILE — fond bleu marine
-     ═══════════════════════════════════════════════ -->
-<header class="md:hidden fixed top-0 left-0 right-0 z-50 h-14 flex items-center px-4 gap-3"
-        style="background:#0d1f3c;">
-  <a href="/" class="flex items-center gap-2.5">
-    <div class="w-9 h-9 rounded-full overflow-hidden border-2 border-blue-400/60 flex-shrink-0">
+<!-- ═══════════════════════════════════
+     HEADER MOBILE — blanc épuré
+     ═══════════════════════════════════ -->
+<header class="md:hidden fixed top-0 left-0 right-0 z-50 h-14 flex items-center px-4 bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 shadow-sm">
+  <a href="/" class="flex items-center gap-1.5">
+    <span class="text-blue-600 font-black text-base">&lt;</span>
+    <div class="w-7 h-7 rounded-full overflow-hidden border-2 border-blue-500/40">
       <img src="{% static 'img/augustin.jpg' %}" alt="Augustin" class="w-full h-full object-cover"
-           onerror="this.outerHTML='<div style=\'width:100%;height:100%;background:#60a5fa;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.7rem;color:#0d1f3c;\'>AI</div>'"/>
+           onerror="this.style.background='#2563eb'"/>
     </div>
-    <div class="leading-none">
-      <p class="text-[13px] font-bold text-white leading-none">Augustin Idohou</p>
-      <p class="text-[9px] text-blue-300 font-medium mt-0.5">Linux & DevOps</p>
-    </div>
+    <span class="font-bold text-slate-800 dark:text-white text-[13px]">Augustin Idohou</span>
+    <span class="text-blue-600 font-black text-base">&gt;</span>
   </a>
   <div class="ml-auto flex items-center gap-2">
     <button id="langToggleMobile"
-            class="text-[10px] font-bold px-2 py-1.5 rounded-lg border border-white/20 text-blue-100">FR</button>
+            class="text-[10px] font-bold px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300">FR</button>
     <button id="themeToggleMobile"
-            class="w-8 h-8 rounded-lg border border-white/20 grid place-items-center text-blue-100">
+            class="w-8 h-8 rounded-lg border border-slate-200 dark:border-slate-700 grid place-items-center text-slate-500 dark:text-slate-400">
       <i class="fas fa-moon text-xs" id="themeIconMobile"></i>
     </button>
   </div>
 </header>
 
 
-<!-- ═══════════════════════════════════════════════
+<!-- ═══════════════════════════════════
      CONTENU
-     ═══════════════════════════════════════════════ -->
-<main class="pt-14 md:pt-[66px] pb-20 md:pb-0 min-h-screen">
+     ═══════════════════════════════════ -->
+<main class="pt-14 md:pt-16 pb-20 md:pb-0 min-h-screen">
   {% block content %}{% endblock %}
 </main>
 
 
-<!-- ═══════════════════════════════════════════════
-     FOOTER DESKTOP
-     ═══════════════════════════════════════════════ -->
-<footer class="hidden md:block border-t border-slate-100 dark:border-slate-800 py-12"
-        style="background:#0d1f3c;">
-  <div class="max-w-7xl mx-auto px-6 text-center">
-    <a href="/" class="inline-flex items-center gap-3 mb-4">
-      <div class="w-9 h-9 rounded-xl grid place-items-center font-black text-sm text-[#0d1f3c]"
-           style="background:#60a5fa;">AI</div>
-      <span class="font-bold text-white text-sm">IDOHOU Sande Augustin</span>
-    </a>
-    <p class="text-sm text-blue-200 mb-5">Linux Admin • DevOps Engineer • Bénin 🇧🇯</p>
-    <div class="flex justify-center gap-3 mb-5">
-      {% block footer_socials %}{% endblock %}
+<!-- ═══════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════ -->
+<footer class="hidden md:block bg-slate-900 dark:bg-slate-950 border-t border-slate-800 py-12">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+      <!-- Brand -->
+      <div class="text-center md:text-left">
+        <a href="/" class="flex items-center gap-2 mb-2">
+          <span class="text-blue-400 font-black text-lg">&lt;</span>
+          <div class="w-8 h-8 rounded-full overflow-hidden border-2 border-blue-500/40">
+            <img src="{% static 'img/augustin.jpg' %}" alt="Augustin" class="w-full h-full object-cover"/>
+          </div>
+          <span class="font-bold text-white text-sm">Augustin Idohou</span>
+          <span class="text-blue-400 font-black text-lg">&gt;</span>
+        </a>
+        <p class="text-slate-400 text-xs">Linux Admin • DevOps Engineer • Bénin 🇧🇯</p>
+      </div>
+      <!-- Nav -->
+      <div class="flex gap-6 text-sm">
+        <a href="/" class="text-slate-400 hover:text-white transition-colors">Accueil</a>
+        <a href="/boutique/" class="text-slate-400 hover:text-white transition-colors">Boutique</a>
+        <a href="/blog/" class="text-slate-400 hover:text-white transition-colors">Blog</a>
+        <a href="/#contact" class="text-slate-400 hover:text-white transition-colors">Contact</a>
+      </div>
+      <!-- Socials -->
+      <div class="flex gap-3">
+        {% block footer_socials %}{% endblock %}
+      </div>
     </div>
-    <div class="flex justify-center gap-6 mb-5 text-sm">
-      <a href="/" class="text-blue-300 hover:text-white transition-colors">Accueil</a>
-      <a href="/boutique/" class="text-blue-300 hover:text-white transition-colors">Boutique</a>
-      <a href="/blog/" class="text-blue-300 hover:text-white transition-colors">Blog</a>
-      <a href="/#contact" class="text-blue-300 hover:text-white transition-colors">Contact</a>
+    <div class="mt-8 pt-6 border-t border-slate-800 text-center">
+      <p class="text-xs text-slate-500">© 2025 IDOHOU Sande Augustin.
+        <span data-fr="Tous droits réservés." data-en="All rights reserved.">Tous droits réservés.</span>
+      </p>
     </div>
-    <p class="text-xs text-blue-400">© 2025 IDOHOU Sande Augustin.
-      <span data-fr="Tous droits réservés." data-en="All rights reserved.">Tous droits réservés.</span>
-    </p>
   </div>
 </footer>
 
 
-<!-- ═══════════════════════════════════════════════
+<!-- ═══════════════════════════════════
      BOTTOM NAV MOBILE
-     ═══════════════════════════════════════════════ -->
-<nav class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-[#0d1f3c] border-t border-slate-100 dark:border-white/10 shadow-[0_-4px_20px_rgba(0,0,0,.12)]">
+     ═══════════════════════════════════ -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 shadow-[0_-4px_20px_rgba(0,0,0,.08)]">
   <div class="grid grid-cols-5 h-16">
 
-    <a href="/" class="bnav-item flex flex-col items-center justify-center gap-1 text-slate-400 dark:text-blue-300 hover:text-blue-600 dark:hover:text-white transition-colors">
-      <i class="fas fa-house-chimney text-xl"></i>
+    <a href="/" class="bnav-item flex flex-col items-center justify-center gap-0.5 text-slate-400 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+      <i class="fas fa-house-chimney text-[18px]"></i>
       <span class="text-[9px] font-semibold" data-fr="Accueil" data-en="Home">Accueil</span>
     </a>
 
-    <a href="/#services" class="bnav-item flex flex-col items-center justify-center gap-1 text-slate-400 dark:text-blue-300 hover:text-blue-600 dark:hover:text-white transition-colors">
-      <i class="fas fa-server text-xl"></i>
+    <a href="/#services" class="bnav-item flex flex-col items-center justify-center gap-0.5 text-slate-400 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+      <i class="fas fa-server text-[18px]"></i>
       <span class="text-[9px] font-semibold" data-fr="Services" data-en="Services">Services</span>
     </a>
 
     <!-- Boutique — bouton central surélevé -->
-    <a href="/boutique/" class="flex flex-col items-center justify-center gap-1 relative">
-      <div class="w-12 h-12 rounded-2xl grid place-items-center -mt-5 shadow-xl shadow-blue-600/40"
-           style="background:linear-gradient(135deg,#2563eb,#0d1f3c);">
-        <i class="fas fa-store text-white text-xl"></i>
+    <a href="/boutique/" class="flex flex-col items-center justify-center gap-0.5 relative">
+      <div class="w-12 h-12 rounded-2xl grid place-items-center -mt-5 shadow-lg shadow-blue-600/30 bg-blue-600">
+        <i class="fas fa-store text-white text-[18px]"></i>
       </div>
-      <span class="text-[9px] font-semibold text-blue-600 dark:text-blue-300" data-fr="Boutique" data-en="Shop">Boutique</span>
+      <span class="text-[9px] font-semibold text-blue-600 dark:text-blue-400" data-fr="Boutique" data-en="Shop">Boutique</span>
     </a>
 
-    <a href="/blog/" class="bnav-item flex flex-col items-center justify-center gap-1 text-slate-400 dark:text-blue-300 hover:text-blue-600 dark:hover:text-white transition-colors">
-      <i class="fas fa-newspaper text-xl"></i>
+    <a href="/blog/" class="bnav-item flex flex-col items-center justify-center gap-0.5 text-slate-400 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+      <i class="fas fa-newspaper text-[18px]"></i>
       <span class="text-[9px] font-semibold">Blog</span>
     </a>
 
-    <a href="/#contact" class="bnav-item flex flex-col items-center justify-center gap-1 text-slate-400 dark:text-blue-300 hover:text-blue-600 dark:hover:text-white transition-colors">
-      <i class="fas fa-envelope text-xl"></i>
+    <a href="/#contact" class="bnav-item flex flex-col items-center justify-center gap-0.5 text-slate-400 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+      <i class="fas fa-envelope text-[18px]"></i>
       <span class="text-[9px] font-semibold" data-fr="Contact" data-en="Contact">Contact</span>
     </a>
 
@@ -270,7 +265,7 @@
 </nav>
 
 
-<!-- WhatsApp flottant (uniquement flottant, pas dans le header) -->
+<!-- WhatsApp flottant -->
 <a href="https://wa.me/{% block wa_number %}{{ whatsapp }}{% endblock %}" target="_blank"
    class="fixed bottom-20 md:bottom-6 right-4 z-40 w-[52px] h-[52px] rounded-full grid place-items-center text-white text-2xl shadow-lg hover:scale-110 transition-transform"
    style="background:#25d366;" title="WhatsApp">
@@ -278,27 +273,27 @@
 </a>
 
 
-<!-- ═══════════════════════════════════════════════
+<!-- ═══════════════════════════════════
      SCRIPTS BASE
-     ═══════════════════════════════════════════════ -->
+     ═══════════════════════════════════ -->
 <script>
 (function () {
   const root = document.getElementById('html-root');
 
-  /* Theme */
-  const savedTheme = localStorage.getItem('theme') || 'dark';
+  /* ── Theme (light par défaut) ── */
+  const savedTheme = localStorage.getItem('theme') || 'light';
   savedTheme === 'dark' ? root.classList.add('dark') : root.classList.remove('dark');
 
   function syncThemeIcons() {
     const dark = root.classList.contains('dark');
-    ['themeIcon', 'themeIconMobile'].forEach(id => {
+    ['themeIcon','themeIconMobile'].forEach(id => {
       const el = document.getElementById(id);
-      if (el) el.className = dark ? 'fas fa-moon text-sm' : 'fas fa-sun text-sm';
+      if (el) el.className = dark ? 'fas fa-sun text-sm' : 'fas fa-moon text-sm';
     });
   }
   syncThemeIcons();
 
-  ['themeToggle', 'themeToggleMobile'].forEach(id => {
+  ['themeToggle','themeToggleMobile'].forEach(id => {
     const btn = document.getElementById(id);
     if (!btn) return;
     btn.addEventListener('click', () => {
@@ -308,21 +303,21 @@
     });
   });
 
-  /* Language */
+  /* ── Language ── */
   const savedLang = localStorage.getItem('lang') || 'fr';
   function applyLang(l) {
     document.querySelectorAll('[data-fr]').forEach(el => {
       if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') return;
       const v = el.dataset[l]; if (v) el.textContent = v;
     });
-    ['langToggle', 'langToggleMobile'].forEach(id => {
+    ['langToggle','langToggleMobile'].forEach(id => {
       const b = document.getElementById(id); if (b) b.textContent = l === 'fr' ? 'EN' : 'FR';
     });
     document.documentElement.lang = l;
   }
   applyLang(savedLang);
 
-  ['langToggle', 'langToggleMobile'].forEach(id => {
+  ['langToggle','langToggleMobile'].forEach(id => {
     const btn = document.getElementById(id);
     if (!btn) return;
     btn.addEventListener('click', () => {
@@ -333,24 +328,32 @@
     });
   });
 
-  /* Header scroll shadow (garde la couleur, ajoute juste l'ombre) */
+  /* ── Header shadow on scroll ── */
   const dh = document.getElementById('site-header');
   if (dh) {
     window.addEventListener('scroll', () => {
-      dh.classList.toggle('shadow-xl', window.scrollY > 10);
-      dh.classList.toggle('shadow-black/40', window.scrollY > 10);
+      dh.classList.toggle('shadow-md', window.scrollY > 10);
     }, { passive: true });
   }
 
-  /* Bottom nav active */
+  /* ── Bottom nav active ── */
   const path = window.location.pathname;
   document.querySelectorAll('.bnav-item').forEach(a => {
     const href = a.getAttribute('href') || '';
     const active = (href === '/' && path === '/') ||
                    (href.startsWith('/boutique') && path.startsWith('/boutique')) ||
                    (href.startsWith('/blog') && path.startsWith('/blog'));
-    if (active) { a.classList.remove('text-slate-400', 'dark:text-blue-300'); a.classList.add('text-blue-600', 'dark:text-white'); }
+    if (active) {
+      a.classList.remove('text-slate-400','dark:text-slate-500');
+      a.classList.add('text-blue-600','dark:text-blue-400');
+    }
   });
+
+  /* ── IntersectionObserver pour fade-up ── */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
 })();
 </script>
 
