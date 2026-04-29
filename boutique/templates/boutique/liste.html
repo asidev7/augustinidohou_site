@@ -4,6 +4,14 @@
 {% block title %}Boutique — Livres & Coaching | IDOHOU Augustin{% endblock %}
 {% block nav_shop_active %}active{% endblock %}
 
+{% block footer_socials %}
+{% for r in reseaux %}
+<a href="{{ r.url }}" target="_blank" class="w-9 h-9 rounded-xl border border-blue-800 grid place-items-center text-blue-300 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all"><i class="{{ r.icone }} text-sm"></i></a>
+{% empty %}
+<a href="https://github.com" target="_blank" class="w-9 h-9 rounded-xl border border-blue-800 grid place-items-center text-blue-300 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all"><i class="fab fa-github text-sm"></i></a>
+{% endfor %}
+{% endblock %}
+
 {% block content %}
 
 <!-- Hero boutique -->
@@ -26,19 +34,22 @@
 
 <!-- Filtres rapides -->
 <div class="bg-white dark:bg-slate-950 border-b border-slate-100 dark:border-slate-800 sticky top-14 md:top-[68px] z-40">
-  <div class="max-w-7xl mx-auto px-6 py-3 flex gap-3 overflow-x-auto">
-    <a href="/boutique/" class="flex-shrink-0 px-4 py-1.5 text-xs font-semibold rounded-full bg-blue-600 text-white">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 py-3">
+    <div class="flex md:flex-wrap md:justify-center gap-3 overflow-x-auto md:overflow-visible whitespace-nowrap md:whitespace-normal scrollbar-hide">
+    <a href="/boutique/" class="flex-shrink-0 inline-flex items-center justify-center px-4 py-1.5 text-xs font-semibold rounded-full {% if not selected_type %}bg-blue-600 text-white{% else %}border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-blue-500 hover:text-blue-600 transition-all{% endif %}">
+      <i class="fas fa-border-all mr-1.5"></i>
       <span data-fr="Tout" data-en="All">Tout</span>
     </a>
-    <a href="/boutique/?type=livre" class="flex-shrink-0 px-4 py-1.5 text-xs font-semibold rounded-full border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-blue-500 hover:text-blue-600 transition-all">
-      📚 <span data-fr="Livres" data-en="Books">Livres</span>
+    <a href="/boutique/?type=livre" class="flex-shrink-0 inline-flex items-center justify-center px-4 py-1.5 text-xs font-semibold rounded-full {% if selected_type == 'livre' %}bg-blue-600 text-white{% else %}border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-blue-500 hover:text-blue-600 transition-all{% endif %}">
+      <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 mr-1.5 inline-block align-[-2px]" fill="none" aria-hidden="true"><path d="M5 6.5A2.5 2.5 0 0 1 7.5 4H19v14H7.5A2.5 2.5 0 0 0 5 20.5v-14Z" fill="currentColor" opacity=".18"/><path d="M5 6.5A2.5 2.5 0 0 1 7.5 4H19v14H7.5A2.5 2.5 0 0 0 5 20.5v-14ZM8.5 8H15M8.5 11H15" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-fr="Livres" data-en="Books">Livres</span>
     </a>
-    <a href="/boutique/?type=coaching" class="flex-shrink-0 px-4 py-1.5 text-xs font-semibold rounded-full border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-blue-500 hover:text-blue-600 transition-all">
-      🎯 <span data-fr="Coaching" data-en="Coaching">Coaching</span>
+    <a href="/boutique/?type=coaching" class="flex-shrink-0 inline-flex items-center justify-center px-4 py-1.5 text-xs font-semibold rounded-full {% if selected_type == 'coaching' %}bg-blue-600 text-white{% else %}border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-blue-500 hover:text-blue-600 transition-all{% endif %}">
+      <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 mr-1.5 inline-block align-[-2px]" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="3.2" fill="currentColor" opacity=".18"/><path d="M6 19c.55-3.1 2.8-5.2 6-5.2 3.2 0 5.45 2.1 6 5.2M16.3 6.7l1.2 1.2 2.5-2.7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="8" r="3.2" stroke="currentColor" stroke-width="1.7"/></svg><span data-fr="Coaching" data-en="Coaching">Coaching</span>
     </a>
-    <a href="/boutique/?type=service" class="flex-shrink-0 px-4 py-1.5 text-xs font-semibold rounded-full border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-blue-500 hover:text-blue-600 transition-all">
-      ⚙️ <span data-fr="Services" data-en="Services">Services</span>
+    <a href="/boutique/?type=service" class="flex-shrink-0 inline-flex items-center justify-center px-4 py-1.5 text-xs font-semibold rounded-full {% if selected_type == 'service' %}bg-blue-600 text-white{% else %}border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-blue-500 hover:text-blue-600 transition-all{% endif %}">
+      <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 mr-1.5 inline-block align-[-2px]" fill="none" aria-hidden="true"><path d="M12 4.5v2.1M12 17.4v2.1M6.6 12H4.5M19.5 12h-2.1M7.8 7.8 6.3 6.3M17.7 17.7l-1.5-1.5M16.2 7.8l1.5-1.5M6.3 17.7l1.5-1.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="12" r="3.4" fill="currentColor" opacity=".18"/><circle cx="12" cy="12" r="3.4" stroke="currentColor" stroke-width="1.7"/></svg><span data-fr="Services" data-en="Services">Services</span>
     </a>
+    </div>
   </div>
 </div>
 
@@ -48,7 +59,7 @@
   {% if livres %}
   <div class="mb-16">
     <div class="flex items-center gap-3 mb-8">
-      <div class="w-10 h-10 bg-blue-50 dark:bg-blue-950 rounded-xl grid place-items-center text-blue-600"><span class="text-xl">📚</span></div>
+      <div class="w-10 h-10 bg-blue-50 dark:bg-blue-950 rounded-xl grid place-items-center text-blue-600"><svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" aria-hidden="true"><path d="M5 6.5A2.5 2.5 0 0 1 7.5 4H19v14H7.5A2.5 2.5 0 0 0 5 20.5v-14Z" fill="currentColor" opacity=".18"/><path d="M5 6.5A2.5 2.5 0 0 1 7.5 4H19v14H7.5A2.5 2.5 0 0 0 5 20.5v-14ZM8.5 8H15M8.5 11H15" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <div>
         <h2 class="text-xl font-black text-slate-900 dark:text-white" data-fr="Livres &amp; E-books" data-en="Books &amp; E-books">Livres &amp; E-books</h2>
         <p class="text-xs text-slate-400" data-fr="Guides pratiques Linux &amp; DevOps" data-en="Practical Linux &amp; DevOps guides">Guides pratiques Linux &amp; DevOps</p>
@@ -64,7 +75,7 @@
   {% if coaching %}
   <div class="mb-16">
     <div class="flex items-center gap-3 mb-8">
-      <div class="w-10 h-10 bg-blue-50 dark:bg-blue-950 rounded-xl grid place-items-center text-blue-600"><span class="text-xl">🎯</span></div>
+      <div class="w-10 h-10 bg-blue-50 dark:bg-blue-950 rounded-xl grid place-items-center text-blue-600"><svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="3.2" fill="currentColor" opacity=".18"/><path d="M6 19c.55-3.1 2.8-5.2 6-5.2 3.2 0 5.45 2.1 6 5.2M16.3 6.7l1.2 1.2 2.5-2.7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="8" r="3.2" stroke="currentColor" stroke-width="1.7"/></svg></div>
       <div>
         <h2 class="text-xl font-black text-slate-900 dark:text-white" data-fr="Coaching &amp; Accompagnement" data-en="Coaching &amp; Mentoring">Coaching &amp; Accompagnement</h2>
         <p class="text-xs text-slate-400" data-fr="Sessions personnalisées avec Augustin" data-en="Personalized sessions with Augustin">Sessions personnalisées avec Augustin</p>
@@ -80,7 +91,7 @@
   {% if services %}
   <div class="mb-16">
     <div class="flex items-center gap-3 mb-8">
-      <div class="w-10 h-10 bg-blue-50 dark:bg-blue-950 rounded-xl grid place-items-center text-blue-600"><span class="text-xl">⚙️</span></div>
+      <div class="w-10 h-10 bg-blue-50 dark:bg-blue-950 rounded-xl grid place-items-center text-blue-600"><svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" aria-hidden="true"><path d="M12 4.5v2.1M12 17.4v2.1M6.6 12H4.5M19.5 12h-2.1M7.8 7.8 6.3 6.3M17.7 17.7l-1.5-1.5M16.2 7.8l1.5-1.5M6.3 17.7l1.5-1.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="12" r="3.4" fill="currentColor" opacity=".18"/><circle cx="12" cy="12" r="3.4" stroke="currentColor" stroke-width="1.7"/></svg></div>
       <div>
         <h2 class="text-xl font-black text-slate-900 dark:text-white" data-fr="Services Digitaux" data-en="Digital Services">Services Digitaux</h2>
         <p class="text-xs text-slate-400">Linux • DevOps • Cloud</p>
@@ -95,7 +106,7 @@
   <!-- ---- VIDE ---- -->
   {% if not livres and not coaching and not services %}
   <div class="text-center py-24">
-    <div class="text-6xl mb-4">🏗️</div>
+    <div class="text-blue-600 mb-4 flex justify-center"><svg viewBox="0 0 64 64" class="w-16 h-16" fill="none" aria-hidden="true"><path d="M14 24h36v23a5 5 0 0 1-5 5H19a5 5 0 0 1-5-5V24Z" fill="currentColor" opacity=".12"/><path d="M10 24h44M18 24l3-10h22l3 10M24 32h16M18 11l28 42" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
     <h2 class="text-xl font-bold text-slate-700 dark:text-slate-300 mb-2" data-fr="Boutique en cours de construction" data-en="Shop coming soon">Boutique en cours de construction</h2>
     <p class="text-slate-400 text-sm mb-8" data-fr="Les produits seront bientôt disponibles." data-en="Products coming soon.">Les produits seront bientôt disponibles.</p>
     <a href="/#contact" class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors">
@@ -115,7 +126,7 @@
        data-fr="Contactez-moi pour un accompagnement personnalisé." data-en="Contact me for personalized support.">
       Contactez-moi pour un accompagnement personnalisé.
     </p>
-    <a href="https://wa.me/22901907768888" target="_blank"
+    <a href="https://wa.me/{{ whatsapp }}" target="_blank"
        class="inline-flex items-center gap-2 px-6 py-3 bg-[#25d366] text-white font-bold rounded-xl hover:bg-[#1db954] transition-colors">
       <i class="fab fa-whatsapp text-lg"></i>
       <span data-fr="Discuter sur WhatsApp" data-en="Chat on WhatsApp">Discuter sur WhatsApp</span>

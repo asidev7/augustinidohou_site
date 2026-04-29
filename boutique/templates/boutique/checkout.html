@@ -4,6 +4,14 @@
 {% block title %}Paiement — {{ produit.nom }} | Boutique{% endblock %}
 {% block nav_shop_active %}active{% endblock %}
 
+{% block footer_socials %}
+{% for r in reseaux %}
+<a href="{{ r.url }}" target="_blank" class="w-9 h-9 rounded-xl border border-blue-800 grid place-items-center text-blue-300 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all"><i class="{{ r.icone }} text-sm"></i></a>
+{% empty %}
+<a href="https://github.com" target="_blank" class="w-9 h-9 rounded-xl border border-blue-800 grid place-items-center text-blue-300 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all"><i class="fab fa-github text-sm"></i></a>
+{% endfor %}
+{% endblock %}
+
 {% block content %}
 <div class="max-w-5xl mx-auto px-6 py-12">
 
@@ -72,9 +80,9 @@
             Méthodes de paiement acceptées
           </p>
           <div class="flex flex-wrap gap-2">
-            <span class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300">📱 MTN Mobile Money</span>
-            <span class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300">📱 Moov Money</span>
-            <span class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300">💳 Carte Visa/MC</span>
+            <span class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300"><i class="fas fa-mobile-screen-button mr-1.5 text-blue-500"></i>MTN Mobile Money</span>
+            <span class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300"><i class="fas fa-mobile-screen-button mr-1.5 text-blue-500"></i>Moov Money</span>
+            <span class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300"><i class="fas fa-credit-card mr-1.5 text-blue-500"></i>Carte Visa/MC</span>
           </div>
         </div>
 
@@ -105,7 +113,7 @@
             {% if produit.image %}
               <img src="{{ produit.image.url }}" alt="{{ produit.nom }}" class="w-full h-full object-cover"/>
             {% else %}
-              {% if produit.type_produit == 'livre' %}📚{% elif produit.type_produit == 'coaching' %}🎯{% else %}⚙️{% endif %}
+              <i class="{{ produit.icon_class }} text-blue-600 dark:text-blue-400"></i>
             {% endif %}
           </div>
           <div>

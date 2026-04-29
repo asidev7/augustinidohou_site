@@ -172,13 +172,14 @@ JAZZMIN_UI_TWEAKS = {
     },
 }
 
+import os
 WHATSAPP_NUMBER   = '22901907768888'
 WHATSAPP_NUMBER_2 = '22901687212144'
 PHONE_1 = '+229 01 90 77 68 88'
 PHONE_2 = '+229 01 68 72 12 14'
+CONTACT_EMAIL = os.environ.get('CONTACT_EMAIL', 'sandeaugustinidohou@gmail.com')
 
 # FedaPay
-import os
 FEDAPAY_PUBLIC_KEY  = os.environ.get('FEDAPAY_PUBLIC_KEY',  'pk_live_9j19NkT-hUoX6CCVmqy_cifQ')
 FEDAPAY_SECRET_KEY  = os.environ.get('FEDAPAY_SECRET_KEY',  'sk_live_BxxhszGS-nMOxnkFotI_lInC')
 FEDAPAY_ENVIRONMENT = os.environ.get('FEDAPAY_ENVIRONMENT', 'live')

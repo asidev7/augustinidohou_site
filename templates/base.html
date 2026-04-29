@@ -28,7 +28,20 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    *, *::before, *::after { font-family: 'Inter', system-ui, sans-serif; }
+    html, body, button, input, textarea, select { font-family: 'Inter', system-ui, sans-serif; }
+    .fa, .fas, .far, .fab, .fa-solid, .fa-regular, .fa-brands,
+    .fa::before, .fas::before, .far::before, .fab::before,
+    .fa-solid::before, .fa-regular::before, .fa-brands::before {
+      font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome" !important;
+    }
+    .fab, .fa-brands, .fab::before, .fa-brands::before {
+      font-family: "Font Awesome 6 Brands", "Font Awesome 5 Brands", "FontAwesome" !important;
+      font-weight: 400 !important;
+    }
+    .fas, .far, .fa, .fa-solid, .fa-regular,
+    .fas::before, .far::before, .fa::before, .fa-solid::before, .fa-regular::before {
+      font-family: "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome" !important;
+    }
     html { scroll-behavior: smooth; }
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-thumb { background: #2563eb; border-radius: 3px; }
@@ -257,7 +270,7 @@
 
 
 <!-- WhatsApp flottant (uniquement flottant, pas dans le header) -->
-<a href="https://wa.me/{% block wa_number %}22901907768888{% endblock %}" target="_blank"
+<a href="https://wa.me/{% block wa_number %}{{ whatsapp }}{% endblock %}" target="_blank"
    class="fixed bottom-20 md:bottom-6 right-4 z-40 w-[52px] h-[52px] rounded-full grid place-items-center text-white text-2xl shadow-lg hover:scale-110 transition-transform"
    style="background:#25d366;" title="WhatsApp">
   <i class="fab fa-whatsapp"></i>

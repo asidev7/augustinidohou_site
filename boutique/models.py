@@ -42,6 +42,22 @@ class Produit(models.Model):
     def prix_formatte(self):
         return f"{int(self.prix):,} FCFA".replace(',', ' ')
 
+    @property
+    def icon_class(self):
+        return {
+            'livre': 'fas fa-book-open',
+            'coaching': 'fas fa-user-graduate',
+            'service': 'fas fa-gears',
+        }.get(self.type_produit, 'fas fa-box')
+
+    @property
+    def badge_icon_class(self):
+        return {
+            'livre': 'fas fa-book',
+            'coaching': 'fas fa-bullseye',
+            'service': 'fas fa-screwdriver-wrench',
+        }.get(self.type_produit, 'fas fa-box-open')
+
 
 class Commande(models.Model):
     STATUT = [

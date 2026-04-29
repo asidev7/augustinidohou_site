@@ -4,6 +4,14 @@
 {% block title %}{{ produit.nom }} | Boutique Augustin Idohou{% endblock %}
 {% block nav_shop_active %}active{% endblock %}
 
+{% block footer_socials %}
+{% for r in reseaux %}
+<a href="{{ r.url }}" target="_blank" class="w-9 h-9 rounded-xl border border-blue-800 grid place-items-center text-blue-300 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all"><i class="{{ r.icone }} text-sm"></i></a>
+{% empty %}
+<a href="https://github.com" target="_blank" class="w-9 h-9 rounded-xl border border-blue-800 grid place-items-center text-blue-300 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all"><i class="fab fa-github text-sm"></i></a>
+{% endfor %}
+{% endblock %}
+
 {% block content %}
 <div class="max-w-7xl mx-auto px-6 py-12">
 
@@ -23,7 +31,7 @@
       {% if produit.image %}
         <img src="{{ produit.image.url }}" alt="{{ produit.nom }}" class="w-full h-full object-cover"/>
       {% else %}
-        <span class="text-8xl">{% if produit.type_produit == 'livre' %}📚{% elif produit.type_produit == 'coaching' %}🎯{% else %}⚙️{% endif %}</span>
+        <i class="{{ produit.icon_class }} text-7xl text-blue-600 dark:text-blue-400"></i>
       {% endif %}
     </div>
 
@@ -51,7 +59,7 @@
           <i class="fas fa-lock text-xs opacity-70"></i>
         </a>
 
-        <a href="https://wa.me/22901907768888?text=Bonjour%2C%20je%20suis%20intéressé%20par%20%22{{ produit.nom }}%22"
+        <a href="https://wa.me/{{ whatsapp }}?text=Bonjour%2C%20je%20suis%20intéressé%20par%20%22{{ produit.nom|urlencode }}%22"
            target="_blank"
            class="flex items-center justify-center gap-2 w-full py-3 border-2 border-[#25d366] text-[#25d366] font-semibold rounded-xl hover:bg-[#25d366] hover:text-white transition-all text-sm">
           <i class="fab fa-whatsapp text-lg"></i>

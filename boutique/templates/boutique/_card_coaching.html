@@ -1,14 +1,20 @@
 <article class="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 hover:-translate-y-1 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/10 transition-all">
   <div class="flex items-start gap-4 mb-4">
     <div class="w-14 h-14 bg-blue-50 dark:bg-blue-950 rounded-2xl grid place-items-center text-3xl flex-shrink-0 border border-blue-100 dark:border-blue-900">
-      {% if p.image %}<img src="{{ p.image.url }}" alt="{{ p.nom }}" class="w-full h-full object-cover rounded-2xl"/>{% else %}🎯{% endif %}
+      {% if p.image %}<img src="{{ p.image.url }}" alt="{{ p.nom }}" class="w-full h-full object-cover rounded-2xl"/>{% else %}
+      <svg viewBox="0 0 64 64" class="w-10 h-10" fill="none" aria-hidden="true">
+        <circle cx="32" cy="20" r="10" fill="#38BDF8"/>
+        <path d="M20 50c1.2-8.24 6.41-14 12-14s10.8 5.76 12 14" stroke="#0F172A" stroke-width="3.2" stroke-linecap="round"/>
+        <path d="m45 18 4 4 7-8" stroke="#0EA5E9" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      {% endif %}
     </div>
     <div>
       <p class="text-[10px] font-bold text-blue-500 uppercase tracking-wider">{{ p.get_type_produit_display }}</p>
       <h3 class="font-bold text-slate-900 dark:text-white leading-snug">{{ p.nom }}</h3>
       {% if p.en_vedette %}
       <span class="inline-block bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-full mt-1">
-        ⭐ <span data-fr="Recommandé" data-en="Recommended">Recommandé</span>
+        <i class="fas fa-star mr-1"></i><span data-fr="Recommandé" data-en="Recommended">Recommandé</span>
       </span>
       {% endif %}
     </div>
@@ -16,18 +22,18 @@
 
   <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-5">{{ p.description|truncatechars:160 }}</p>
 
-  <div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
-    <div>
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+    <div class="text-left">
       <p class="text-xl font-black text-blue-600">{{ p.prix_formatte }}</p>
       <p class="text-[10px] text-slate-400" data-fr="paiement unique" data-en="one-time payment">paiement unique</p>
     </div>
-    <div class="flex gap-2">
+    <div class="flex flex-col sm:flex-row gap-2 self-start">
       <a href="/boutique/{{ p.slug }}/"
-         class="px-3 py-2 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 text-xs font-semibold rounded-xl hover:border-blue-500 hover:text-blue-600 transition-all">
+         class="inline-flex items-center justify-center px-3 py-2 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 text-xs font-semibold rounded-xl hover:border-blue-500 hover:text-blue-600 transition-all min-w-[110px]">
         <span data-fr="Détails" data-en="Details">Détails</span>
       </a>
       <a href="/boutique/{{ p.slug }}/payer/"
-         class="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-xl hover:bg-blue-700 transition-colors">
+         class="inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-xl hover:bg-blue-700 transition-colors min-w-[110px]">
         <i class="fas fa-lock text-[10px]"></i>
         <span data-fr="S'inscrire" data-en="Enroll">S'inscrire</span>
       </a>

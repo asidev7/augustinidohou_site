@@ -6,6 +6,18 @@ from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from .models import Produit, Commande
+from core.models import ReseauSocial
+
+
+def _ctx_base():
+    return {
+        'reseaux':  ReseauSocial.objects.all(),
+        'whatsapp': getattr(settings, 'WHATSAPP_NUMBER', ''),
+        'whatsapp_secondary': getattr(settings, 'WHATSAPP_NUMBER_2', ''),
+        'phone1':   getattr(settings, 'PHONE_1', ''),
+        'phone2':   getattr(settings, 'PHONE_2', ''),
+        'contact_email': getattr(settings, 'CONTACT_EMAIL', ''),
+    }
 
 
 def _fedapay_headers():
@@ -18,14 +30,30 @@ FEDAPAY_BASE = 'https://api.fedapay.com/v1'
 
 
 def boutique_liste(request):
-    livres   = Produit.objects.filter(disponible=True, type_produit='livre')
-    coaching = Produit.objects.filter(disponible=True, type_produit='coaching')
-    services = Produit.objects.filter(disponible=True, type_produit='service')
-    vedettes = Produit.objects.filter(disponible=True, en_vedette=True)
-    return render(request, 'boutique/liste.html', {
-        'livres': livres, 'coaching': coaching,
-        'services': services, 'vedettes': vedettes,
+    selected_type = request.GET.get('type', '').strip()
+    produits = Produit.objects.filter(disponible=True)
+
+    if selected_type in {'livre', 'coaching', 'service'}:
+        produits = produits.filter(type_produit=selected_type)
+
+    livres   = produits.filter(type_produit='livre')
+    coaching = produits.filter(type_produit='coaching')
+    services = produits.filter(type_produit='service')
+    vedettes = Produit.objects.filter(disponible=True, en_vedette=True)[:4]
+    ctx = _ctx_base()
+    ctx.update({
+        'livres': livres,
+        'coaching': coaching,
+        'services': services,
+        'vedettes': vedettes,
+        'selected_type': selected_type,
+        'product_type_labels': {
+            'livre': 'Livres',
+            'coaching': 'Coaching',
+            'service': 'Services',
+        },
     })
+    return render(request, 'boutique/liste.html', ctx)
 
 
 def boutique_detail(request, slug):
@@ -33,9 +61,9 @@ def boutique_detail(request, slug):
     similaires = Produit.objects.filter(
         disponible=True, type_produit=produit.type_produit
     ).exclude(pk=produit.pk)[:3]
-    return render(request, 'boutique/detail.html', {
-        'produit': produit, 'similaires': similaires,
-    })
+    ctx = _ctx_base()
+    ctx.update({'produit': produit, 'similaires': similaires})
+    return render(request, 'boutique/detail.html', ctx)
 
 
 def boutique_checkout(request, slug):
@@ -112,9 +140,9 @@ def boutique_checkout(request, slug):
             except Exception:
                 erreur = 'Impossible de joindre le service de paiement. Réessayez plus tard.'
 
-    return render(request, 'boutique/checkout.html', {
-        'produit': produit, 'erreur': erreur,
-    })
+    ctx = _ctx_base()
+    ctx.update({'produit': produit, 'erreur': erreur})
+    return render(request, 'boutique/checkout.html', ctx)
 
 
 def boutique_succes(request, commande_id):
@@ -123,7 +151,9 @@ def boutique_succes(request, commande_id):
     if commande.statut == 'en_attente':
         commande.statut = 'approuve'
         commande.save(update_fields=['statut'])
-    return render(request, 'boutique/succes.html', {'commande': commande})
+    ctx = _ctx_base()
+    ctx.update({'commande': commande})
+    return render(request, 'boutique/succes.html', ctx)
 
 
 @csrf_exempt

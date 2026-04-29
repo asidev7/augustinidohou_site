@@ -3,13 +3,21 @@
 {% block title %}Merci pour votre achat ! | Boutique{% endblock %}
 {% block nav_shop_active %}active{% endblock %}
 
+{% block footer_socials %}
+{% for r in reseaux %}
+<a href="{{ r.url }}" target="_blank" class="w-9 h-9 rounded-xl border border-blue-800 grid place-items-center text-blue-300 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all"><i class="{{ r.icone }} text-sm"></i></a>
+{% empty %}
+<a href="https://github.com" target="_blank" class="w-9 h-9 rounded-xl border border-blue-800 grid place-items-center text-blue-300 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all"><i class="fab fa-github text-sm"></i></a>
+{% endfor %}
+{% endblock %}
+
 {% block content %}
 <div class="min-h-[70vh] flex items-center justify-center px-6 py-16">
   <div class="max-w-lg w-full text-center">
 
     <!-- Icône succès -->
-    <div class="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full grid place-items-center text-4xl mx-auto mb-6">
-      ✅
+    <div class="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full grid place-items-center text-4xl text-green-600 mx-auto mb-6">
+      <i class="fas fa-circle-check"></i>
     </div>
 
     <h1 class="text-2xl font-black text-slate-900 dark:text-white mb-2"
@@ -49,7 +57,7 @@
 
     <!-- Actions -->
     <div class="flex flex-col sm:flex-row gap-3 justify-center">
-      <a href="https://wa.me/22901907768888?text=Bonjour%2C%20j'ai%20passé%20une%20commande%20%23{{ commande.pk }}%20pour%20%22{{ commande.produit.nom }}%22"
+      <a href="https://wa.me/{{ whatsapp }}?text=Bonjour%2C%20j'ai%20passé%20une%20commande%20%23{{ commande.pk }}%20pour%20%22{{ commande.produit.nom|urlencode }}%22"
          target="_blank"
          class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#25d366] text-white font-bold rounded-xl hover:bg-[#1db954] transition-colors">
         <i class="fab fa-whatsapp text-lg"></i>

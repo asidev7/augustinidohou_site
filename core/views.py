@@ -8,8 +8,10 @@ def _ctx_base():
     return {
         'reseaux':  ReseauSocial.objects.all(),
         'whatsapp': getattr(settings, 'WHATSAPP_NUMBER', ''),
+        'whatsapp_secondary': getattr(settings, 'WHATSAPP_NUMBER_2', ''),
         'phone1':   getattr(settings, 'PHONE_1', ''),
         'phone2':   getattr(settings, 'PHONE_2', ''),
+        'contact_email': getattr(settings, 'CONTACT_EMAIL', ''),
     }
 
 
@@ -45,9 +47,25 @@ def home(request):
         ('Git & GitOps',        88, 'dev'),
     ]
 
+    competences = list(Competence.objects.all())
+    stack_icons = [
+        {'icon': c.icone, 'title': c.nom}
+        for c in competences if c.icone
+    ][:8]
+
+    if not stack_icons:
+        stack_icons = [
+            {'icon': 'fab fa-linux', 'title': 'Linux'},
+            {'icon': 'fab fa-docker', 'title': 'Docker'},
+            {'icon': 'fab fa-python', 'title': 'Python'},
+            {'icon': 'fab fa-git-alt', 'title': 'Git'},
+            {'icon': 'fab fa-aws', 'title': 'AWS'},
+            {'icon': 'fas fa-cogs', 'title': 'Automation'},
+        ]
+
     ctx = _ctx_base()
     ctx.update({
-        'competences':    Competence.objects.all(),
+        'competences':    competences,
         'experiences':    Experience.objects.all(),
         'formations':     Formation.objects.all(),
         'services':       Service.objects.all(),
@@ -55,6 +73,7 @@ def home(request):
         'categories':     Categorie.objects.all(),
         'cat_slug':       cat_slug,
         'default_skills': default_skills,
+        'stack_icons':    stack_icons,
     })
     return render(request, 'index.html', ctx)
 
@@ -80,14 +99,20 @@ def blog_list(request):
 def article_detail(request, slug):
     article = get_object_or_404(Article, slug=slug, publie=True)
     article.incrementer_vues()
+    article.refresh_from_db(fields=['vues'])
 
     articles_recents = Article.objects.filter(
         publie=True
     ).exclude(pk=article.pk).order_by('-date')[:4]
 
+    keywords = [
+        kw.strip() for kw in article.meta_keywords.split(',') if kw.strip()
+    ]
+
     ctx = _ctx_base()
     ctx.update({
         'article':         article,
         'articles_recents': articles_recents,
+        'keywords':        keywords,
     })
     return render(request, 'blog_detail.html', ctx)
