@@ -1,0 +1,33 @@
+<article class="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl overflow-hidden hover:-translate-y-1 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/10 transition-all group">
+  <!-- Image -->
+  <div class="h-44 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
+    {% if p.image %}
+      <img src="{{ p.image.url }}" alt="{{ p.nom }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+    {% else %}
+      <div class="w-full h-full flex items-center justify-center text-5xl">
+        {% if p.type_produit == 'livre' %}📚{% elif p.type_produit == 'coaching' %}🎯{% else %}⚙️{% endif %}
+      </div>
+    {% endif %}
+    {% if p.en_vedette %}
+    <span class="absolute top-3 left-3 bg-blue-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">
+      ⭐ <span data-fr="Populaire" data-en="Popular">Populaire</span>
+    </span>
+    {% endif %}
+  </div>
+
+  <!-- Body -->
+  <div class="p-5">
+    <p class="text-[10px] font-bold text-blue-500 uppercase tracking-wider mb-1">{{ p.get_type_produit_display }}</p>
+    <h3 class="font-bold text-slate-900 dark:text-white text-sm leading-snug mb-2 line-clamp-2">{{ p.nom }}</h3>
+    <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4 line-clamp-3">{{ p.description|truncatechars:100 }}</p>
+
+    <div class="flex items-center justify-between">
+      <p class="text-lg font-black text-blue-600">{{ p.prix_formatte }}</p>
+      <a href="/boutique/{{ p.slug }}/payer/"
+         class="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-xl hover:bg-blue-700 transition-colors">
+        <i class="fas fa-credit-card"></i>
+        <span data-fr="Acheter" data-en="Buy">Acheter</span>
+      </a>
+    </div>
+  </div>
+</article>

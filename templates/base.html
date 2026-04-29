@@ -1,0 +1,303 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr" class="dark scroll-smooth" id="html-root">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% block title %}IDOHOU Sande Augustin — Linux Admin & DevOps{% endblock %}</title>
+  <meta name="description" content="{% block meta_desc %}Administrateur Linux & Ingénieur DevOps basé au Bénin. Infrastructure, automatisation, sécurité.{% endblock %}"/>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <!-- Tailwind CDN -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Roboto', 'Arial', 'sans-serif'] },
+          colors: {
+            brand: { DEFAULT: '#2563eb', light: '#3b82f6', dark: '#1d4ed8' }
+          },
+          animation: {
+            'fade-up': 'fadeUp .6s ease both',
+            'pulse-dot': 'pulseDot 2s ease infinite',
+          },
+          keyframes: {
+            fadeUp: { from: { opacity:'0', transform:'translateY(20px)' }, to: { opacity:'1', transform:'none' } },
+            pulseDot: { '50%': { boxShadow: '0 0 0 6px rgba(74,222,128,.06)' } },
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body { font-family: 'Roboto', Arial, sans-serif; }
+    ::-webkit-scrollbar { width:6px } ::-webkit-scrollbar-track { background:transparent }
+    ::-webkit-scrollbar-thumb { background:#334155; border-radius:3px }
+    .nav-underline { position:relative }
+    .nav-underline::after { content:''; position:absolute; bottom:-2px; left:0; right:0; height:2px; background:#2563eb; border-radius:2px; transform:scaleX(0); transform-origin:center; transition:transform .2s ease }
+    .nav-underline:hover::after, .nav-underline.active::after { transform:scaleX(1) }
+    .typed-cursor { animation: blink .7s step-end infinite }
+    @keyframes blink { 50% { opacity:0 } }
+    @keyframes pulse-dot { 50% { box-shadow:0 0 0 6px rgba(74,222,128,.06) } }
+  </style>
+
+  {% block extra_head %}{% endblock %}
+</head>
+
+<body class="bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased">
+
+<!-- =========================================================
+     DESKTOP HEADER
+     ========================================================= -->
+<header id="site-header" class="hidden md:block fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-transparent">
+  <nav class="max-w-7xl mx-auto px-6 h-[68px] flex items-center gap-4">
+
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-3 flex-shrink-0 group">
+      <div class="w-10 h-10 bg-blue-600 rounded-xl grid place-items-center text-white font-black text-sm select-none shadow-sm group-hover:bg-blue-700 transition-colors">AI</div>
+      <div class="leading-snug">
+        <p class="text-sm font-bold text-slate-900 dark:text-white leading-none">Augustin Idohou</p>
+        <p class="text-[11px] text-blue-600 font-medium leading-none mt-0.5">Linux Admin &amp; DevOps</p>
+      </div>
+    </a>
+
+    <!-- Nav -->
+    <div class="flex items-center gap-1 ml-auto">
+      <a href="/" class="nav-underline px-4 py-2 text-[13px] font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors {% block nav_home_active %}{% endblock %}">
+        <i class="fas fa-house text-[11px] mr-1 text-blue-500"></i>
+        <span data-fr="Accueil" data-en="Home">Accueil</span>
+      </a>
+      <a href="/#services" class="nav-underline px-4 py-2 text-[13px] font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
+        <span data-fr="Services" data-en="Services">Services</span>
+      </a>
+      <a href="/boutique/" class="nav-underline px-4 py-2 text-[13px] font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors {% block nav_shop_active %}{% endblock %}">
+        <i class="fas fa-store text-[11px] mr-1 text-blue-500"></i>
+        <span data-fr="Boutique" data-en="Shop">Boutique</span>
+      </a>
+      <a href="/blog/" class="nav-underline px-4 py-2 text-[13px] font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors {% block nav_blog_active %}{% endblock %}">
+        <span data-fr="Blog" data-en="Blog">Blog</span>
+      </a>
+      <a href="/#contact" class="nav-underline px-4 py-2 text-[13px] font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
+        <span data-fr="Contact" data-en="Contact">Contact</span>
+      </a>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex items-center gap-2.5 ml-4">
+      <!-- Lang -->
+      <button id="langToggle" class="text-[11px] font-bold px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-blue-500 hover:text-blue-600 transition-all">FR</button>
+
+      <!-- Theme -->
+      <button id="themeToggle" class="w-9 h-9 rounded-lg border border-slate-200 dark:border-slate-700 grid place-items-center text-slate-500 dark:text-slate-400 hover:border-blue-500 hover:text-blue-600 transition-all">
+        <i class="fas fa-moon text-sm" id="themeIcon"></i>
+      </button>
+
+      <!-- CTA -->
+      <a href="/#contact" class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-[13px] font-semibold rounded-xl hover:bg-blue-700 transition-colors shadow-sm">
+        <i class="fas fa-paper-plane text-xs"></i>
+        <span data-fr="Me contacter" data-en="Contact me">Me contacter</span>
+      </a>
+    </div>
+
+  </nav>
+</header>
+
+
+<!-- =========================================================
+     MOBILE HEADER (top bar — simple, pas de hamburger)
+     ========================================================= -->
+<header class="md:hidden fixed top-0 left-0 right-0 z-50 bg-white dark:bg-slate-950 border-b border-slate-100 dark:border-slate-800 h-14 flex items-center px-4 gap-3 shadow-sm">
+  <a href="/" class="flex items-center gap-2.5">
+    <div class="w-8 h-8 bg-blue-600 rounded-lg grid place-items-center text-white font-black text-xs select-none">AI</div>
+    <div class="leading-tight">
+      <p class="text-sm font-bold text-slate-900 dark:text-white leading-none">Augustin Idohou</p>
+      <p class="text-[10px] text-blue-600 font-medium leading-none mt-0.5">Linux & DevOps</p>
+    </div>
+  </a>
+  <div class="ml-auto flex items-center gap-2">
+    <button id="langToggleMobile" class="text-[10px] font-bold px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300">FR</button>
+    <button id="themeToggleMobile" class="w-8 h-8 rounded-lg border border-slate-200 dark:border-slate-700 grid place-items-center text-slate-500 dark:text-slate-400">
+      <i class="fas fa-moon text-xs" id="themeIconMobile"></i>
+    </button>
+  </div>
+</header>
+
+
+<!-- =========================================================
+     CONTENT
+     ========================================================= -->
+<main class="pt-14 md:pt-[68px] pb-20 md:pb-0 min-h-screen">
+  {% block content %}{% endblock %}
+</main>
+
+
+<!-- =========================================================
+     DESKTOP FOOTER
+     ========================================================= -->
+<footer class="hidden md:block bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 py-12">
+  <div class="max-w-7xl mx-auto px-6 text-center">
+    <a href="/" class="inline-flex items-center gap-3 mb-4">
+      <div class="w-9 h-9 bg-blue-600 rounded-xl grid place-items-center text-white font-black text-sm">AI</div>
+      <span class="font-bold text-slate-800 dark:text-white">IDOHOU Sande Augustin</span>
+    </a>
+    <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Linux Admin • DevOps Engineer • Bénin 🇧🇯</p>
+    <div class="flex justify-center gap-3 mb-6">
+      {% block footer_socials %}{% endblock %}
+    </div>
+    <div class="flex justify-center gap-6 mb-6 text-sm">
+      <a href="/" class="text-slate-500 hover:text-blue-600 dark:text-slate-400 transition-colors" data-fr="Accueil" data-en="Home">Accueil</a>
+      <a href="/boutique/" class="text-slate-500 hover:text-blue-600 dark:text-slate-400 transition-colors" data-fr="Boutique" data-en="Shop">Boutique</a>
+      <a href="/blog/" class="text-slate-500 hover:text-blue-600 dark:text-slate-400 transition-colors">Blog</a>
+      <a href="/#contact" class="text-slate-500 hover:text-blue-600 dark:text-slate-400 transition-colors">Contact</a>
+    </div>
+    <p class="text-xs text-slate-400 dark:text-slate-600">
+      © 2025 IDOHOU Sande Augustin.
+      <span data-fr="Tous droits réservés." data-en="All rights reserved.">Tous droits réservés.</span>
+    </p>
+  </div>
+</footer>
+
+
+<!-- =========================================================
+     MOBILE BOTTOM NAV
+     ========================================================= -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800 shadow-[0_-4px_20px_rgba(0,0,0,.08)]">
+  <div class="grid grid-cols-5 h-16">
+
+    <a href="/" class="bnav-item flex flex-col items-center justify-center gap-1 transition-colors text-slate-400 dark:text-slate-500" data-page="home">
+      <i class="fas fa-house text-lg"></i>
+      <span class="text-[9px] font-semibold" data-fr="Accueil" data-en="Home">Accueil</span>
+    </a>
+
+    <a href="/#services" class="bnav-item flex flex-col items-center justify-center gap-1 transition-colors text-slate-400 dark:text-slate-500" data-page="services">
+      <i class="fas fa-server text-lg"></i>
+      <span class="text-[9px] font-semibold" data-fr="Services" data-en="Services">Services</span>
+    </a>
+
+    <!-- Boutique — bouton central surélevé -->
+    <a href="/boutique/" class="flex flex-col items-center justify-center gap-1 relative" data-page="boutique">
+      <div class="w-12 h-12 bg-blue-600 rounded-2xl grid place-items-center shadow-lg shadow-blue-600/40 -mt-4 hover:bg-blue-700 transition-colors">
+        <i class="fas fa-store text-white text-xl"></i>
+      </div>
+      <span class="text-[9px] font-semibold text-blue-600" data-fr="Boutique" data-en="Shop">Boutique</span>
+    </a>
+
+    <a href="/blog/" class="bnav-item flex flex-col items-center justify-center gap-1 transition-colors text-slate-400 dark:text-slate-500" data-page="blog">
+      <i class="fas fa-rss text-lg"></i>
+      <span class="text-[9px] font-semibold">Blog</span>
+    </a>
+
+    <a href="/#contact" class="bnav-item flex flex-col items-center justify-center gap-1 transition-colors text-slate-400 dark:text-slate-500" data-page="contact">
+      <i class="fas fa-envelope text-lg"></i>
+      <span class="text-[9px] font-semibold" data-fr="Contact" data-en="Contact">Contact</span>
+    </a>
+
+  </div>
+</nav>
+
+
+<!-- =========================================================
+     FLOATING WHATSAPP
+     ========================================================= -->
+<a href="https://wa.me/{% block wa_number %}22901907768888{% endblock %}" target="_blank"
+   class="fixed bottom-20 md:bottom-6 right-4 z-40 w-13 h-13 w-[52px] h-[52px] bg-[#25d366] rounded-full grid place-items-center text-white text-2xl shadow-lg shadow-green-500/30 hover:scale-110 transition-transform"
+   title="WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+
+<!-- =========================================================
+     BASE SCRIPTS
+     ========================================================= -->
+<script>
+(function() {
+  // ----- Theme -----
+  const root = document.getElementById('html-root');
+  const saved = localStorage.getItem('theme') || 'dark';
+  saved === 'dark' ? root.classList.add('dark') : root.classList.remove('dark');
+
+  function syncThemeIcons() {
+    const dark = root.classList.contains('dark');
+    ['themeIcon', 'themeIconMobile'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.className = dark ? 'fas fa-moon text-sm' : 'fas fa-sun text-sm';
+    });
+  }
+  syncThemeIcons();
+
+  ['themeToggle', 'themeToggleMobile'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      root.classList.toggle('dark');
+      localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+      syncThemeIcons();
+    });
+  });
+
+  // ----- Language -----
+  const lang = localStorage.getItem('lang') || 'fr';
+
+  function applyLang(l) {
+    document.querySelectorAll('[data-fr]').forEach(el => {
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') return;
+      const val = el.dataset[l];
+      if (val) el.textContent = val;
+    });
+    ['langToggle', 'langToggleMobile'].forEach(id => {
+      const btn = document.getElementById(id);
+      if (btn) btn.textContent = l === 'fr' ? 'EN' : 'FR';
+    });
+    document.documentElement.lang = l;
+  }
+  applyLang(lang);
+
+  ['langToggle', 'langToggleMobile'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      const cur  = localStorage.getItem('lang') || 'fr';
+      const next = cur === 'fr' ? 'en' : 'fr';
+      localStorage.setItem('lang', next);
+      applyLang(next);
+    });
+  });
+
+  // ----- Desktop header scroll -----
+  const deskHeader = document.getElementById('site-header');
+  if (deskHeader) {
+    function onScroll() {
+      if (window.scrollY > 20) {
+        deskHeader.classList.add('bg-white/95', 'dark:bg-slate-950/95', 'backdrop-blur-md', 'shadow-sm', '!border-slate-200', 'dark:!border-slate-800');
+      } else {
+        deskHeader.classList.remove('bg-white/95', 'dark:bg-slate-950/95', 'backdrop-blur-md', 'shadow-sm', '!border-slate-200', 'dark:!border-slate-800');
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  // ----- Mobile bottom nav active -----
+  const path = window.location.pathname;
+  document.querySelectorAll('.bnav-item').forEach(a => {
+    const p = a.dataset.page;
+    const active = (p === 'home' && path === '/') ||
+                   (p === 'boutique' && path.startsWith('/boutique')) ||
+                   (p === 'blog' && path.startsWith('/blog'));
+    if (active) a.classList.add('text-blue-600', '!text-blue-600');
+  });
+})();
+</script>
+
+{% block extra_js %}{% endblock %}
+</body>
+</html>

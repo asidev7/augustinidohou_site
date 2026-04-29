@@ -1,60 +1,6 @@
-/* DARK / LIGHT MODE */
-const html = document.documentElement;
-const themeBtn = document.getElementById('themeToggle');
-const themeIcon = document.getElementById('themeIcon');
-
-const saved = localStorage.getItem('theme') || 'dark';
-html.setAttribute('data-theme', saved);
-themeIcon.className = saved === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
-
-themeBtn?.addEventListener('click', () => {
-  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-  html.setAttribute('data-theme', next);
-  localStorage.setItem('theme', next);
-  themeIcon.className = next === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
-});
-
-/* HEADER SCROLL */
-const header = document.getElementById('header');
-const topBar = document.getElementById('topbar');
-const topBtn = document.getElementById('topBtn');
-
-window.addEventListener('scroll', () => {
-  const scrolled = window.scrollY > 40;
-  header.classList.toggle('scrolled', scrolled);
-  if (topBar) topBar.classList.toggle('hidden', scrolled);
-  if (topBtn) topBtn.classList.toggle('show', window.scrollY > 400);
-  highlightNav();
-  reveal();
-  runCounters();
-  runSkillBars();
-}, { passive: true });
-
-topBtn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-/* ACTIVE NAV */
-function highlightNav() {
-  const sections = document.querySelectorAll('section[id]');
-  const y = window.scrollY + 90;
-  sections.forEach(s => {
-    const link = document.querySelector(`.nav-item[href="#${s.id}"]`);
-    if (link) link.classList.toggle('active', y >= s.offsetTop && y < s.offsetTop + s.offsetHeight);
-  });
-}
-
-/* BURGER */
-const burger = document.getElementById('burger');
-const navLinks = document.getElementById('navLinks');
-burger?.addEventListener('click', () => {
-  burger.classList.toggle('open');
-  navLinks.classList.toggle('open');
-});
-navLinks?.querySelectorAll('.nav-item').forEach(l => l.addEventListener('click', () => {
-  burger.classList.remove('open');
-  navLinks.classList.remove('open');
-}));
-
-/* TYPED */
+/* ==============================================
+   TYPED EFFECT
+   ============================================== */
 const roles = [
   'Administrateur Linux', 'Ingénieur DevOps', 'Expert CI/CD',
   'Architecte Cloud', 'Spécialiste Ansible', 'Sysadmin & SRE'
@@ -71,14 +17,18 @@ function type() {
 }
 type();
 
-/* COUNTERS */
+/* ==============================================
+   COUNTERS
+   ============================================== */
 let counted = false;
 function runCounters() {
   if (counted) return;
-  const el = document.querySelector('.about-stats');
-  if (!el || el.getBoundingClientRect().top > window.innerHeight) return;
+  const nums = document.querySelectorAll('.num[data-to]');
+  if (!nums.length) return;
+  const first = nums[0].getBoundingClientRect().top;
+  if (first > window.innerHeight) return;
   counted = true;
-  document.querySelectorAll('.num').forEach(n => {
+  nums.forEach(n => {
     const target = +n.getAttribute('data-to');
     let v = 0;
     const step = Math.ceil(target / 40);
@@ -90,49 +40,52 @@ function runCounters() {
   });
 }
 
-/* SKILL BARS */
+/* ==============================================
+   SKILL BARS
+   ============================================== */
 let skillsDone = false;
 function runSkillBars() {
   if (skillsDone) return;
-  const el = document.querySelector('.skill-bars');
+  const el = document.getElementById('skillBars');
   if (!el || el.getBoundingClientRect().top > window.innerHeight - 60) return;
   skillsDone = true;
   document.querySelectorAll('.skill-fill').forEach(b => {
-    b.style.width = b.getAttribute('data-w') + '%';
+    b.style.width = (b.getAttribute('data-w') || 0) + '%';
   });
 }
-runSkillBars();
 
-/* SKILL TABS */
-document.querySelectorAll('.stab').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.stab').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const cat = btn.getAttribute('data-cat');
-    document.querySelectorAll('.skill-item').forEach(item => {
-      item.classList.toggle('hidden', cat !== 'all' && item.getAttribute('data-cat') !== cat);
-    });
-  });
-});
-
-/* FADE-UP ON SCROLL */
-document.querySelectorAll('.srv-card, .blog-card, .tl-content, .info-card, .contact-form, .about-text, .skills-col').forEach(el => {
-  el.classList.add('fade-up');
-});
+/* ==============================================
+   FADE-UP REVEAL
+   ============================================== */
 function reveal() {
   document.querySelectorAll('.fade-up').forEach(el => {
     if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add('in');
   });
 }
-reveal();
 
-/* SMOOTH ANCHOR */
+/* ==============================================
+   SCROLL LISTENER
+   ============================================== */
+window.addEventListener('scroll', () => {
+  reveal();
+  runCounters();
+  runSkillBars();
+}, { passive: true });
+
+/* Initial trigger */
+reveal();
+runCounters();
+runSkillBars();
+
+/* ==============================================
+   SMOOTH ANCHOR SCROLL
+   ============================================== */
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
-    const t = document.querySelector(a.getAttribute('href'));
-    if (t) { e.preventDefault(); window.scrollTo({ top: t.offsetTop - 76, behavior: 'smooth' }); }
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+    }
   });
 });
-
-/* INITIAL SCROLL TRIGGER */
-window.dispatchEvent(new Event('scroll'));

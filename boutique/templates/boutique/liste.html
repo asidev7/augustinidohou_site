@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Boutique — Livres & Coaching | IDOHOU Augustin{% endblock %}
+{% block nav_shop_active %}active{% endblock %}
+
+{% block content %}
+
+<!-- Hero boutique -->
+<section class="bg-blue-600 py-16">
+  <div class="max-w-7xl mx-auto px-6 text-center">
+    <span class="inline-block bg-white/20 text-white text-[11px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-4">
+      <i class="fas fa-store mr-2"></i>
+      <span data-fr="Ma Boutique" data-en="My Shop">Ma Boutique</span>
+    </span>
+    <h1 class="text-3xl md:text-4xl font-black text-white mb-3">
+      <span data-fr="Ressources &amp; Accompagnement" data-en="Resources &amp; Coaching">Ressources &amp; Accompagnement</span>
+    </h1>
+    <p class="text-blue-100 max-w-xl mx-auto text-sm"
+       data-fr="Livres, e-books et programmes de coaching pour booster vos compétences Linux &amp; DevOps."
+       data-en="Books, e-books and coaching programs to boost your Linux &amp; DevOps skills.">
+      Livres, e-books et programmes de coaching pour booster vos compétences Linux &amp; DevOps.
+    </p>
+  </div>
+</section>
+
+<!-- Filtres rapides -->
+<div class="bg-white dark:bg-slate-950 border-b border-slate-100 dark:border-slate-800 sticky top-14 md:top-[68px] z-40">
+  <div class="max-w-7xl mx-auto px-6 py-3 flex gap-3 overflow-x-auto">
+    <a href="/boutique/" class="flex-shrink-0 px-4 py-1.5 text-xs font-semibold rounded-full bg-blue-600 text-white">
+      <span data-fr="Tout" data-en="All">Tout</span>
+    </a>
+    <a href="/boutique/?type=livre" class="flex-shrink-0 px-4 py-1.5 text-xs font-semibold rounded-full border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-blue-500 hover:text-blue-600 transition-all">
+      📚 <span data-fr="Livres" data-en="Books">Livres</span>
+    </a>
+    <a href="/boutique/?type=coaching" class="flex-shrink-0 px-4 py-1.5 text-xs font-semibold rounded-full border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-blue-500 hover:text-blue-600 transition-all">
+      🎯 <span data-fr="Coaching" data-en="Coaching">Coaching</span>
+    </a>
+    <a href="/boutique/?type=service" class="flex-shrink-0 px-4 py-1.5 text-xs font-semibold rounded-full border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-blue-500 hover:text-blue-600 transition-all">
+      ⚙️ <span data-fr="Services" data-en="Services">Services</span>
+    </a>
+  </div>
+</div>
+
+<div class="max-w-7xl mx-auto px-6 py-14">
+
+  <!-- ---- LIVRES ---- -->
+  {% if livres %}
+  <div class="mb-16">
+    <div class="flex items-center gap-3 mb-8">
+      <div class="w-10 h-10 bg-blue-50 dark:bg-blue-950 rounded-xl grid place-items-center text-blue-600"><span class="text-xl">📚</span></div>
+      <div>
+        <h2 class="text-xl font-black text-slate-900 dark:text-white" data-fr="Livres &amp; E-books" data-en="Books &amp; E-books">Livres &amp; E-books</h2>
+        <p class="text-xs text-slate-400" data-fr="Guides pratiques Linux &amp; DevOps" data-en="Practical Linux &amp; DevOps guides">Guides pratiques Linux &amp; DevOps</p>
+      </div>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+      {% for p in livres %}{% include 'boutique/_card.html' %}{% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- ---- COACHING ---- -->
+  {% if coaching %}
+  <div class="mb-16">
+    <div class="flex items-center gap-3 mb-8">
+      <div class="w-10 h-10 bg-blue-50 dark:bg-blue-950 rounded-xl grid place-items-center text-blue-600"><span class="text-xl">🎯</span></div>
+      <div>
+        <h2 class="text-xl font-black text-slate-900 dark:text-white" data-fr="Coaching &amp; Accompagnement" data-en="Coaching &amp; Mentoring">Coaching &amp; Accompagnement</h2>
+        <p class="text-xs text-slate-400" data-fr="Sessions personnalisées avec Augustin" data-en="Personalized sessions with Augustin">Sessions personnalisées avec Augustin</p>
+      </div>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% for p in coaching %}{% include 'boutique/_card_coaching.html' %}{% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- ---- SERVICES ---- -->
+  {% if services %}
+  <div class="mb-16">
+    <div class="flex items-center gap-3 mb-8">
+      <div class="w-10 h-10 bg-blue-50 dark:bg-blue-950 rounded-xl grid place-items-center text-blue-600"><span class="text-xl">⚙️</span></div>
+      <div>
+        <h2 class="text-xl font-black text-slate-900 dark:text-white" data-fr="Services Digitaux" data-en="Digital Services">Services Digitaux</h2>
+        <p class="text-xs text-slate-400">Linux • DevOps • Cloud</p>
+      </div>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% for p in services %}{% include 'boutique/_card.html' %}{% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- ---- VIDE ---- -->
+  {% if not livres and not coaching and not services %}
+  <div class="text-center py-24">
+    <div class="text-6xl mb-4">🏗️</div>
+    <h2 class="text-xl font-bold text-slate-700 dark:text-slate-300 mb-2" data-fr="Boutique en cours de construction" data-en="Shop coming soon">Boutique en cours de construction</h2>
+    <p class="text-slate-400 text-sm mb-8" data-fr="Les produits seront bientôt disponibles." data-en="Products coming soon.">Les produits seront bientôt disponibles.</p>
+    <a href="/#contact" class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors">
+      <i class="fas fa-envelope"></i>
+      <span data-fr="Me contacter" data-en="Contact me">Me contacter</span>
+    </a>
+  </div>
+  {% endif %}
+
+  <!-- CTA Contact -->
+  <div class="bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-8 text-center">
+    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2"
+        data-fr="Vous ne trouvez pas ce qu'il vous faut ?" data-en="Can't find what you need?">
+      Vous ne trouvez pas ce qu'il vous faut ?
+    </h3>
+    <p class="text-slate-500 dark:text-slate-400 text-sm mb-5"
+       data-fr="Contactez-moi pour un accompagnement personnalisé." data-en="Contact me for personalized support.">
+      Contactez-moi pour un accompagnement personnalisé.
+    </p>
+    <a href="https://wa.me/22901907768888" target="_blank"
+       class="inline-flex items-center gap-2 px-6 py-3 bg-[#25d366] text-white font-bold rounded-xl hover:bg-[#1db954] transition-colors">
+      <i class="fab fa-whatsapp text-lg"></i>
+      <span data-fr="Discuter sur WhatsApp" data-en="Chat on WhatsApp">Discuter sur WhatsApp</span>
+    </a>
+  </div>
+
+</div>
+{% endblock %}

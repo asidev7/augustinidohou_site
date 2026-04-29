@@ -1,233 +1,318 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="fr" data-theme="dark">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>IDOHOU Sande Augustin — Linux Admin & DevOps</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
-</head>
-<body>
 
-<!-- ===== TOP BAR ===== -->
-<div id="topbar">
-  <div class="container topbar-inner">
-    <div class="tb-left">
-      <span><i class="fas fa-location-dot"></i> Bénin 🇧🇯</span>
-      <span class="tb-sep">|</span>
-      <span><span class="tb-dot"></span> Disponible pour missions</span>
-    </div>
-    <div class="tb-right">
-      <a href="tel:+22901907768888"><i class="fas fa-phone"></i> +229 01 90 77 68 888</a>
-      <span class="tb-sep">|</span>
-      <a href="mailto:sandeaugustinidohou@gmail.com"><i class="fas fa-envelope"></i> sandeaugustinidohou@gmail.com</a>
+{% block title %}IDOHOU Sande Augustin — Linux Admin &amp; DevOps | Bénin{% endblock %}
+{% block nav_home_active %}active{% endblock %}
+
+{% block extra_head %}
+<style>
+  .skill-fill{height:100%;width:0;background:#2563eb;border-radius:4px;transition:width 1s cubic-bezier(.4,0,.2,1)}
+  .skill-bar{height:5px;background:#e2e8f0;border-radius:4px;overflow:hidden}
+  .dark .skill-bar{background:#334155}
+  .dot-green{width:8px;height:8px;border-radius:50%;background:#4ade80;flex-shrink:0;box-shadow:0 0 0 3px rgba(74,222,128,.2);animation:pulse-dot 2s ease infinite}
+  @keyframes pulse-dot{50%{box-shadow:0 0 0 6px rgba(74,222,128,.04)}}
+  .tl-line{position:absolute;left:7px;top:0;bottom:0;width:2px;background:#e2e8f0}
+  .dark .tl-line{background:#334155}
+  .fade-up{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+  .fade-up.in{opacity:1;transform:none}
+  .typed-wrap span:last-child{animation:blink .7s step-end infinite;color:#2563eb}
+  @keyframes blink{50%{opacity:0}}
+  .hero-bg{background-image:url("{% static 'img/augustin.jpg' %}");background-size:cover;background-position:center top}
+</style>
+{% endblock %}
+
+{% block footer_socials %}
+{% for r in reseaux %}
+<a href="{{ r.url }}" target="_blank" class="w-9 h-9 rounded-xl border border-slate-200 dark:border-slate-700 grid place-items-center text-slate-400 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all">
+  <i class="{{ r.icone }} text-sm"></i>
+</a>
+{% empty %}
+<a href="https://github.com" target="_blank" class="w-9 h-9 rounded-xl border border-slate-200 dark:border-slate-700 grid place-items-center text-slate-400 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all"><i class="fab fa-github text-sm"></i></a>
+<a href="https://linkedin.com" target="_blank" class="w-9 h-9 rounded-xl border border-slate-200 dark:border-slate-700 grid place-items-center text-slate-400 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all"><i class="fab fa-linkedin-in text-sm"></i></a>
+{% endfor %}
+{% endblock %}
+
+{% block content %}
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section id="accueil" class="relative min-h-screen flex items-center overflow-hidden">
+
+  <!-- Background image with overlay -->
+  <div class="absolute inset-0 hero-bg"></div>
+  <div class="absolute inset-0 bg-slate-950/80 dark:bg-slate-950/88"></div>
+
+  <!-- Subtle grid pattern -->
+  <div class="absolute inset-0 opacity-[0.03]" style="background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);background-size:40px 40px"></div>
+
+  <div class="relative max-w-7xl mx-auto px-6 py-24 w-full">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+
+      <!-- Text -->
+      <div class="animate-fade-up order-2 md:order-1">
+
+        <!-- Status badge -->
+        <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white/80 text-xs font-semibold px-4 py-2 rounded-full mb-6 backdrop-blur-sm">
+          <span class="dot-green"></span>
+          <span data-fr="Disponible pour missions" data-en="Available for missions">Disponible pour missions</span>
+        </div>
+
+        <p class="text-blue-400 text-sm font-medium mb-2 flex items-center gap-2">
+          <i class="fas fa-terminal text-xs"></i>
+          <span data-fr="Bonjour, je suis" data-en="Hello, I am">Bonjour, je suis</span>
+        </p>
+
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-4">
+          IDOHOU<br/><span class="text-blue-400">Sande Augustin</span>
+        </h1>
+
+        <div class="text-lg font-medium text-slate-300 mb-2 min-h-[1.8rem] typed-wrap">
+          <span id="typed" class="text-blue-400 font-bold"></span><span class="typed-cursor ml-0.5">|</span>
+        </div>
+
+        <p class="text-slate-300 text-base leading-relaxed max-w-lg mb-8">
+          <span data-fr="Administrateur Linux & Ingénieur DevOps basé au Bénin 🇧🇯. Je conçois, automatise et sécurise des infrastructures robustes." data-en="Linux Admin & DevOps Engineer based in Benin 🇧🇯. I design, automate and secure robust infrastructures.">
+            Administrateur Linux & Ingénieur DevOps basé au Bénin 🇧🇯. Je conçois, automatise et sécurise des infrastructures robustes.
+          </span>
+        </p>
+
+        <!-- CTAs -->
+        <div class="flex flex-wrap gap-3 mb-8">
+          <a href="#contact" class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/30">
+            <i class="fas fa-envelope text-sm"></i>
+            <span data-fr="Me Contacter" data-en="Contact Me">Me Contacter</span>
+          </a>
+          <a href="/boutique/" class="inline-flex items-center gap-2 px-6 py-3 bg-white/10 border border-white/25 text-white font-semibold rounded-xl hover:bg-white/20 transition-colors backdrop-blur-sm">
+            <i class="fas fa-store text-sm"></i>
+            <span data-fr="Ma Boutique" data-en="My Shop">Ma Boutique</span>
+          </a>
+        </div>
+
+        <!-- Socials -->
+        <div class="flex gap-3 flex-wrap">
+          {% for r in reseaux %}
+          <a href="{{ r.url }}" target="_blank" title="{{ r.nom }}"
+             class="w-10 h-10 rounded-xl border border-white/20 grid place-items-center text-white/60 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all">
+            <i class="{{ r.icone }} text-sm"></i>
+          </a>
+          {% empty %}
+          <a href="https://github.com" target="_blank" class="w-10 h-10 rounded-xl border border-white/20 grid place-items-center text-white/60 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all"><i class="fab fa-github text-sm"></i></a>
+          <a href="https://linkedin.com" target="_blank" class="w-10 h-10 rounded-xl border border-white/20 grid place-items-center text-white/60 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all"><i class="fab fa-linkedin-in text-sm"></i></a>
+          <a href="https://wa.me/{{ whatsapp }}" target="_blank" class="w-10 h-10 rounded-xl border border-white/20 grid place-items-center text-white/60 hover:bg-[#25d366] hover:border-[#25d366] hover:text-white transition-all"><i class="fab fa-whatsapp text-sm"></i></a>
+          {% endfor %}
+        </div>
+
+      </div>
+
+      <!-- Photo -->
+      <div class="flex flex-col items-center order-1 md:order-2">
+        <div class="relative">
+          <div class="w-56 h-56 md:w-72 md:h-72 rounded-3xl overflow-hidden border-4 border-blue-500/50 shadow-2xl shadow-blue-600/30">
+            <img src="{% static 'img/augustin.jpg' %}" alt="IDOHOU Sande Augustin"
+                 class="w-full h-full object-cover"
+                 onerror="this.style.display='none';document.getElementById('ph').style.display='flex'"/>
+            <div id="ph" class="hidden w-full h-full items-center justify-center bg-slate-800 text-6xl text-blue-400/40">
+              <i class="fas fa-user"></i>
+            </div>
+          </div>
+          <!-- Stats overlay -->
+          <div class="absolute -bottom-4 -right-4 bg-blue-600 text-white rounded-2xl px-4 py-3 text-center shadow-lg">
+            <p class="text-2xl font-black leading-none"><span class="num" data-to="3">0</span>+</p>
+            <p class="text-[10px] font-medium opacity-90" data-fr="Ans d'exp." data-en="Years exp.">Ans d'exp.</p>
+          </div>
+          <div class="absolute -top-4 -left-4 bg-white dark:bg-slate-800 text-slate-800 dark:text-white rounded-2xl px-4 py-3 text-center shadow-lg border border-slate-100 dark:border-slate-700">
+            <p class="text-2xl font-black leading-none text-blue-600"><span class="num" data-to="50">0</span>+</p>
+            <p class="text-[10px] font-medium text-slate-500 dark:text-slate-400">Projets</p>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
-</div>
 
-<!-- ===== HEADER ===== -->
-<header id="header">
-  <nav class="navbar">
-
-    <a href="#accueil" class="logo">
-      <div class="logo-badge">AI</div>
-      <div class="logo-info">
-        <span class="logo-name">Augustin Idohou</span>
-        <span class="logo-role">Linux Admin &amp; DevOps</span>
-      </div>
-    </a>
-
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#accueil"    class="nav-item">Accueil</a></li>
-      <li><a href="#apropos"    class="nav-item">À propos</a></li>
-      <li><a href="#experience" class="nav-item">Expérience</a></li>
-      <li><a href="#services"   class="nav-item">Services</a></li>
-      <li><a href="/blog/"      class="nav-item">Blog</a></li>
-      <li><a href="#contact"    class="nav-item">Contact</a></li>
-    </ul>
-
-    <div class="nav-actions">
-      <button id="themeToggle" class="theme-btn" title="Changer le thème">
-        <i class="fas fa-moon" id="themeIcon"></i>
-      </button>
-      <a href="#contact" class="btn-hire">
-        <i class="fas fa-paper-plane"></i> Me contacter
-      </a>
-      <button class="burger" id="burger"><span></span><span></span><span></span></button>
-    </div>
-
-  </nav>
-</header>
-
-<!-- ===== HERO ===== -->
-<section id="accueil" class="hero">
-  <div class="container hero-inner">
-
-    <div class="hero-photo-col">
-      <div class="photo-frame">
-        <img src="{% static 'img/augustin.jpg' %}" alt="IDOHOU Sande Augustin"
-             onerror="this.style.display='none';document.getElementById('ph').style.display='flex'"/>
-        <div id="ph" class="photo-ph"><i class="fas fa-user"></i></div>
-      </div>
-      <div class="status-badge"><span class="dot-green"></span> Disponible</div>
-    </div>
-
-    <div class="hero-text">
-      <p class="eyebrow"><i class="fas fa-terminal"></i> Bonjour, je suis</p>
-      <h1>IDOHOU <span>Sande Augustin</span></h1>
-      <div class="typed-wrap">
-        <span id="typed"></span><span class="cursor">|</span>
-      </div>
-      <p class="hero-desc">
-        Administrateur Linux & Ingénieur DevOps basé au Bénin 🇧🇯.<br/>
-        Je conçois, automatise et sécurise des infrastructures robustes pour vos projets.
-      </p>
-
-      <div class="hero-btns">
-        <a href="#contact"  class="btn-primary"><i class="fas fa-envelope"></i> Me Contacter</a>
-        <a href="#apropos"  class="btn-outline"><i class="fas fa-user"></i> À propos</a>
-      </div>
-
-      <!-- Réseaux sociaux -->
-      <div class="hero-socials">
-        {% for r in reseaux %}
-        <a href="{{ r.url }}" target="_blank" title="{{ r.nom }}"><i class="{{ r.icone }}"></i></a>
-        {% empty %}
-        <a href="https://github.com" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-        <a href="https://linkedin.com" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-        <a href="https://twitter.com" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
-        <a href="https://wa.me/{{ whatsapp }}" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-        {% endfor %}
-      </div>
-    </div>
-
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40 text-xs">
+    <span>Scroll</span>
+    <i class="fas fa-chevron-down animate-bounce"></i>
   </div>
 </section>
 
-<!-- ===== À PROPOS + COMPÉTENCES ===== -->
-<section id="apropos" class="section">
-  <div class="container">
-    <div class="section-head">
-      <span class="tag">Qui suis-je ?</span>
-      <h2>À <span>propos</span></h2>
+
+<!-- ============================================================
+     À PROPOS + COMPÉTENCES
+     ============================================================ -->
+<section id="apropos" class="py-20 bg-white dark:bg-slate-950">
+  <div class="max-w-7xl mx-auto px-6">
+
+    <!-- Heading -->
+    <div class="text-center mb-14 fade-up">
+      <span class="inline-block bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-900 text-blue-600 text-[11px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-3"
+            data-fr="Qui suis-je ?" data-en="About me">Qui suis-je ?</span>
+      <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">
+        <span data-fr="À " data-en="About ">À </span><span class="text-blue-600" data-fr="propos" data-en="me">propos</span>
+      </h2>
     </div>
 
-    <div class="about-grid">
-      <div class="about-text">
-        <p>
-          Passionné par les systèmes Linux et l'ingénierie DevOps, j'accompagne les équipes dans
-          l'administration de serveurs, l'automatisation des déploiements et la mise en place
-          d'infrastructures fiables et sécurisées.
+    <div class="grid md:grid-cols-2 gap-14 items-start">
+
+      <!-- Text side -->
+      <div class="fade-up">
+        <p class="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+          <span data-fr="Passionné par les systèmes Linux et l'ingénierie DevOps, j'accompagne les équipes dans l'administration de serveurs, l'automatisation des déploiements et la mise en place d'infrastructures fiables et sécurisées." data-en="Passionate about Linux systems and DevOps engineering, I help teams with server administration, deployment automation and building reliable, secure infrastructures.">
+            Passionné par les systèmes Linux et l'ingénierie DevOps, j'accompagne les équipes dans l'administration de serveurs, l'automatisation des déploiements et la mise en place d'infrastructures fiables et sécurisées.
+          </span>
         </p>
-        <p>
-          Avec une solide expérience en <strong>administration Linux</strong>, <strong>Docker</strong>,
-          <strong>Kubernetes</strong>, <strong>Ansible</strong> et pipelines <strong>CI/CD</strong>,
-          je transforme des problèmes d'infrastructure complexes en solutions élégantes.
+        <p class="text-slate-600 dark:text-slate-300 leading-relaxed mb-8">
+          Avec une solide expérience en <strong class="text-slate-900 dark:text-white">administration Linux</strong>,
+          <strong class="text-slate-900 dark:text-white">Docker</strong>, <strong class="text-slate-900 dark:text-white">Kubernetes</strong>,
+          <strong class="text-slate-900 dark:text-white">Ansible</strong> et pipelines <strong class="text-slate-900 dark:text-white">CI/CD</strong>.
         </p>
-        <div class="about-stats">
-          <div class="astat"><strong class="num" data-to="50">0</strong><sup>+</sup><span>Projets</span></div>
-          <div class="astat"><strong class="num" data-to="3">0</strong><sup>+</sup><span>Ans exp.</span></div>
-          <div class="astat"><strong class="num" data-to="30">0</strong><sup>+</sup><span>Clients</span></div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-100 dark:border-slate-800">
+          <div class="text-center">
+            <p class="text-3xl font-black text-blue-600"><span class="num" data-to="50">0</span>+</p>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1" data-fr="Projets" data-en="Projects">Projets</p>
+          </div>
+          <div class="text-center">
+            <p class="text-3xl font-black text-blue-600"><span class="num" data-to="3">0</span>+</p>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1" data-fr="Ans d'exp." data-en="Years exp.">Ans d'exp.</p>
+          </div>
+          <div class="text-center">
+            <p class="text-3xl font-black text-blue-600"><span class="num" data-to="30">0</span>+</p>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1" data-fr="Clients" data-en="Clients">Clients</p>
+          </div>
+        </div>
+
+        <!-- Stack icons -->
+        <div class="flex flex-wrap gap-3 mt-8">
+          {% for icon, title in stack_icons %}
+          <div title="{{ title }}" class="w-11 h-11 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 grid place-items-center text-blue-600 text-xl hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all cursor-default">
+            <i class="{{ icon }}"></i>
+          </div>
+          {% empty %}
+          <div title="Linux"   class="w-11 h-11 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 grid place-items-center text-blue-600 text-xl hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all cursor-default"><i class="fab fa-linux"></i></div>
+          <div title="Docker"  class="w-11 h-11 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 grid place-items-center text-blue-600 text-xl hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all cursor-default"><i class="fab fa-docker"></i></div>
+          <div title="Python"  class="w-11 h-11 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 grid place-items-center text-blue-600 text-xl hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all cursor-default"><i class="fab fa-python"></i></div>
+          <div title="Git"     class="w-11 h-11 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 grid place-items-center text-blue-600 text-xl hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all cursor-default"><i class="fab fa-git-alt"></i></div>
+          <div title="AWS"     class="w-11 h-11 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 grid place-items-center text-blue-600 text-xl hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all cursor-default"><i class="fab fa-aws"></i></div>
+          <div title="Ansible" class="w-11 h-11 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 grid place-items-center text-blue-600 text-xl hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all cursor-default"><i class="fas fa-cogs"></i></div>
+          {% endfor %}
         </div>
       </div>
 
-      <div class="skills-col">
-        <div class="skills-tabs">
-          <button class="stab active" data-cat="all">Tout</button>
-          <button class="stab" data-cat="linux">Linux</button>
-          <button class="stab" data-cat="devops">DevOps</button>
-          <button class="stab" data-cat="reseau">Réseau</button>
-          <button class="stab" data-cat="dev">Dev</button>
+      <!-- Skills side -->
+      <div class="fade-up">
+        <!-- Tabs -->
+        <div class="flex flex-wrap gap-2 mb-5">
+          <button class="stab px-3 py-1.5 text-xs font-semibold rounded-full border border-blue-600 bg-blue-600 text-white transition-all" data-cat="all">Tout</button>
+          <button class="stab px-3 py-1.5 text-xs font-semibold rounded-full border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-blue-600 hover:text-blue-600 transition-all" data-cat="linux">Linux</button>
+          <button class="stab px-3 py-1.5 text-xs font-semibold rounded-full border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-blue-600 hover:text-blue-600 transition-all" data-cat="devops">DevOps</button>
+          <button class="stab px-3 py-1.5 text-xs font-semibold rounded-full border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-blue-600 hover:text-blue-600 transition-all" data-cat="reseau">Réseau</button>
+          <button class="stab px-3 py-1.5 text-xs font-semibold rounded-full border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-blue-600 hover:text-blue-600 transition-all" data-cat="dev">Dev</button>
         </div>
 
-        <div class="skill-bars" id="skillBars">
+        <!-- Bars -->
+        <div id="skillBars" class="flex flex-col gap-4">
           {% if competences %}
             {% for c in competences %}
             <div class="skill-item" data-cat="{{ c.categorie }}">
-              <div class="skill-label">
-                {% if c.icone %}<i class="{{ c.icone }}"></i>{% endif %}
-                <span>{{ c.nom }}</span>
-                <span class="skill-pct">{{ c.niveau }}%</span>
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="text-sm font-medium text-slate-700 dark:text-slate-200 flex items-center gap-2">
+                  {% if c.icone %}<i class="{{ c.icone }} text-blue-500 text-xs"></i>{% endif %}{{ c.nom }}
+                </span>
+                <span class="text-xs font-bold text-blue-600">{{ c.niveau }}%</span>
               </div>
-              <div class="skill-bar">
-                <div class="skill-fill" data-w="{{ c.niveau }}"></div>
-              </div>
+              <div class="skill-bar"><div class="skill-fill" data-w="{{ c.niveau }}"></div></div>
             </div>
             {% endfor %}
           {% else %}
             {% for item,pct,cat in default_skills %}
             <div class="skill-item" data-cat="{{ cat }}">
-              <div class="skill-label"><span>{{ item }}</span><span class="skill-pct">{{ pct }}%</span></div>
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="text-sm font-medium text-slate-700 dark:text-slate-200">{{ item }}</span>
+                <span class="text-xs font-bold text-blue-600">{{ pct }}%</span>
+              </div>
               <div class="skill-bar"><div class="skill-fill" data-w="{{ pct }}"></div></div>
             </div>
             {% endfor %}
           {% endif %}
         </div>
-
-        <!-- Stack icons -->
-        <div class="stack-icons">
-          <span title="Linux"><i class="fab fa-linux"></i></span>
-          <span title="Docker"><i class="fab fa-docker"></i></span>
-          <span title="Python"><i class="fab fa-python"></i></span>
-          <span title="Git"><i class="fab fa-git-alt"></i></span>
-          <span title="AWS"><i class="fab fa-aws"></i></span>
-          <span title="Jenkins"><i class="fab fa-jenkins"></i></span>
-          <span title="Ansible"><i class="fas fa-cogs"></i></span>
-          <span title="Nginx"><i class="fas fa-server"></i></span>
-        </div>
       </div>
+
     </div>
   </div>
 </section>
 
-<!-- ===== EXPÉRIENCE + FORMATION ===== -->
-<section id="experience" class="section sec-alt">
-  <div class="container">
-    <div class="section-head">
-      <span class="tag">Parcours</span>
-      <h2>Expérience & <span>Formation</span></h2>
+
+<!-- ============================================================
+     EXPÉRIENCE + FORMATION
+     ============================================================ -->
+<section id="experience" class="py-20 bg-slate-50 dark:bg-slate-900">
+  <div class="max-w-7xl mx-auto px-6">
+
+    <div class="text-center mb-14 fade-up">
+      <span class="inline-block bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-900 text-blue-600 text-[11px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-3" data-fr="Parcours" data-en="Journey">Parcours</span>
+      <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">
+        <span data-fr="Expérience & " data-en="Experience & ">Expérience & </span><span class="text-blue-600" data-fr="Formation" data-en="Education">Formation</span>
+      </h2>
     </div>
 
-    <div class="timeline-grid">
+    <div class="grid md:grid-cols-2 gap-10">
 
       <!-- Expérience -->
-      <div>
-        <h3 class="tl-title"><i class="fas fa-briefcase"></i> Expérience professionnelle</h3>
-        <div class="timeline">
+      <div class="fade-up">
+        <h3 class="flex items-center gap-2 text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-6">
+          <i class="fas fa-briefcase text-blue-500"></i>
+          <span data-fr="Expérience professionnelle" data-en="Professional Experience">Expérience professionnelle</span>
+        </h3>
+        <div class="relative pl-6">
+          <div class="tl-line"></div>
           {% if experiences %}
             {% for e in experiences %}
-            <div class="tl-item">
-              <div class="tl-dot"></div>
-              <div class="tl-content">
-                <div class="tl-meta">
-                  <span class="tl-period">{{ e.periode }}</span>
-                  {% if e.en_cours %}<span class="badge-now">En cours</span>{% endif %}
+            <div class="relative mb-6">
+              <div class="absolute -left-6 top-1.5 w-3.5 h-3.5 rounded-full bg-blue-600 border-2 border-white dark:border-slate-900 shadow"></div>
+              <div class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl p-5">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-[11px] text-slate-400 font-medium">{{ e.periode }}</span>
+                  {% if e.en_cours %}<span class="bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400 text-[10px] font-bold px-2 py-0.5 rounded-full">En cours</span>{% endif %}
                 </div>
-                <h4>{{ e.poste }}</h4>
-                <p class="tl-org"><i class="fas fa-building"></i> {{ e.entreprise }}{% if e.lieu %} — {{ e.lieu }}{% endif %}</p>
-                <p class="tl-desc">{{ e.description }}</p>
+                <h4 class="font-bold text-slate-900 dark:text-white text-sm mb-1">{{ e.poste }}</h4>
+                <p class="text-xs text-blue-600 font-medium mb-2"><i class="fas fa-building mr-1"></i>{{ e.entreprise }}{% if e.lieu %} — {{ e.lieu }}{% endif %}</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{{ e.description }}</p>
               </div>
             </div>
             {% endfor %}
           {% else %}
-            <div class="tl-item">
-              <div class="tl-dot"></div>
-              <div class="tl-content">
-                <div class="tl-meta"><span class="tl-period">2023 — Présent</span><span class="badge-now">En cours</span></div>
-                <h4>Administrateur Linux & DevOps</h4>
-                <p class="tl-org"><i class="fas fa-building"></i> ASITECH — Bénin</p>
-                <p class="tl-desc">Administration de serveurs Linux, mise en place de pipelines CI/CD, déploiement Docker/Kubernetes, automatisation Ansible.</p>
+            <div class="relative mb-6">
+              <div class="absolute -left-6 top-1.5 w-3.5 h-3.5 rounded-full bg-blue-600 border-2 border-white dark:border-slate-900 shadow"></div>
+              <div class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl p-5">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-[11px] text-slate-400 font-medium">2024 — Présent</span>
+                  <span class="bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400 text-[10px] font-bold px-2 py-0.5 rounded-full">En cours</span>
+                </div>
+                <h4 class="font-bold text-slate-900 dark:text-white text-sm mb-1">Administrateur Linux & DevOps</h4>
+                <p class="text-xs text-blue-600 font-medium mb-2"><i class="fas fa-building mr-1"></i>ASITECH — Bénin</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Administration serveurs Linux, CI/CD, Docker/Kubernetes, Ansible, sécurité infrastructure.</p>
               </div>
             </div>
-            <div class="tl-item">
-              <div class="tl-dot"></div>
-              <div class="tl-content">
-                <div class="tl-meta"><span class="tl-period">2021 — 2023</span></div>
-                <h4>Ingénieur Système Linux</h4>
-                <p class="tl-org"><i class="fas fa-building"></i> Freelance — Afrique de l'Ouest</p>
-                <p class="tl-desc">Gestion d'infrastructures cloud, sécurisation des serveurs, monitoring Grafana/Prometheus, backup et haute disponibilité.</p>
+            <div class="relative mb-6">
+              <div class="absolute -left-6 top-1.5 w-3.5 h-3.5 rounded-full bg-blue-600 border-2 border-white dark:border-slate-900 shadow"></div>
+              <div class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl p-5">
+                <span class="text-[11px] text-slate-400 font-medium block mb-2">2023 — 2024</span>
+                <h4 class="font-bold text-slate-900 dark:text-white text-sm mb-1">Développeur Web & Ingénieur Système</h4>
+                <p class="text-xs text-blue-600 font-medium mb-2"><i class="fas fa-building mr-1"></i>AFT GROUP — Bénin</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Développement web, administration serveurs, gestion d'infrastructure cloud.</p>
+              </div>
+            </div>
+            <div class="relative">
+              <div class="absolute -left-6 top-1.5 w-3.5 h-3.5 rounded-full bg-blue-600 border-2 border-white dark:border-slate-900 shadow"></div>
+              <div class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl p-5">
+                <span class="text-[11px] text-slate-400 font-medium block mb-2">Sept. 2022</span>
+                <h4 class="font-bold text-slate-900 dark:text-white text-sm mb-1">Stagiaire Informatique</h4>
+                <p class="text-xs text-blue-600 font-medium mb-2"><i class="fas fa-building mr-1"></i>Light Innovation — Bénin</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Maintenance systèmes, support technique, développement d'outils internes.</p>
               </div>
             </div>
           {% endif %}
@@ -235,48 +320,43 @@
       </div>
 
       <!-- Formation -->
-      <div>
-        <h3 class="tl-title"><i class="fas fa-graduation-cap"></i> Formation</h3>
-        <div class="timeline">
+      <div class="fade-up">
+        <h3 class="flex items-center gap-2 text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-6">
+          <i class="fas fa-graduation-cap text-blue-500"></i>
+          <span data-fr="Formation" data-en="Education">Formation</span>
+        </h3>
+        <div class="relative pl-6">
+          <div class="tl-line"></div>
           {% if formations %}
             {% for f in formations %}
-            <div class="tl-item">
-              <div class="tl-dot tl-dot-alt"></div>
-              <div class="tl-content">
-                <div class="tl-meta">
-                  <span class="tl-period">{{ f.periode }}</span>
-                  {% if f.en_cours %}<span class="badge-now">En cours</span>{% endif %}
+            <div class="relative mb-6">
+              <div class="absolute -left-6 top-1.5 w-3.5 h-3.5 rounded-full bg-cyan-500 border-2 border-white dark:border-slate-900 shadow"></div>
+              <div class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl p-5">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-[11px] text-slate-400 font-medium">{{ f.periode }}</span>
+                  {% if f.en_cours %}<span class="bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400 text-[10px] font-bold px-2 py-0.5 rounded-full">En cours</span>{% endif %}
                 </div>
-                <h4>{{ f.diplome }}</h4>
-                <p class="tl-org"><i class="fas fa-university"></i> {{ f.etablissement }}{% if f.lieu %} — {{ f.lieu }}{% endif %}</p>
-                {% if f.description %}<p class="tl-desc">{{ f.description }}</p>{% endif %}
+                <h4 class="font-bold text-slate-900 dark:text-white text-sm mb-1">{{ f.diplome }}</h4>
+                <p class="text-xs text-blue-600 font-medium mb-2"><i class="fas fa-university mr-1"></i>{{ f.etablissement }}{% if f.lieu %} — {{ f.lieu }}{% endif %}</p>
+                {% if f.description %}<p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{{ f.description }}</p>{% endif %}
               </div>
             </div>
             {% endfor %}
           {% else %}
-            <div class="tl-item">
-              <div class="tl-dot tl-dot-alt"></div>
-              <div class="tl-content">
-                <div class="tl-meta"><span class="tl-period">2020 — 2023</span></div>
-                <h4>Licence Informatique — Systèmes & Réseaux</h4>
-                <p class="tl-org"><i class="fas fa-university"></i> Université d'Abomey-Calavi — Bénin</p>
-                <p class="tl-desc">Administration systèmes, réseaux TCP/IP, sécurité informatique, programmation.</p>
+            <div class="relative mb-6">
+              <div class="absolute -left-6 top-1.5 w-3.5 h-3.5 rounded-full bg-cyan-500 border-2 border-white dark:border-slate-900 shadow"></div>
+              <div class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl p-5">
+                <span class="text-[11px] text-slate-400 font-medium block mb-2">2019 — 2023</span>
+                <h4 class="font-bold text-slate-900 dark:text-white text-sm mb-1">Licence Professionnelle en Informatique de Gestion</h4>
+                <p class="text-xs text-blue-600 font-medium"><i class="fas fa-university mr-1"></i>IUT — Parakou, Bénin</p>
               </div>
             </div>
-            <div class="tl-item">
-              <div class="tl-dot tl-dot-alt"></div>
-              <div class="tl-content">
-                <div class="tl-meta"><span class="tl-period">2023</span></div>
-                <h4>Certification Linux LPI LPIC-1</h4>
-                <p class="tl-org"><i class="fas fa-certificate"></i> Linux Professional Institute</p>
-              </div>
-            </div>
-            <div class="tl-item">
-              <div class="tl-dot tl-dot-alt"></div>
-              <div class="tl-content">
-                <div class="tl-meta"><span class="tl-period">2024</span></div>
-                <h4>Docker & Kubernetes Certified</h4>
-                <p class="tl-org"><i class="fab fa-docker"></i> CNCF / Docker Inc.</p>
+            <div class="relative">
+              <div class="absolute -left-6 top-1.5 w-3.5 h-3.5 rounded-full bg-cyan-500 border-2 border-white dark:border-slate-900 shadow"></div>
+              <div class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl p-5">
+                <span class="text-[11px] text-slate-400 font-medium block mb-2">2019</span>
+                <h4 class="font-bold text-slate-900 dark:text-white text-sm mb-1">BAC série C</h4>
+                <p class="text-xs text-blue-600 font-medium"><i class="fas fa-school mr-1"></i>CEG I Kétou — Bénin</p>
               </div>
             </div>
           {% endif %}
@@ -287,282 +367,278 @@
   </div>
 </section>
 
-<!-- ===== SERVICES ===== -->
-<section id="services" class="section">
-  <div class="container">
-    <div class="section-head">
-      <span class="tag">Ce que je fais</span>
-      <h2>Mes <span>Services</span></h2>
+
+<!-- ============================================================
+     SERVICES
+     ============================================================ -->
+<section id="services" class="py-20 bg-white dark:bg-slate-950">
+  <div class="max-w-7xl mx-auto px-6">
+
+    <div class="text-center mb-14 fade-up">
+      <span class="inline-block bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-900 text-blue-600 text-[11px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-3" data-fr="Ce que je fais" data-en="What I do">Ce que je fais</span>
+      <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">
+        <span data-fr="Mes " data-en="My ">Mes </span><span class="text-blue-600" data-fr="Services" data-en="Services">Services</span>
+      </h2>
     </div>
 
-    <div class="srv-grid">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
       {% if services %}
         {% for s in services %}
-        <div class="srv-card">
-          <div class="srv-icon"><i class="{{ s.icone }}"></i></div>
-          <h3>{{ s.titre }}</h3>
-          <p>{{ s.description }}</p>
-          <a href="#contact" class="link">Demander <i class="fas fa-arrow-right"></i></a>
+        <div class="group bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 hover:-translate-y-1 hover:border-blue-500 hover:shadow-xl hover:shadow-blue-500/10 transition-all fade-up">
+          <div class="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950 border border-blue-100 dark:border-blue-900 grid place-items-center text-blue-600 text-xl mb-5">
+            <i class="{{ s.icone }}"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-2">{{ s.titre }}</h3>
+          <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">{{ s.description }}</p>
+          <a href="#contact" class="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:gap-3 transition-all">
+            <span data-fr="Demander" data-en="Request">Demander</span> <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
         {% endfor %}
       {% else %}
-        <div class="srv-card">
-          <div class="srv-icon"><i class="fas fa-server"></i></div>
-          <h3>Administration Linux</h3>
-          <p>Installation, configuration, sécurisation et maintenance de serveurs Linux RHEL, CentOS, Ubuntu, Debian.</p>
-          <a href="#contact" class="link">Demander <i class="fas fa-arrow-right"></i></a>
+        <div class="group bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 hover:-translate-y-1 hover:border-blue-500 hover:shadow-xl hover:shadow-blue-500/10 transition-all fade-up">
+          <div class="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950 border border-blue-100 dark:border-blue-900 grid place-items-center text-blue-600 text-xl mb-5"><i class="fas fa-server"></i></div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-2">Administration Linux</h3>
+          <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Installation, configuration, sécurisation et maintenance de serveurs Linux RHEL, CentOS, Ubuntu, Debian.</p>
+          <a href="#contact" class="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:gap-3 transition-all"><span>Demander</span> <i class="fas fa-arrow-right"></i></a>
         </div>
-        <div class="srv-card featured">
-          <span class="srv-badge">Populaire</span>
-          <div class="srv-icon"><i class="fab fa-docker"></i></div>
-          <h3>DevOps & CI/CD</h3>
-          <p>Mise en place de pipelines CI/CD, conteneurisation Docker/K8s, automatisation Ansible, GitOps.</p>
-          <a href="#contact" class="link">Demander <i class="fas fa-arrow-right"></i></a>
+        <div class="group bg-white dark:bg-slate-900 border border-blue-500/40 rounded-2xl p-6 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/10 transition-all fade-up relative">
+          <span class="absolute top-4 right-4 bg-blue-600 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wide">Populaire</span>
+          <div class="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950 border border-blue-100 dark:border-blue-900 grid place-items-center text-blue-600 text-xl mb-5"><i class="fab fa-docker"></i></div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-2">DevOps & CI/CD</h3>
+          <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Mise en place de pipelines CI/CD, conteneurisation Docker/K8s, automatisation Ansible, GitOps.</p>
+          <a href="#contact" class="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:gap-3 transition-all"><span>Demander</span> <i class="fas fa-arrow-right"></i></a>
         </div>
-        <div class="srv-card">
-          <div class="srv-icon"><i class="fas fa-cloud"></i></div>
-          <h3>Cloud & Infrastructure</h3>
-          <p>Déploiement et gestion d'infrastructures cloud AWS, GCP, DigitalOcean avec Terraform/IaC.</p>
-          <a href="#contact" class="link">Demander <i class="fas fa-arrow-right"></i></a>
+        <div class="group bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 hover:-translate-y-1 hover:border-blue-500 hover:shadow-xl hover:shadow-blue-500/10 transition-all fade-up">
+          <div class="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950 border border-blue-100 dark:border-blue-900 grid place-items-center text-blue-600 text-xl mb-5"><i class="fas fa-cloud"></i></div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-2">Cloud & Infrastructure</h3>
+          <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Déploiement et gestion d'infrastructures cloud AWS, GCP, DigitalOcean avec Terraform/IaC.</p>
+          <a href="#contact" class="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:gap-3 transition-all"><span>Demander</span> <i class="fas fa-arrow-right"></i></a>
         </div>
-        <div class="srv-card">
-          <div class="srv-icon"><i class="fas fa-shield-alt"></i></div>
-          <h3>Sécurité Système</h3>
-          <p>Audit de sécurité, hardening Linux, mise en place de pare-feu, gestion des accès et VPN.</p>
-          <a href="#contact" class="link">Demander <i class="fas fa-arrow-right"></i></a>
+        <div class="group bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 hover:-translate-y-1 hover:border-blue-500 hover:shadow-xl hover:shadow-blue-500/10 transition-all fade-up">
+          <div class="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950 border border-blue-100 dark:border-blue-900 grid place-items-center text-blue-600 text-xl mb-5"><i class="fas fa-shield-alt"></i></div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-2">Sécurité Système</h3>
+          <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Audit de sécurité, hardening Linux, mise en place de pare-feu, gestion des accès et VPN.</p>
+          <a href="#contact" class="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:gap-3 transition-all"><span>Demander</span> <i class="fas fa-arrow-right"></i></a>
         </div>
-        <div class="srv-card">
-          <div class="srv-icon"><i class="fas fa-chart-line"></i></div>
-          <h3>Monitoring & Alerting</h3>
-          <p>Mise en place Prometheus, Grafana, ELK Stack pour la supervision et les alertes en temps réel.</p>
-          <a href="#contact" class="link">Demander <i class="fas fa-arrow-right"></i></a>
+        <div class="group bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 hover:-translate-y-1 hover:border-blue-500 hover:shadow-xl hover:shadow-blue-500/10 transition-all fade-up">
+          <div class="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950 border border-blue-100 dark:border-blue-900 grid place-items-center text-blue-600 text-xl mb-5"><i class="fas fa-chart-line"></i></div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-2">Monitoring & Alerting</h3>
+          <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Mise en place Prometheus, Grafana, ELK Stack pour la supervision et les alertes en temps réel.</p>
+          <a href="#contact" class="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:gap-3 transition-all"><span>Demander</span> <i class="fas fa-arrow-right"></i></a>
         </div>
-        <div class="srv-card">
-          <div class="srv-icon"><i class="fas fa-network-wired"></i></div>
-          <h3>Réseau & VPN</h3>
-          <p>Configuration réseau avancée, VPN WireGuard/OpenVPN, load balancing Nginx/HAProxy.</p>
-          <a href="#contact" class="link">Demander <i class="fas fa-arrow-right"></i></a>
+        <div class="group bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 hover:-translate-y-1 hover:border-blue-500 hover:shadow-xl hover:shadow-blue-500/10 transition-all fade-up">
+          <div class="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950 border border-blue-100 dark:border-blue-900 grid place-items-center text-blue-600 text-xl mb-5"><i class="fas fa-network-wired"></i></div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-2">Réseau & VPN</h3>
+          <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Configuration réseau avancée, VPN WireGuard/OpenVPN, load balancing Nginx/HAProxy.</p>
+          <a href="#contact" class="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:gap-3 transition-all"><span>Demander</span> <i class="fas fa-arrow-right"></i></a>
         </div>
       {% endif %}
     </div>
   </div>
 </section>
 
-<!-- ===== BLOG ===== -->
-<section id="blog" class="section sec-alt">
-  <div class="container">
-    <div class="section-head">
-      <span class="tag">Articles</span>
-      <h2>Mon <span>Blog</span></h2>
-      <p>Tutoriels, guides et retours d'expérience Linux & DevOps</p>
+
+<!-- ============================================================
+     BOUTIQUE TEASER
+     ============================================================ -->
+<section class="py-16 bg-blue-600">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+      <div>
+        <p class="text-blue-200 text-sm font-semibold mb-2">
+          <i class="fas fa-store mr-2"></i>
+          <span data-fr="Ma Boutique" data-en="My Shop">Ma Boutique</span>
+        </p>
+        <h2 class="text-2xl md:text-3xl font-black text-white">
+          <span data-fr="Livres, E-books &amp; Coaching" data-en="Books, E-books &amp; Coaching">Livres, E-books &amp; Coaching</span>
+        </h2>
+        <p class="text-blue-100 mt-2 text-sm max-w-lg"
+           data-fr="Accédez à mes ressources exclusives et accompagnements personnalisés en Linux & DevOps."
+           data-en="Access my exclusive resources and personalized Linux & DevOps coaching.">
+          Accédez à mes ressources exclusives et accompagnements personnalisés en Linux & DevOps.
+        </p>
+      </div>
+      <a href="/boutique/" class="flex-shrink-0 inline-flex items-center gap-2 px-8 py-3 bg-white text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-colors shadow-lg">
+        <i class="fas fa-arrow-right"></i>
+        <span data-fr="Voir la boutique" data-en="Visit the shop">Voir la boutique</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     BLOG
+     ============================================================ -->
+<section id="blog" class="py-20 bg-slate-50 dark:bg-slate-900">
+  <div class="max-w-7xl mx-auto px-6">
+
+    <div class="text-center mb-14 fade-up">
+      <span class="inline-block bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-900 text-blue-600 text-[11px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-3">Articles</span>
+      <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">
+        Mon <span class="text-blue-600">Blog</span>
+      </h2>
+      <p class="text-slate-500 dark:text-slate-400 mt-2 text-sm" data-fr="Tutoriels, guides et retours d'expérience Linux &amp; DevOps" data-en="Tutorials, guides and experience reports Linux &amp; DevOps">Tutoriels, guides et retours d'expérience Linux &amp; DevOps</p>
     </div>
 
-    <!-- Filtres catégories -->
-    <div class="cat-filters">
-      <a href="/#blog" class="cat-btn {% if not cat_slug %}active{% endif %}">Tous</a>
+    <!-- Filtres -->
+    <div class="flex flex-wrap gap-2 justify-center mb-10">
+      <a href="/#blog" class="px-4 py-1.5 text-xs font-semibold rounded-full transition-all {% if not cat_slug %}bg-blue-600 text-white{% else %}bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-blue-500{% endif %}" data-fr="Tous" data-en="All">Tous</a>
       {% for cat in categories %}
-      <a href="/?cat={{ cat.slug }}#blog" class="cat-btn {% if cat_slug == cat.slug %}active{% endif %}">
-        <i class="{{ cat.icone }}"></i> {{ cat.nom }}
+      <a href="/?cat={{ cat.slug }}#blog" class="px-4 py-1.5 text-xs font-semibold rounded-full transition-all {% if cat_slug == cat.slug %}bg-blue-600 text-white{% else %}bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-blue-500{% endif %}">
+        <i class="{{ cat.icone }} mr-1"></i>{{ cat.nom }}
       </a>
       {% endfor %}
     </div>
 
-    <div class="blog-grid">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
       {% if articles %}
         {% for a in articles %}
-        <article class="blog-card">
-          <div class="blog-img">
+        <article class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl overflow-hidden hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/10 hover:border-blue-500/50 transition-all fade-up">
+          <div class="h-44 bg-slate-100 dark:bg-slate-700 relative overflow-hidden">
             {% if a.image %}
-              <img src="{{ a.image.url }}" alt="{{ a.titre }}"/>
+              <img src="{{ a.image.url }}" alt="{{ a.titre }}" class="w-full h-full object-cover"/>
             {% else %}
-              <div class="blog-ph"><i class="fas fa-terminal"></i></div>
+              <div class="w-full h-full flex items-center justify-center text-5xl text-slate-300 dark:text-slate-600"><i class="fas fa-terminal"></i></div>
             {% endif %}
-            {% if a.categorie %}<span class="cat-label">{{ a.categorie.nom }}</span>{% endif %}
+            {% if a.categorie %}<span class="absolute top-3 left-3 bg-blue-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full">{{ a.categorie.nom }}</span>{% endif %}
           </div>
-          <div class="blog-body">
-            <div class="blog-meta">
-              <span><i class="fas fa-calendar-alt"></i> {{ a.date|date:"d M Y" }}</span>
-              <span><i class="fas fa-clock"></i> {{ a.temps_lecture }} min</span>
-              <span><i class="fas fa-eye"></i> {{ a.vues }}</span>
+          <div class="p-5">
+            <div class="flex gap-4 text-[11px] text-slate-400 mb-3">
+              <span><i class="fas fa-calendar-alt mr-1"></i>{{ a.date|date:"d M Y" }}</span>
+              <span><i class="fas fa-clock mr-1"></i>{{ a.temps_lecture }} min</span>
+              <span><i class="fas fa-eye mr-1"></i>{{ a.vues }}</span>
             </div>
-            <h3>{{ a.titre }}</h3>
-            <p>{{ a.resume|truncatechars:110 }}</p>
-            <a href="{{ a.get_absolute_url }}" class="link">Lire l'article <i class="fas fa-arrow-right"></i></a>
+            <h3 class="font-bold text-slate-900 dark:text-white text-sm leading-snug mb-2">{{ a.titre }}</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">{{ a.resume|truncatechars:110 }}</p>
+            <a href="{{ a.get_absolute_url }}" class="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:gap-3 transition-all" data-fr="Lire l'article" data-en="Read article">Lire l'article <i class="fas fa-arrow-right"></i></a>
           </div>
         </article>
         {% endfor %}
       {% else %}
-        <!-- Articles par défaut -->
-        <article class="blog-card">
-          <div class="blog-img">
-            <div class="blog-ph"><i class="fab fa-linux"></i></div>
-            <span class="cat-label">Linux</span>
-          </div>
-          <div class="blog-body">
-            <div class="blog-meta">
-              <span><i class="fas fa-calendar-alt"></i> 20 Avr 2026</span>
-              <span><i class="fas fa-clock"></i> 7 min de lecture</span>
-            </div>
-            <h3>Hardening Linux : Sécuriser un serveur Ubuntu en production</h3>
-            <p>Guide complet pour sécuriser un serveur Ubuntu : SSH, fail2ban, UFW, auditd et bonnes pratiques.</p>
-            <a href="#" class="link">Lire l'article <i class="fas fa-arrow-right"></i></a>
+        <article class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl overflow-hidden hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/10 transition-all fade-up">
+          <div class="h-44 bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-5xl text-slate-300 dark:text-slate-600"><i class="fab fa-linux"></i></div>
+          <div class="p-5">
+            <span class="inline-block bg-blue-600 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full mb-3">Linux</span>
+            <h3 class="font-bold text-slate-900 dark:text-white text-sm leading-snug mb-2">Hardening Linux : Sécuriser un serveur Ubuntu en production</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Guide complet pour sécuriser un serveur Ubuntu : SSH, fail2ban, UFW, auditd et bonnes pratiques.</p>
+            <a href="/blog/" class="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600">Lire l'article <i class="fas fa-arrow-right"></i></a>
           </div>
         </article>
-        <article class="blog-card">
-          <div class="blog-img">
-            <div class="blog-ph"><i class="fab fa-docker"></i></div>
-            <span class="cat-label">Docker</span>
-          </div>
-          <div class="blog-body">
-            <div class="blog-meta">
-              <span><i class="fas fa-calendar-alt"></i> 12 Avr 2026</span>
-              <span><i class="fas fa-clock"></i> 10 min de lecture</span>
-            </div>
-            <h3>Docker Compose en production : les erreurs à éviter</h3>
-            <p>Retour d'expérience sur le déploiement Docker Compose en prod : secrets, restart policies, volumes.</p>
-            <a href="#" class="link">Lire l'article <i class="fas fa-arrow-right"></i></a>
+        <article class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl overflow-hidden hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/10 transition-all fade-up">
+          <div class="h-44 bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-5xl text-slate-300 dark:text-slate-600"><i class="fab fa-docker"></i></div>
+          <div class="p-5">
+            <span class="inline-block bg-blue-600 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full mb-3">Docker</span>
+            <h3 class="font-bold text-slate-900 dark:text-white text-sm leading-snug mb-2">Docker Compose en production : les erreurs à éviter</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Retour d'expérience sur le déploiement Docker Compose en prod : secrets, restart policies, volumes.</p>
+            <a href="/blog/" class="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600">Lire l'article <i class="fas fa-arrow-right"></i></a>
           </div>
         </article>
-        <article class="blog-card">
-          <div class="blog-img">
-            <div class="blog-ph"><i class="fas fa-cogs"></i></div>
-            <span class="cat-label">Ansible</span>
-          </div>
-          <div class="blog-body">
-            <div class="blog-meta">
-              <span><i class="fas fa-calendar-alt"></i> 5 Avr 2026</span>
-              <span><i class="fas fa-clock"></i> 8 min de lecture</span>
-            </div>
-            <h3>Ansible : Automatiser la configuration de 50 serveurs en 5 minutes</h3>
-            <p>Créer un playbook Ansible complet pour déployer et configurer automatiquement des dizaines de serveurs.</p>
-            <a href="#" class="link">Lire l'article <i class="fas fa-arrow-right"></i></a>
-          </div>
-        </article>
-        <article class="blog-card">
-          <div class="blog-img">
-            <div class="blog-ph"><i class="fas fa-chart-line"></i></div>
-            <span class="cat-label">DevOps</span>
-          </div>
-          <div class="blog-body">
-            <div class="blog-meta">
-              <span><i class="fas fa-calendar-alt"></i> 28 Mar 2026</span>
-              <span><i class="fas fa-clock"></i> 12 min de lecture</span>
-            </div>
-            <h3>Monitoring avec Prometheus & Grafana : Setup complet</h3>
-            <p>Installer et configurer Prometheus, Grafana et Alertmanager pour monitorer votre infrastructure.</p>
-            <a href="#" class="link">Lire l'article <i class="fas fa-arrow-right"></i></a>
-          </div>
-        </article>
-        <article class="blog-card">
-          <div class="blog-img">
-            <div class="blog-ph"><i class="fas fa-shield-alt"></i></div>
-            <span class="cat-label">Sécurité</span>
-          </div>
-          <div class="blog-body">
-            <div class="blog-meta">
-              <span><i class="fas fa-calendar-alt"></i> 20 Mar 2026</span>
-              <span><i class="fas fa-clock"></i> 6 min de lecture</span>
-            </div>
-            <h3>WireGuard VPN : Installation et configuration rapide</h3>
-            <p>Mettre en place un VPN WireGuard moderne, rapide et sécurisé sur un serveur Linux en moins de 15 minutes.</p>
-            <a href="#" class="link">Lire l'article <i class="fas fa-arrow-right"></i></a>
-          </div>
-        </article>
-        <article class="blog-card">
-          <div class="blog-img">
-            <div class="blog-ph"><i class="fas fa-cloud"></i></div>
-            <span class="cat-label">Cloud</span>
-          </div>
-          <div class="blog-body">
-            <div class="blog-meta">
-              <span><i class="fas fa-calendar-alt"></i> 10 Mar 2026</span>
-              <span><i class="fas fa-clock"></i> 9 min de lecture</span>
-            </div>
-            <h3>Kubernetes sur VPS : déployer votre premier cluster K3s</h3>
-            <p>Déployer K3s (Kubernetes léger) sur un VPS DigitalOcean ou Hetzner, avec Traefik et cert-manager.</p>
-            <a href="#" class="link">Lire l'article <i class="fas fa-arrow-right"></i></a>
+        <article class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl overflow-hidden hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/10 transition-all fade-up">
+          <div class="h-44 bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-5xl text-slate-300 dark:text-slate-600"><i class="fas fa-cogs"></i></div>
+          <div class="p-5">
+            <span class="inline-block bg-blue-600 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full mb-3">Ansible</span>
+            <h3 class="font-bold text-slate-900 dark:text-white text-sm leading-snug mb-2">Ansible : Automatiser la configuration de 50 serveurs en 5 minutes</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Playbook Ansible complet pour déployer et configurer automatiquement des dizaines de serveurs.</p>
+            <a href="/blog/" class="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600">Lire l'article <i class="fas fa-arrow-right"></i></a>
           </div>
         </article>
       {% endif %}
     </div>
 
-    <div style="text-align:center; margin-top:40px;">
-      <a href="/blog/" class="btn-outline">
-        <i class="fas fa-list"></i> Voir tous les articles
+    <div class="text-center mt-10">
+      <a href="/blog/" class="inline-flex items-center gap-2 px-6 py-3 border-2 border-blue-600 text-blue-600 font-semibold rounded-xl hover:bg-blue-600 hover:text-white transition-all">
+        <i class="fas fa-list text-sm"></i>
+        <span data-fr="Voir tous les articles" data-en="See all articles">Voir tous les articles</span>
       </a>
     </div>
 
   </div>
 </section>
 
-<!-- ===== CONTACT ===== -->
-<section id="contact" class="section">
-  <div class="container">
-    <div class="section-head">
-      <span class="tag">Parlons-en</span>
-      <h2>Me <span>Contacter</span></h2>
+
+<!-- ============================================================
+     CONTACT
+     ============================================================ -->
+<section id="contact" class="py-20 bg-white dark:bg-slate-950">
+  <div class="max-w-7xl mx-auto px-6">
+
+    <div class="text-center mb-14 fade-up">
+      <span class="inline-block bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-900 text-blue-600 text-[11px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-3" data-fr="Parlons-en" data-en="Let's talk">Parlons-en</span>
+      <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">
+        Me <span class="text-blue-600" data-fr="Contacter" data-en="Contact">Contacter</span>
+      </h2>
     </div>
 
     {% if messages %}
-    <div class="alert-ok">
+    <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-4 mb-8 flex items-center gap-3 text-green-700 dark:text-green-400 font-medium max-w-2xl mx-auto">
       {% for m in messages %}<i class="fas fa-check-circle"></i> {{ m }}{% endfor %}
     </div>
     {% endif %}
 
-    <div class="contact-grid">
+    <div class="grid md:grid-cols-5 gap-10">
 
-      <div class="contact-left">
-        <div class="info-card">
-          <i class="fas fa-envelope"></i>
-          <div><strong>Email</strong><a href="mailto:sandeaugustinidohou@gmail.com">sandeaugustinidohou@gmail.com</a></div>
-        </div>
-        <div class="info-card">
-          <i class="fas fa-phone"></i>
-          <div>
-            <strong>Téléphone</strong>
-            <a href="tel:{{ whatsapp }}">{{ phone1 }}</a>
-            <a href="tel:{{ phone2 }}" style="display:block">{{ phone2 }}</a>
+      <!-- Info side (2/5) -->
+      <div class="md:col-span-2 flex flex-col gap-3">
+        <a href="mailto:sandeaugustinidohou@gmail.com" class="flex items-center gap-4 p-4 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl hover:border-blue-500 hover:translate-x-1 transition-all">
+          <div class="w-10 h-10 bg-blue-100 dark:bg-blue-950 rounded-xl grid place-items-center text-blue-600 flex-shrink-0"><i class="fas fa-envelope"></i></div>
+          <div><p class="text-[10px] font-bold text-slate-400 uppercase mb-0.5">Email</p><p class="text-sm text-slate-800 dark:text-slate-200">sandeaugustinidohou@gmail.com</p></div>
+        </a>
+        <a href="tel:+22901907768888" class="flex items-center gap-4 p-4 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl hover:border-blue-500 hover:translate-x-1 transition-all">
+          <div class="w-10 h-10 bg-blue-100 dark:bg-blue-950 rounded-xl grid place-items-center text-blue-600 flex-shrink-0"><i class="fas fa-phone"></i></div>
+          <div><p class="text-[10px] font-bold text-slate-400 uppercase mb-0.5"><span data-fr="Téléphone" data-en="Phone">Téléphone</span></p>
+            <p class="text-sm text-slate-800 dark:text-slate-200">{{ phone1 }}</p>
+            <p class="text-sm text-slate-800 dark:text-slate-200">{{ phone2 }}</p>
           </div>
+        </a>
+        <div class="flex items-center gap-4 p-4 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl">
+          <div class="w-10 h-10 bg-blue-100 dark:bg-blue-950 rounded-xl grid place-items-center text-blue-600 flex-shrink-0"><i class="fas fa-map-marker-alt"></i></div>
+          <div><p class="text-[10px] font-bold text-slate-400 uppercase mb-0.5">Location</p><p class="text-sm text-slate-800 dark:text-slate-200">Bénin 🇧🇯, Afrique de l'Ouest</p></div>
         </div>
-        <div class="info-card">
-          <i class="fab fa-whatsapp"></i>
-          <div><strong>WhatsApp</strong><a href="https://wa.me/{{ whatsapp }}" target="_blank">{{ phone1 }}</a></div>
-        </div>
-        <div class="info-card">
-          <i class="fas fa-map-marker-alt"></i>
-          <div><strong>Localisation</strong><span>Bénin 🇧🇯, Afrique de l'Ouest</span></div>
-        </div>
-        <div class="info-card">
-          <i class="fab fa-linux"></i>
-          <div><strong>Spécialité</strong><span>Linux Admin • DevOps • Cloud</span></div>
-        </div>
-        <div class="dispo-row"><span class="dot-green"></span> Disponible pour missions et projets</div>
 
-        <div class="contact-socials">
+        <div class="flex items-center gap-2 mt-2 p-3">
+          <span class="dot-green"></span>
+          <span class="text-sm text-slate-500 dark:text-slate-400" data-fr="Disponible pour missions et projets" data-en="Available for missions and projects">Disponible pour missions et projets</span>
+        </div>
+
+        <a href="https://wa.me/{{ whatsapp }}" target="_blank"
+           class="flex items-center justify-center gap-2 py-3 bg-[#25d366] text-white font-bold rounded-xl hover:bg-[#1db954] transition-colors mt-1">
+          <i class="fab fa-whatsapp text-lg"></i>
+          <span data-fr="Discuter sur WhatsApp" data-en="Chat on WhatsApp">Discuter sur WhatsApp</span>
+        </a>
+
+        <!-- Socials -->
+        <div class="flex gap-3 flex-wrap mt-2">
           {% for r in reseaux %}
-          <a href="{{ r.url }}" target="_blank" title="{{ r.nom }}"><i class="{{ r.icone }}"></i></a>
+          <a href="{{ r.url }}" target="_blank" class="w-9 h-9 rounded-xl border border-slate-200 dark:border-slate-700 grid place-items-center text-slate-400 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all"><i class="{{ r.icone }} text-sm"></i></a>
           {% empty %}
-          <a href="https://github.com" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-          <a href="https://linkedin.com" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-          <a href="https://wa.me/{{ whatsapp }}" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://github.com" target="_blank" class="w-9 h-9 rounded-xl border border-slate-200 dark:border-slate-700 grid place-items-center text-slate-400 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all"><i class="fab fa-github text-sm"></i></a>
+          <a href="https://linkedin.com" target="_blank" class="w-9 h-9 rounded-xl border border-slate-200 dark:border-slate-700 grid place-items-center text-slate-400 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all"><i class="fab fa-linkedin-in text-sm"></i></a>
           {% endfor %}
         </div>
-
-        <a href="https://wa.me/{{ whatsapp }}" target="_blank" class="btn-wa-big">
-          <i class="fab fa-whatsapp"></i> Discuter sur WhatsApp
-        </a>
       </div>
 
-      <form method="POST" class="contact-form">
+      <!-- Form (3/5) -->
+      <form method="POST" class="md:col-span-3 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-8 flex flex-col gap-5">
         {% csrf_token %}
-        <div class="row-2">
-          <div class="fg"><label>Prénom</label><input name="prenom" placeholder="John" required/></div>
-          <div class="fg"><label>Nom</label><input name="nom" placeholder="Doe" required/></div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="flex flex-col gap-1.5">
+            <label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide" data-fr="Prénom" data-en="First name">Prénom</label>
+            <input name="prenom" placeholder="John" required class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all placeholder:text-slate-400"/>
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide" data-fr="Nom" data-en="Last name">Nom</label>
+            <input name="nom" placeholder="Doe" required class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all placeholder:text-slate-400"/>
+          </div>
         </div>
-        <div class="fg"><label>Email</label><input type="email" name="email" placeholder="john@exemple.com" required/></div>
-        <div class="fg">
-          <label>Sujet</label>
-          <select name="sujet">
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">Email</label>
+          <input type="email" name="email" placeholder="john@exemple.com" required class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all placeholder:text-slate-400"/>
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide" data-fr="Sujet" data-en="Subject">Sujet</label>
+          <select name="sujet" class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all">
             <option value="">— Choisir —</option>
             <option>Administration Linux</option>
             <option>Mise en place DevOps / CI-CD</option>
@@ -573,9 +649,13 @@
             <option>Autre</option>
           </select>
         </div>
-        <div class="fg"><label>Message</label><textarea name="message" rows="5" placeholder="Décrivez votre besoin..." required></textarea></div>
-        <button type="submit" class="btn-primary full">
-          <i class="fas fa-paper-plane"></i> Envoyer
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">Message</label>
+          <textarea name="message" rows="5" placeholder="Décrivez votre besoin..." required class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all resize-none placeholder:text-slate-400"></textarea>
+        </div>
+        <button type="submit" class="flex items-center justify-center gap-2 py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-colors">
+          <i class="fas fa-paper-plane text-sm"></i>
+          <span data-fr="Envoyer le message" data-en="Send message">Envoyer le message</span>
         </button>
       </form>
 
@@ -583,40 +663,38 @@
   </div>
 </section>
 
-<!-- ===== FOOTER ===== -->
-<footer class="footer">
-  <div class="container footer-inner">
-    <a href="#accueil" class="logo"><i class="fas fa-terminal"></i> Augustin</a>
-    <p>Linux Administrator & DevOps Engineer — Bénin 🇧🇯</p>
-    <div class="f-socials">
-      {% for r in reseaux %}
-      <a href="{{ r.url }}" target="_blank" title="{{ r.nom }}"><i class="{{ r.icone }}"></i></a>
-      {% empty %}
-      <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
-      <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-      <a href="https://wa.me/{{ whatsapp }}" target="_blank"><i class="fab fa-whatsapp"></i></a>
-      {% endfor %}
-    </div>
-    <nav class="f-links">
-      <a href="#accueil">Accueil</a>
-      <a href="#apropos">À propos</a>
-      <a href="#experience">Parcours</a>
-      <a href="#services">Services</a>
-      <a href="#blog">Blog</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <p class="copy">&copy; 2026 IDOHOU Sande Augustin — Tous droits réservés</p>
-  </div>
-</footer>
+<!-- Back to top -->
+<button id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})"
+        class="hidden fixed bottom-24 md:bottom-6 right-20 z-40 w-10 h-10 bg-blue-600 text-white rounded-full grid place-items-center shadow-lg hover:bg-blue-700 transition-colors" id="topBtn">
+  <i class="fas fa-chevron-up text-sm"></i>
+</button>
 
-<!-- WhatsApp flottant -->
-<a href="https://wa.me/{{ whatsapp }}" target="_blank" class="wa-float" title="WhatsApp">
-  <i class="fab fa-whatsapp"></i>
-</a>
+{% endblock %}
 
-<!-- Retour en haut -->
-<button id="topBtn" class="top-btn"><i class="fas fa-chevron-up"></i></button>
 
+{% block extra_js %}
 <script src="{% static 'js/main.js' %}"></script>
-</body>
-</html>
+<script>
+// Skill tab filter
+document.querySelectorAll('.stab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.stab').forEach(b => {
+      b.classList.remove('bg-blue-600','text-white','border-blue-600');
+      b.classList.add('border-slate-200','dark:border-slate-700','text-slate-600','dark:text-slate-300');
+    });
+    btn.classList.add('bg-blue-600','text-white','border-blue-600');
+    btn.classList.remove('border-slate-200','dark:border-slate-700','text-slate-600','dark:text-slate-300');
+    const cat = btn.dataset.cat;
+    document.querySelectorAll('.skill-item').forEach(item => {
+      item.style.display = (cat === 'all' || item.dataset.cat === cat) ? '' : 'none';
+    });
+  });
+});
+
+// Back to top visibility
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('topBtn');
+  if (btn) btn.classList.toggle('hidden', window.scrollY < 400);
+}, { passive: true });
+</script>
+{% endblock %}

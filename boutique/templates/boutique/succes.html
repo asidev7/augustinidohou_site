@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}Merci pour votre achat ! | Boutique{% endblock %}
+{% block nav_shop_active %}active{% endblock %}
+
+{% block content %}
+<div class="min-h-[70vh] flex items-center justify-center px-6 py-16">
+  <div class="max-w-lg w-full text-center">
+
+    <!-- Icône succès -->
+    <div class="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full grid place-items-center text-4xl mx-auto mb-6">
+      ✅
+    </div>
+
+    <h1 class="text-2xl font-black text-slate-900 dark:text-white mb-2"
+        data-fr="Merci pour votre achat !" data-en="Thank you for your purchase!">
+      Merci pour votre achat !
+    </h1>
+
+    <p class="text-slate-500 dark:text-slate-400 mb-8 text-sm leading-relaxed"
+       data-fr="Votre commande a bien été enregistrée. Vous recevrez les détails par email sous peu."
+       data-en="Your order has been recorded. You will receive the details by email shortly.">
+      Votre commande a bien été enregistrée. Vous recevrez les détails par email sous peu.
+    </p>
+
+    <!-- Résumé commande -->
+    <div class="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 text-left mb-8">
+      <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wide mb-4"
+          data-fr="Détails de la commande" data-en="Order details">Détails de la commande</h2>
+      <div class="flex justify-between text-sm mb-2">
+        <span class="text-slate-500 dark:text-slate-400" data-fr="Produit" data-en="Product">Produit</span>
+        <span class="font-semibold text-slate-900 dark:text-white">{{ commande.produit.nom }}</span>
+      </div>
+      <div class="flex justify-between text-sm mb-2">
+        <span class="text-slate-500 dark:text-slate-400" data-fr="Client" data-en="Customer">Client</span>
+        <span class="font-semibold text-slate-900 dark:text-white">{{ commande.nom }}</span>
+      </div>
+      <div class="flex justify-between text-sm mb-2">
+        <span class="text-slate-500 dark:text-slate-400" data-fr="Montant" data-en="Amount">Montant</span>
+        <span class="font-black text-blue-600">{{ commande.produit.prix_formatte }}</span>
+      </div>
+      <div class="flex justify-between text-sm pt-3 border-t border-slate-100 dark:border-slate-800">
+        <span class="text-slate-500 dark:text-slate-400">Statut</span>
+        <span class="inline-flex items-center gap-1.5 text-green-600 font-bold">
+          <i class="fas fa-check-circle"></i> {{ commande.get_statut_display }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+      <a href="https://wa.me/22901907768888?text=Bonjour%2C%20j'ai%20passé%20une%20commande%20%23{{ commande.pk }}%20pour%20%22{{ commande.produit.nom }}%22"
+         target="_blank"
+         class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#25d366] text-white font-bold rounded-xl hover:bg-[#1db954] transition-colors">
+        <i class="fab fa-whatsapp text-lg"></i>
+        <span data-fr="Contacter via WhatsApp" data-en="Contact via WhatsApp">Contacter via WhatsApp</span>
+      </a>
+      <a href="/boutique/"
+         class="inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-blue-600 text-blue-600 font-bold rounded-xl hover:bg-blue-600 hover:text-white transition-all">
+        <i class="fas fa-store"></i>
+        <span data-fr="Retour boutique" data-en="Back to shop">Retour boutique</span>
+      </a>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

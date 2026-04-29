@@ -5,13 +5,13 @@ from django.conf.urls.static import static
 from core.views import home, blog_list, article_detail
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/',    admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
-    path('', home, name='home'),
-    path('blog/', blog_list, name='blog_list'),
+    path('',          home,           name='home'),
+    path('blog/',     blog_list,      name='blog_list'),
     path('blog/<slug:slug>/', article_detail, name='article_detail'),
+    path('boutique/', include('boutique.urls')),
 ]
 
-# Servir media ET static en développement
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL,  document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
